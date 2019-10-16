@@ -18,5 +18,8 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^6.0.12"
+  },
+  "dependencies": {
+    "blockly": "^3.20191014.1"
   }
 }
