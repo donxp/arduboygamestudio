@@ -8,12 +8,23 @@
     </script>
   </head>
   <body>
-    <h1>Hello Worldsssss!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+      <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+      <xml id="toolbox" style="display: none">
+        <block type="controls_if"></block>
+        <block type="controls_repeat_ext"></block>
+        <block type="logic_compare"></block>
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+        <block type="text"></block>
+        <block type="text_print"></block>
+      </xml>        
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
+    <script>
+        var workspace = Blockly.inject('blocklyDiv',
+            {toolbox: document.getElementById('toolbox')});
+      </script>
+      
   </body>
 </html>
