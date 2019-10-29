@@ -2,36 +2,27 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <script>
-      var Blockly = require('blockly')
-    </script>
+    <link rel="stylesheet" href="app/app.css">
   </head>
   <body>
-      <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
-      <xml id="toolbox" style="display: none">
-        <block type="controls_if"></block>
-        <block type="controls_repeat_ext"></block>
-        <block type="logic_compare"></block>
-        <block type="math_number"></block>
-        <block type="math_arithmetic"></block>
-        <block type="text"></block>
-        <block type="text_print"></block>
-        <block type="string_length"></block>
-      </xml>  
-
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-    <script>
-      Blockly.Blocks['string_length'] = {
-        init: function() {
-          this.setColour(345);
-      this.setTooltip("Gets the length of a string");
-      this.setHelpUrl("");
-        }
-      };
-      var workspace = Blockly.inject('blocklyDiv',
-          {toolbox: document.getElementById('toolbox')});
-    </script>
+    <div class="project-actions">
+      <div class="action">New</div>
+      <div class="action">Open</div>
+      <div class="action">Save</div>
+      <div class="action">Verify</div>
+      <div class="action">Upload</div>
+    </div>
+    <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+    <xml id="toolbox" style="display: none">
+      <block type="controls_if"></block>
+      <block type="controls_repeat_ext"></block>
+      <block type="logic_compare"></block>
+      <block type="math_number"></block>
+      <block type="math_arithmetic"></block>
+      <block type="text"></block>
+      <block type="text_print"></block>
+      <block type="string_length"></block>
+    </xml>
+    <script src="./app/app.js"></script>
   </body>
 </html>

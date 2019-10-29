@@ -1,0 +1,21 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.project-actions > .action {
+    display: inline-block;
+    background: #1abc9c;
+    padding: 5px 15px;
+    font-size: 0.8em;
+    width: 50px;
+    text-align: center;
+    transition: 0.5s;
+}
+
+.project-actions > .action:hover {
+    background: #16a085;
+}
+
+.project-actions {
+    margin-bottom: 10px;
+}
