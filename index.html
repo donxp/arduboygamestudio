@@ -17,11 +17,19 @@
         <block type="math_arithmetic"></block>
         <block type="text"></block>
         <block type="text_print"></block>
-      </xml>        
+        <block type="string_length"></block>
+      </xml>  
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
     <script>
+      Blockly.Blocks['string_length'] = {
+        init: function() {
+          this.setColour(345);
+      this.setTooltip("Gets the length of a string");
+      this.setHelpUrl("");
+        }
+      };
       var workspace = Blockly.inject('blocklyDiv',
           {toolbox: document.getElementById('toolbox')});
     </script>
