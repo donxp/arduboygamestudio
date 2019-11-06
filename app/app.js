@@ -20,7 +20,7 @@ var workspace = Blockly.inject('blocklyDiv',
 
 function updateCode() {
     console.log('Updating textarea')
-    var code = Blockly.cpp.workspaceToCode(workspace)
+    var code = Blockly.Arduino.workspaceToCode(workspace)
     document.getElementById('code').value = code
 }
 

@@ -20,6 +20,7 @@
     "electron": "^6.0.12"
   },
   "dependencies": {
-    "blockly": "^3.20191014.1"
+    "blockly": "^3.20191014.1",
+    "google-closure-library": "^20191027.0.1"
   }
 }
