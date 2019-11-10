@@ -27,7 +27,7 @@ html, body {
 }
 
 .blockly-container {
-    width: 90vw;
+    width: 100vw;
     margin: 0 auto;
     height: 60%;
 }

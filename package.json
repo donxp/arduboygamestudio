@@ -21,7 +21,9 @@
   },
   "dependencies": {
     "blockly": "^3.20191014.1",
+    "bootstrap": "^4.3.1",
     "dialogs": "^2.0.1",
-    "google-closure-library": "^20191027.0.1"
+    "google-closure-library": "^20191027.0.1",
+    "jquery": "^3.4.1"
   }
 }
