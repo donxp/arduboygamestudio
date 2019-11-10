@@ -1,4 +1,5 @@
 var Blockly = require('blockly')
+var Dialogs = require('dialogs')()
 
 /* Setup generator */
 // require('./generators/cpp')
@@ -42,6 +43,13 @@ var onresize = function(e) {
 window.addEventListener('resize', onresize, false);
 onresize()
 Blockly.svgResize(workspace)
+
+// Overwrite default blockly behaviour to support async ui.
+Blockly.prompt = (message, b, callback) => {
+    Dialogs.prompt(message, ok => {
+        callback(ok)
+    })
+}
 
 function updateCode() {
     console.log('Updating textarea')
