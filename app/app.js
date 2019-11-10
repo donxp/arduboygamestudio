@@ -43,6 +43,20 @@ window.addEventListener('resize', onresize, false);
 onresize()
 Blockly.svgResize(workspace)
 
+
+function newProject() {
+	if (workspace.getAllBlocks().length >0){
+		if (!confirm("Do You Wish to save?")) {
+			workspace.clear()
+		} else {
+			alert("Not saved")
+		}
+	} else {
+		alert("THERE WAS NO BLOCKS DETECTED")
+		workspace.clear()
+	}
+}
+
 function updateCode() {
     console.log('Updating textarea')
     var code = Blockly.Arduino.workspaceToCode(workspace)
