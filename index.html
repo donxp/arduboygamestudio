@@ -15,25 +15,36 @@
       <div class="action">Verify</div>
       <div class="action">Upload</div>
     </div>
-	Tabs:
-	<div class="project-tabs">
-	  <div class="action">Main</div>
-	</div>
-    <table>
-      <tr>
-        <td id="blocklyArea"></td>
-      </tr>
-    </table>
+    Tabs:
+    <div class="project-tabs">
+      <div class="action">Main</div>
+    </div>
+    <div class="blockly-container">
+        <table>
+          <tr>
+            <td id="blocklyArea"></td>
+          </tr>
+        </table>
+    </div>
     <div id="blocklyDiv" style="position: absolute;"></div>
     <xml id="toolbox" style="display: none">
-      <block type="controls_if"></block>
-      <block type="controls_repeat_ext"></block>
-      <block type="logic_compare"></block>
-      <block type="math_number"></block>
-      <block type="math_arithmetic"></block>
-      <block type="text"></block>
-      <block type="text_print"></block>
-      <block type="string_length"></block>
+      <category name="Control">
+          <block type="controls_if"></block>
+          <block type="controls_repeat_ext"></block>
+      </category>
+      <category name="Logic">
+          <block type="logic_compare"></block>
+      </category>
+      <category name="Math">
+          <block type="math_number"></block>
+          <block type="math_arithmetic"></block>
+      </category>
+      <category name="Text">
+          <block type="text"></block>
+          <block type="text_print"></block>
+          <block type="string_length"></block>
+      </category>
+      <category name="Variables" custom="VARIABLE"></category>
     </xml>
     <textarea name="code" id="code" cols="50" rows="20"></textarea>
     <script src="./app/app.js"></script>

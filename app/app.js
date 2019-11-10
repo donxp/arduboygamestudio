@@ -1,4 +1,5 @@
 var Blockly = require('blockly')
+var Dialogs = require('dialogs')()
 
 /* Setup generator */
 // require('./generators/cpp')
@@ -37,7 +38,6 @@ var onresize = function(e) {
     blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
     blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
     Blockly.svgResize(workspace);
-    console.log('Resizing:', blocklyArea)
 };
 window.addEventListener('resize', onresize, false);
 onresize()
@@ -54,11 +54,17 @@ function newProject() {
 	} else {
 		alert("THERE WAS NO BLOCKS DETECTED")
 		workspace.clear()
-	}
+    }
+}
+
+// Overwrite default blockly behaviour to support async ui.
+Blockly.prompt = (message, b, callback) => {
+    Dialogs.prompt(message, ok => {
+        callback(ok)
+    })
 }
 
 function updateCode() {
-    console.log('Updating textarea')
     var code = Blockly.Arduino.workspaceToCode(workspace)
     document.getElementById('code').value = code
 }
