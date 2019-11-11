@@ -43,7 +43,7 @@ window.addEventListener('resize', onresize, false);
 onresize()
 Blockly.svgResize(workspace)
 
-
+// Create new Workspace and remove all old workspace(s)
 function newProject() {
 	if (workspace.getAllBlocks().length >0){
 		if (!confirm("Do You Wish to save?")) {
@@ -52,9 +52,21 @@ function newProject() {
 			alert("Not saved")
 		}
 	} else {
-		alert("THERE WAS NO BLOCKS DETECTED")
 		workspace.clear()
     }
+}
+
+//Load an existing project
+function loadProject(file)
+{
+    var doc = document.implementation.createDocument(file, 'xml', null)
+    var files = doc.getElemmentByTagName('file')
+    //Used to load up each tab of project
+    for (i= 0; i < files.length; i++) {
+        var xml = Blockly.Xml.textToDom(files[i])
+        Blockly.Xml.domToWorkspace(xml, workspace)
+    }
+
 }
 
 // Overwrite default blockly behaviour to support async ui.
