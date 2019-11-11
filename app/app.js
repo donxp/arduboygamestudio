@@ -49,12 +49,23 @@ function newProject() {
 		if (!confirm("Do You Wish to save?")) {
 			workspace.clear()
 		} else {
-			alert("Not saved")
+			alert("Aborted.")
 		}
 	} else {
 		workspace.clear()
     }
 }
+//Save a file
+function saveProject()
+{
+    var doc = document.createDocument('../newProj.xml', "xml", null)
+
+    var xml = Blockly.Xml.workspaceToDom(workspace);
+    var xml_text = Blockly.Xml.domToText(xml);
+    doc.append
+
+}
+
 
 //Load an existing project
 function loadProject(file)
