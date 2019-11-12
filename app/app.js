@@ -58,18 +58,30 @@ function newProject() {
 //Save a file
 function saveProject()
 {
-    var doc = document.createDocument('../newProj.xml', "xml", null)
-
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
-    doc.append
-
+    alert(xml_text);
 }
 
+//Works for Singular Files
+//Loads Project into workspace
+var loadProject = function(event) {
+    var file = event.target;
+    var reader = new FileReader();
+    reader.readAsText(file);
+    reader.onloadend = function() {
+        var xml = $(reader.result);
+    }
+    var xml = Blockly.Xml.textToDom(xml);
+    Blockly.Xml.domToWorkspace(xml, workspace)
+}
 
 //Load an existing project
-function loadProject(file)
+//depreciated by tsdh
+/**
+function loadProject()
 {
+    document.getElementById('fileChooser').get
     var doc = document.implementation.createDocument(file, 'xml', null)
     var files = doc.getElemmentByTagName('file')
     //Used to load up each tab of project
@@ -79,6 +91,7 @@ function loadProject(file)
     }
 
 }
+*/
 
 // Overwrite default blockly behaviour to support async ui.
 Blockly.prompt = (message, b, callback) => {
