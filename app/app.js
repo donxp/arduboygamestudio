@@ -61,6 +61,9 @@ function saveProject()
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
     alert(xml_text);
+    var xmlDoc = document.implementation.createDocument(null, "project");
+    var node = xmlDoc.createElement("file");
+    node.innerHTML = xml_text;
 }
 
 //Works for Singular Files
