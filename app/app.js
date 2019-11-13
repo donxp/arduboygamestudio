@@ -1,6 +1,6 @@
 var Blockly = require('blockly')
 var Dialogs = require('dialogs')()
-
+var FS = require('fs')
 /* Setup generator */
 // require('./generators/cpp')
 
@@ -49,21 +49,25 @@ function newProject() {
 		if (!confirm("Do You Wish to save?")) {
 			workspace.clear()
 		} else {
-			alert("Aborted.")
+			saveProject()
 		}
 	} else {
 		workspace.clear()
     }
 }
+
+//Update - Use Electron to access the File System
 //Save a file
 function saveProject()
 {
+
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToText(xml);
     alert(xml_text);
     var xmlDoc = document.implementation.createDocument(null, "project");
     var node = xmlDoc.createElement("file");
     node.innerHTML = xml_text;
+    FS.writeFile(filename,node);
 }
 
 //Works for Singular Files
