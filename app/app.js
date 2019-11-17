@@ -1,20 +1,7 @@
 var Blockly = require('blockly')
 var Dialogs = require('dialogs')()
+require('./app/blocks')(Blockly.Blocks)
 
-/* Setup generator */
-// require('./generators/cpp')
-
-Blockly.Blocks['string_length'] = {
-    init: function() {
-        this.appendValueInput('VALUE')
-            .setCheck('String')
-            .appendField('length of');
-        this.setOutput(true, 'Number')
-        this.setColour(345);
-        this.setTooltip("Gets the length of a string");
-        this.setHelpUrl("");
-    }
-  };
 
 var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');

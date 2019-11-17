@@ -4,7 +4,7 @@
   "description": "Visual IDE for Arduboy platform",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron . --js-flags=\"--experimental-modules\""
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
