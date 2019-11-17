@@ -12,24 +12,25 @@
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"></script>
   </head>
-  <body>
-    <div class="project-actions">
-      <div class="action" onClick="newProject()">New</div>
-      <div class="action">Open</div>
-      <div class="action">Save</div>
-      <div class="action">Verify</div>
-      <div class="action">Upload</div>
+  <body style="margin-top: 2px; margin-left: 2px;">
+    <div class="project-actions float-left">
+      <button class="btn btn-sm btn-primary" onClick="newProject()">New</button>
+      <button class="btn btn-sm btn-primary" onClick="newProject()">Open</button>
+      <button class="btn btn-sm btn-primary" onClick="newProject()">Save</button>
+      <button class="btn btn-sm btn-primary" onClick="newProject()">Verify</button>
+      <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button>
     </div>
-    Tabs:
-    <div class="project-tabs">
-      <div class="action">Main</div>
+    <div class="float-right">
+      <button class="btn btn-sm btn-warning">Sprites</button>
     </div>
-    <div class="blockly-container">
+    <div class="h-50">
+      <div class="blockly-container">
         <table>
           <tr>
             <td id="blocklyArea"></td>
           </tr>
         </table>
+      </div>
     </div>
     <div id="blocklyDiv" style="position: absolute;"></div>
     <xml id="toolbox" style="display: none">

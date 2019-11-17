@@ -52,7 +52,6 @@ function newProject() {
 			alert("Not saved")
 		}
 	} else {
-		alert("THERE WAS NO BLOCKS DETECTED")
 		workspace.clear()
     }
 }
