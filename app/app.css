@@ -40,3 +40,11 @@ table {
 #blocklyArea {
     height: 99%;
 }
+
+#sprite-container > .sprite:not(:first-child) {
+    margin-top: 5px;
+}
+
+[v-cloak] {
+    display: none;
+}

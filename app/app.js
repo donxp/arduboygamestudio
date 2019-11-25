@@ -1,12 +1,13 @@
 var Blockly = require('blockly')
 var Dialogs = require('dialogs')()
 require('./app/blocks')(Blockly.Blocks)
+var SpriteManager = require('./app/spritemanager')
 
 var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');
 
-var workspace = Blockly.inject('blocklyDiv',
-    {toolbox: document.getElementById('toolbox')});
+// var workspace = Blockly.inject('blocklyDiv',
+//     {toolbox: document.getElementById('toolbox')});
 
 function newProject() {
 	if (workspace.getAllBlocks().length >0){
@@ -19,6 +20,8 @@ function newProject() {
 		workspace.clear()
     }
 }
+
+SpriteManager.init()
 
 $('#toggle-sprite-container-button').click(function() {
 	var spriteContainer = $('#sprite-container')
