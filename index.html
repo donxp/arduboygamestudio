@@ -22,7 +22,7 @@
         <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button>
       </div>
       <div class="float-right">
-        <button class="btn btn-sm btn-warning">Sprites</button>
+        <button id="toggle-sprite-container-button" class="btn btn-sm btn-warning">Sprites</button>
       </div>
     </div>
     <!-- <div class="h-50">
@@ -54,20 +54,20 @@
       <category name="Variables" custom="VARIABLE"></category>
     </xml>
     <div class="row w-100">
-      <div class="col-sm-8">
+      <div class="col">
         <section style="position: relative;width: 100%; height: 300px;">
           <div id="blocklyDiv" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"></div>
         </section>
       </div>
-      <div class="col-sm-4">
+      <div id="sprite-container" class="col-sm-4" style="display: none;">
         Sprites
       </div>
     </div>
     
-    
     <!-- Fix blockly container hogging area -->
     <div style="margin-top: 45px;"></div>
     <textarea name="code" id="code" cols="50" rows="20"></textarea>
+    <script src="./static/js/jquery.js"></script>
     <script src="./app/app.js"></script>
     <script src="./app/generators/arduino.js"></script>
     <script src="./app/generators/arduino/boards.js"></script>
@@ -85,7 +85,6 @@
     <script src="./app/generators/arduino/text.js"></script>
     <script src="./app/generators/arduino/time.js"></script>
     <script src="./app/generators/arduino/variables.js"></script>
-    <script src="./static/js/jquery.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

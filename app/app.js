@@ -20,6 +20,17 @@ function newProject() {
     }
 }
 
+$('#toggle-sprite-container-button').click(function() {
+	var spriteContainer = $('#sprite-container')
+	var shown = !(spriteContainer.css('display') === 'none')
+	if(shown) {
+		spriteContainer.css('display', 'none')
+	} else {
+		spriteContainer.css('display', 'block')
+	}
+	Blockly.svgResize(workspace)
+})
+
 // Overwrite default blockly behaviour to support async ui.
 Blockly.prompt = (message, b, callback) => {
     Dialogs.prompt(message, ok => {
