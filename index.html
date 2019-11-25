@@ -53,9 +53,18 @@
       </category>
       <category name="Variables" custom="VARIABLE"></category>
     </xml>
-    <section style="position: relative; top: 40px; width: 100%; height: 300px;">
-      <div id="blocklyDiv" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"></div>
-    </section>
+    <div class="row w-100">
+      <div class="col-sm-8">
+        <section style="position: relative;width: 100%; height: 300px;">
+          <div id="blocklyDiv" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"></div>
+        </section>
+      </div>
+      <div class="col-sm-4">
+        Sprites
+      </div>
+    </div>
+    
+    
     <!-- Fix blockly container hogging area -->
     <div style="margin-top: 45px;"></div>
     <textarea name="code" id="code" cols="50" rows="20"></textarea>
