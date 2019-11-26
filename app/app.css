@@ -41,7 +41,7 @@ table {
     height: 99%;
 }
 
-#sprite-container > .sprite:not(:first-child) {
+#sprite-container .sprite:not(:first-child) {
     margin-top: 5px;
 }
 

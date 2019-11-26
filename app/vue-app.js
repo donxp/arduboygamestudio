@@ -2,11 +2,18 @@
 new Vue({
     el: '#app',
     data: {
-        showSpriteContainer: false
+        showSpriteContainer: false,
+        sprites: [
+            {
+                name: 'sprite1'
+            }
+        ]
     },
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',
         {toolbox: document.getElementById('toolbox')});
+
+        workspace.addChangeListener(window.updateCode)
     },
     methods: {
         toggleShowSpriteContainer() {
@@ -15,6 +22,11 @@ new Vue({
                 console.log('Resizing')
                 console.log(workspace)
                 Blockly.svgResize(workspace)
+            })
+        },
+        addSprite() {
+            this.sprites.push({
+                name: 'new sprite'
             })
         }
     }
