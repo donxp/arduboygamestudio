@@ -20,6 +20,7 @@ var currentpath = "";
 var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');
 
+
 var workspace = Blockly.inject(blocklyDiv,
     {toolbox: document.getElementById('toolbox')});
 
