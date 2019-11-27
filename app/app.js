@@ -125,6 +125,16 @@ function saveProject()
 
 }
 
+function addTab()
+{
+	var name = prompt("What would you like to call this room?");
+	var newTab = document.createElement('div');
+	var content = document.createTextNode(name);
+	newTab.id = "tab";
+	document.body.insertBefore(newTab, document.body.getElementById('tabAddition'));
+	
+}
+
 //Load an existing project
 //depreciated by tsdh
 /**
