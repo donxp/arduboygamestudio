@@ -48,3 +48,7 @@ table {
 [v-cloak] {
     display: none;
 }
+
+.sprite-creator-gridlet {
+    border: 1px solid black;
+}

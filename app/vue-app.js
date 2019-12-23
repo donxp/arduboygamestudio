@@ -1,3 +1,4 @@
+const { ipcRenderer } = require('electron')
 
 new Vue({
     el: '#app',
@@ -7,7 +8,10 @@ new Vue({
             {
                 name: 'sprite1'
             }
-        ]
+        ],
+        spriteCreatorWidth: 8,
+        spriteCreatorHeight: 8,
+        spriteCreatorImage: []
     },
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',
@@ -25,9 +29,66 @@ new Vue({
             })
         },
         addSprite() {
-            this.sprites.push({
-                name: 'new sprite'
-            })
+            // this.sprites.push({
+            //     name: 'new sprite'
+            // })
+            // ipcRenderer.send('open_add_sprite_dialog')
+            // console.log(res)
+            $('#sprite-creator-modal').modal('show')
+        },
+        spriteCreatorGridletClick(idx) {
+            console.log('Clicked on ' + idx)
+        },
+        draw() {
+            const ctx = this.$refs.spriteCreator.getContext('2d')
+            
+            const width = this.$refs.spriteCreator.width
+            const height = this.$refs.spriteCreator.height
+
+            ctx.clearRect(0, 0, width, height);
+            // draw width lines
+            const lineWidth = width / this.spriteCreatorWidth
+
+            for(let i = 1; i <= this.spriteCreatorWidth; i++) {
+                this.spriteCreatorImage.length = this.spriteCreatorWidth
+                if(this.spriteCreatorImage[i-1] === undefined) {
+                    this.spriteCreatorImage[i-1] = []
+                }
+                if(i === this.spriteCreatorWidth) {
+                    break
+                }
+                let curX = lineWidth * i
+                ctx.beginPath()
+                ctx.moveTo(curX, 0)
+                ctx.lineTo(curX, height)
+                ctx.stroke()
+            }
+
+            // draw height lines
+            const lineHeight = height / this.spriteCreatorHeight
+            for(let i = 1; i <= this.spriteCreatorHeight; i++) {
+                if(i === this.spriteCreatorHeight) {
+                    break
+                }
+                let curY = lineHeight * i
+                ctx.beginPath()
+                ctx.moveTo(0, curY)
+                ctx.lineTo(width, curY)
+                ctx.stroke()
+            }
+        },
+        spriteCreatorCanvasClick(event) {
+            const canvas = this.$refs.spriteCreator
+            const canvasRect = canvas.getBoundingClientRect()
+            const width = canvas.width
+            const height = canvas.height
+            const x = event.clientX - canvasRect.left
+            const y = event.clientY - canvasRect.top
+            console.log(x + ', ' + y)
+
+            const widthDiv = width / this.spriteCreatorWidth
+            const col = Math.ceil(x / widthDiv)
+            console.log('col:', col)
         }
     }
 })

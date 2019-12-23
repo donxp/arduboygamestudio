@@ -71,6 +71,44 @@
       <!-- Fix blockly container hogging area -->
       <div style="margin-top: 45px;"></div>
       <textarea name="code" id="code" cols="50" rows="20"></textarea>
+
+      <div id="sprite-creator-modal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Sprite creator</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-3 offset-sm-3">
+                    Sprite width: {{ spriteCreatorWidth }}
+                    <input v-model="spriteCreatorWidth" min="0" max="64" type="range">
+                </div>
+                <div class="col-sm-3">
+                    Sprite height: {{ spriteCreatorHeight }}
+                    <input v-model="spriteCreatorHeight" min="0" step="8" max="64" type="range">
+                    <button class="btn btn-sm" @click="draw">draw</button>
+                </div>
+              </div>
+              <canvas ref="spriteCreator" width="766" height="766" @click="spriteCreatorCanvasClick($event)">
+
+              </canvas>
+              <!-- <div class="sprite-creator-grid" style="width: 100%; height: 766px">
+                <div v-for="row in spriteCreatorHeight" :key="row" :style="{height: (100/spriteCreatorHeight) + '%'}" class="row">
+                    <div class="sprite-creator-gridlet" v-for="col in spriteCreatorWidth" :key="col" style="height: 100%;" :style="{width: `calc(100% / ${spriteCreatorWidth})`}" @click="spriteCreatorGridletClick(index)"></div>
+                </div>
+              </div> -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="./static/js/jquery.js"></script>
     <script src="./node_modules/vue/dist/vue.min.js"></script>
