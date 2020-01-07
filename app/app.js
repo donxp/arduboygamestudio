@@ -51,14 +51,39 @@ function newProject() {
 		if (!confirm("Do You Wish to save?")) {
             alert("cancelled!")
 		} else {
-            saveProject()
-            workspace.clear()
+            saveProject();
+            workspace.clear();
             currentpath = "";
         }
 	} else {
         workspace.clear()
         currentpath = "";
     }
+}
+const dialogOptions = {type: 'warning', buttons: ['Save', 'Don\'t Save', 'Cancel'], message: 'Would You Like To Save?'}
+
+function confirmLeave()
+{
+    dialog.showMessageBox(dialogOptions, i => function(i) {
+        if (i==0) {//Save
+            saveProject()
+            return true;
+        }
+        else if (i==1) {//Don't Save //DELETE AT END
+            return true;
+        }
+        else if (i>1) { //Cancel
+            return false;
+        }
+    }
+    )
+    if (confirm("Do You Wish To Save? Any work not saved will be lost!")) {
+        saveProject();
+    }
+    else {
+        alert("Ok");
+    }
+
 }
 
 //Update - Use Electron to access the File System
