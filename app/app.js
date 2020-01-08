@@ -2,11 +2,12 @@ var Blockly = require('blockly')
 var Dialogs = require('dialogs')()
 var {dialog} = require('electron').remote
 var FS = require('fs')
+var parser = new DOMParser()
 /* Setup generator */
 // require('./generators/cpp')
 
 var windows = ['main'] //stores all window names, main being the main function
-
+var currentWindow = "main";
 Blockly.Blocks['string_length'] = {
     init: function() {
         this.appendValueInput('VALUE')
@@ -47,11 +48,13 @@ window.addEventListener('resize', onresize, false);
 onresize()
 Blockly.svgResize(workspace)
 
+
+
 // Create new Workspace and remove all old workspace(s)
 function newProject() {
 	if (workspace.getAllBlocks().length >0){
-		if (!confirmLeave()) {
-            alert("cancelled!")
+		if (confirmLeave()==2) {
+            alert("cancelled!");
 		} else {
             workspace.clear();
             currentpath = "";
@@ -62,19 +65,133 @@ function newProject() {
     }
 }
 
-/**
- * Count Number of "Tabs Open"
- */
-function checkWindows() 
+
+function saveToRecent()
 {
     
 }
 
 /**
+ * Opens a File Stores in recent
+ * sets current path to where this is stored
+ */
+function loadProject()
+{
+    dialog.showOpenDialog(filename => {
+        if (filename === undefined) {
+            console.log("didn't press anything");
+            return;
+        }
+        FS.readFile(filename[0], 'utf-8', (err, data) => {
+            if (err) {
+                console.log("something went wrong: " + err.message)
+                return;
+            }
+            if (confirmLeave()) {//Makes Sure they want to leave
+                openFile(data);
+            }
+        })
+    })
+}
+/**
+ * function saves the page you're on to the file 
+ * @param {String} page tab to open
+ */
+function openTab(page)
+{
+    //Save Current Tab in Recent
+    workspace.clear();//clear workspace
+    //Opens specific tab
+    for (i=0; i<multifiles.length; i++) {
+        if (multifiles[i].getAttribute("name") == page) {
+            inside = multifiles[i].innerHTML;
+            xml_text = Blockly.Xml.textToDom(inside);
+            Blockly.Xml.domToWorkspace(xml_text, workspace);
+            currentWindow = page;
+        }
+        
+    }
+}
+
+/**
+ * Applies to recent.ard ONLY RUN BEFORE FULL SAVE
+ */
+function saveCurrentTab()
+{
+    var datatoedit = "";
+    FS.readFile('recent.ard', 'utf-8', (err, data) => {datatoedit=data});
+    var xml = parser.parseFromString(datatoedit, 'text/xml');
+    var multifiles = xml.getElementsByTagName("file");
+    for (i=0; i<multifiles.length; i++) {
+        if (multifiles[i].getAttribute("name") == currentwindow) {
+            var xml2 = Blockly.Xml.workspaceToDom(workspace);
+            multifiles[i].innerHTML = Blockly.Xml.domToText(xml);
+        }
+    }
+}
+
+/**
+ * loads file into recent.ard
+ * @param {*} data contains the file
+ */
+function openFile(data)
+{
+    FS.access('recent.ard', (err) => {
+        if (!err) {//If the file already exists
+            //erase file and recreate it
+            FS.unlinkSync('recent.ard');
+            console.log("File recent.ard Deleted");
+        } else {
+            console.log("Error Deleting: " + err.message)
+        }
+        FS.writeFile('recent.ard',data, (err2) => {
+            if (err2) {
+                console.log("there was an error making a recent.ard")
+                console.log(err2.message)
+                return;
+            }
+            else {//Open where <file name="main">
+                //var xml = Blockly.Xml.textToDom(data);
+                var xml = parser.parseFromString(data, 'text/xml');
+                //convert text to DOM
+                console.log(xml);
+                var multifiles = xml.getElementsByTagName("file");
+                var inside = "";
+                windows = []; //empty list
+                for (i=0; i<multifiles.length; i++) {
+                    if (multifiles[i].getAttribute("name") == "main") {
+                        inside = multifiles[i].innerHTML;
+                        xml_text = Blockly.Xml.textToDom(inside);
+                        Blockly.Xml.domToWorkspace(xml_text, workspace);
+
+                    }
+                    windows += multifiles[i].getAttribute("name");//adds name of file to list
+                }
+                /*
+                multifiles.forEach(element => {//Checks each file for attibute equalling "main";
+                    if (element.getAttribute("name") == "main") {
+                        inside = element.innerHTML;
+                        try {
+                        Blockly.Xml.domToWorkspace(inside, workspace);
+                        }
+                        catch {
+                            alert("Something went wrong converting this to workspace...")
+                        }
+                    }
+                });
+                */
+            }
+            })
+    });
+}
+
+/**
  * Opens another tab from the file "recent"
+ * <files>
  * <file name="x">
- * CONTENTS
+ * <xml>CONTENT STUFF</XML>
  * </file>
+ * </files>
  */
 function openTab()
 {
@@ -86,19 +203,21 @@ function openTab()
  */
 function confirmLeave()
 {
-    dialog.showMessageBox({type: 'warning', buttons: ['Save', 'Don\'t Save', 'Cancel'], message: 'Would You Like To Save?'}, i => function(i) {
-        if (i==0) {//Save
-            saveProject()
-            return true;
+    if (workspace.getAllBlocks().length >0){
+        dialog.showMessageBox({type: 'warning', buttons: ['Save', 'Don\'t Save', 'Cancel'], message: 'Would You Like To Save?'}, i => function(i) {
+            if (i==0) {//Save
+                saveProject()
+                return true;
+            }
+            else if (i==1) {//Don't Save //DELETE AT END
+                return true;
+            }
+            else if (i>1) { //Cancel
+                return false;
+            }
         }
-        else if (i==1) {//Don't Save //DELETE AT END
-            return true;
-        }
-        else if (i>1) { //Cancel
-            return false;
-        }
+        )
     }
-    )
 }
 
 //Update - Use Electron to access the File System
@@ -119,6 +238,7 @@ function saveProject()
 
 //Works for Singular Files
 //Loads Project into workspace
+/*
 var loadProject = function(event) {
     dialog.showOpenDialog(filename => {
         if (filename === undefined) {
@@ -136,6 +256,7 @@ var loadProject = function(event) {
     })
     
 }
+*/
 
 /**
  * Save Project Using Electron File System
@@ -147,7 +268,8 @@ function saveProject()
     if (currentpath == "") {
         dialog.showSaveDialog((filename) => {
         if (filename === undefined) {
-            console.log("User pressed save but didn't do anything ");
+            console.log("User pressed save but hasn't saved");
+            alert("Error");
             return;
         }
         currentpath = filename;
