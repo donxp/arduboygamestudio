@@ -5,6 +5,8 @@ var FS = require('fs')
 /* Setup generator */
 // require('./generators/cpp')
 
+var windows = ['main'] //stores all window names, main being the main function
+
 Blockly.Blocks['string_length'] = {
     init: function() {
         this.appendValueInput('VALUE')
@@ -48,23 +50,43 @@ Blockly.svgResize(workspace)
 // Create new Workspace and remove all old workspace(s)
 function newProject() {
 	if (workspace.getAllBlocks().length >0){
-		if (!confirm("Do You Wish to save?")) {
+		if (!confirmLeave()) {
             alert("cancelled!")
 		} else {
-            saveProject();
             workspace.clear();
             currentpath = "";
         }
 	} else {
-        workspace.clear()
+        workspace.clear();
         currentpath = "";
     }
 }
-const dialogOptions = {type: 'warning', buttons: ['Save', 'Don\'t Save', 'Cancel'], message: 'Would You Like To Save?'}
 
+/**
+ * Count Number of "Tabs Open"
+ */
+function checkWindows() 
+{
+    
+}
+
+/**
+ * Opens another tab from the file "recent"
+ * <file name="x">
+ * CONTENTS
+ * </file>
+ */
+function openTab()
+{
+
+}
+
+/**
+ * The purpose of this is to make sure the user wants to leave without saving
+ */
 function confirmLeave()
 {
-    dialog.showMessageBox(dialogOptions, i => function(i) {
+    dialog.showMessageBox({type: 'warning', buttons: ['Save', 'Don\'t Save', 'Cancel'], message: 'Would You Like To Save?'}, i => function(i) {
         if (i==0) {//Save
             saveProject()
             return true;
@@ -77,13 +99,6 @@ function confirmLeave()
         }
     }
     )
-    if (confirm("Do You Wish To Save? Any work not saved will be lost!")) {
-        saveProject();
-    }
-    else {
-        alert("Ok");
-    }
-
 }
 
 //Update - Use Electron to access the File System
