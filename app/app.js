@@ -3,11 +3,15 @@ var Dialogs = require('dialogs')()
 var {dialog} = require('electron').remote
 var FS = require('fs')
 var parser = new DOMParser()
+var serializer = new XMLSerializer()
 /* Setup generator */
 // require('./generators/cpp')
 
 var windows = ['main'] //stores all window names, main being the main function
-var currentWindow = "main";
+var currentWindow = "main"; //Stores the current tab open
+var currentpath = ""; //pathway of save location (NOT recent.ard)
+
+
 Blockly.Blocks['string_length'] = {
     init: function() {
         this.appendValueInput('VALUE')
@@ -19,7 +23,7 @@ Blockly.Blocks['string_length'] = {
         this.setHelpUrl("");
     }
   };
-var currentpath = "";
+
 var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');
 
@@ -48,10 +52,10 @@ window.addEventListener('resize', onresize, false);
 onresize();
 Blockly.svgResize(workspace);
 
-
+resetProject();
 
 // Create new Workspace and remove all old workspace(s)
-function newProject() 
+function newProject()
 {
 	if (workspace.getAllBlocks().length >0 && windows.length ==1){//checks workspace is empty and that the total number of windows is less than 1
 		if (confirmLeave()==2) {
@@ -71,7 +75,14 @@ function resetProject()
     workspace.clear();
     //reset recent
     var defaultFile = "<files></files>";
-    FS.writeFile("recent.ard", defaultFile);//resets the recent.ard
+    FS.writeFile("recent.ard", defaultFile, (err) => {
+        if (err) {
+            console.log("There was an error");
+        }
+        else {
+            console.log("recent.ard is good to go!");
+        }
+    });//resets the recent.ard
     newTab("main");
     currentpath = "";
 }
@@ -87,6 +98,23 @@ function addTab()
 	newTab.id = "tab";
 	document.body.insertBefore(newTab, document.body.getElementById('tabAddition'));
 	
+}
+
+/**
+ * Jquery for when add Button & Change of Tab
+ */
+/*
+$(document).ready(function () {
+    $(".tab").click(function(e) {//checks when tab is clicked
+        alert("hola");
+    });
+
+});
+*/
+
+function addTabToBar()
+{
+
 }
 
 /**""
@@ -107,15 +135,16 @@ function newTab(name = "")
         alert("This Already Exists");
         return;
     }
+    /** 
     else if (name.match(/^[A-Za-z0-9]+$/)){//Only contains letters and numbers regex
         alert("Must only contains letters & numbers.");
         return;
     }
+    */
     else {
         insertToRecent(name);
         windows += name;
         currentWindow = name;
-        insertToRecent(name);
         //Now Add to Screen divs
         workspace.clear();
     }
@@ -126,20 +155,69 @@ function newTab(name = "")
  */
 function insertToRecent(name)
 {
-    var data;
+    var data = "";
     FS.readFile("recent.ard", (err,data2) => {
         if (!err) {data = data2;}
-        else {alert("Error reading recent.ard");}
+        else {
+            console.log("Error reading recent.ard");
+            console.log(err.message);
+        }
     });
-    try {
+    //try {
         var xml = parser.parseFromString(data, 'text/xml');
+        console.log(data);
         var x = xml.createElement("file");
         x.setAttribute("name", name);
+        console.log(xml.getElementsByTagName("files"));
         xml.getElementsByTagName("files")[0].appendChild(x);
-        FS.writeFile("recent.ard", xml);
-    } catch {
-        alert("Error editing recent.ard");
+        
+        FS.writeFile("recent.ard", serializer.serializeToString(xml));//converts from DOM to String
+    //} catch {
+    //    alert("Error editing recent.ard");
+    //}
+}
+
+/**
+ * Save the file basically make recent.ard the other file
+ */
+function saveProject()
+{
+    saveCurrentTab();
+    var dataToTranfer = "";
+    FS.readFile("recent.ard", (err,data) => {
+        if (!err) {
+            dataToTranfer = data;
+            console.log(data+ "has transfered");
+        }
+        else {
+            console.log("Something has gone wrong");
+            return;
+        }
+    });
+    if (currentpath == "") {
+        console.log("I am here 5");
+        var filename = dialog.showSaveDialogSync();//(filename) => {
+            if (filename === undefined) {
+                console.log("User pressed save but hasn't saved");
+                alert("Error 54");
+                return;
+            }
+            currentpath = filename;
+        //});
     }
+    
+    FS.writeFile(currentpath,dataToTranfer, (err) => {
+        if (err) {
+            console.log("error saving");
+            console.log(err.message);
+            return;
+        }
+        else {
+            console.log("Saved!")
+            alert("Saved!")
+        }
+        currentpath = filename;
+    })
 }
 
 /**
@@ -208,11 +286,13 @@ function openTab(page)
  */
 function loadProject()
 {
+    console.log("IM HERE");
     dialog.showOpenDialog(filename => {
         if (filename === undefined) {
             console.log("didn't press anything");
             return;
         }
+        console.log("ANother one bois");
         FS.readFile(filename[0], 'utf-8', (err, data) => {
             if (err) {
                 console.log("something went wrong: " + err.message)
@@ -285,7 +365,7 @@ function openFile(data)
  */
 function confirmLeave()
 {
-    if (workspace.getAllBlocks().length >0){
+    if (workspace.getAllBlocks().length >0 && windows <=1){
         dialog.showMessageBox({type: 'warning', buttons: ['Save', 'Don\'t Save', 'Cancel'], message: 'Would You Like To Save?'}, i => function(i) {
             if (i==0) {//Save
                 saveProject()
@@ -300,6 +380,7 @@ function confirmLeave()
         }
         )
     }
+    return true;
 }
 
 //Update - Use Electron to access the File System
@@ -339,37 +420,6 @@ var loadProject = function(event) {
     
 }
 */
-
-/**
- * Save Project Using Electron File System
- */
-function saveProject()
-{
-    var xml = Blockly.Xml.workspaceToDom(workspace);
-    var xml_text = Blockly.Xml.domToText(xml);
-    if (currentpath == "") {
-        dialog.showSaveDialog((filename) => {
-        if (filename === undefined) {
-            console.log("User pressed save but hasn't saved");
-            alert("Error");
-            return;
-        }
-        currentpath = filename;
-        FS.writeFile(filename,xml_text, (err) => {
-            if (err) {
-                console.log("error saving");
-                return;
-            }
-            else {
-                console.log("Saved!")
-                alert("Saved!")
-            }
-        });
-        })
-    } 
-
-}
-
 
 //Load an existing project
 //depreciated by tsdh

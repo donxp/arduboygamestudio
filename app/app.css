@@ -26,10 +26,30 @@ html, body {
     margin-bottom: 10px;
 }
 
+.project-tabs > .tab, .tabadd {
+    display: inline-block;
+    background: #8f9292;
+    padding: 5px 15px;
+    font-size: 0.8em;
+    width: 50px;
+    text-align: center;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.project-tabs > .tab:hover , .tabadd:hover {
+    background: #474d4b;
+}
+
+.project-tabs {
+    margin-bottom: 1px;
+}
+
+
 .blockly-container {
     width: 90vw;
     margin: 0 auto;
-    height: 60%;
+    height: 50%;
 }
 
 table {
