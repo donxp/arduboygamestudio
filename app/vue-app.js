@@ -19,12 +19,18 @@ new Vue({
 
         workspace.addChangeListener(window.updateCode)
     },
+    watch: {
+        spriteCreatorWidth: function() {
+            this.draw()
+        },
+        spriteCreatorHeight: function() {
+            this.draw()
+        }
+    },
     methods: {
         toggleShowSpriteContainer() {
             this.showSpriteContainer = !this.showSpriteContainer
             this.$nextTick(function() {
-                console.log('Resizing')
-                console.log(workspace)
                 Blockly.svgResize(workspace)
             })
         },
@@ -35,6 +41,7 @@ new Vue({
             // ipcRenderer.send('open_add_sprite_dialog')
             // console.log(res)
             $('#sprite-creator-modal').modal('show')
+            this.draw()
         },
         spriteCreatorGridletClick(idx) {
             console.log('Clicked on ' + idx)
@@ -87,8 +94,11 @@ new Vue({
             console.log(x + ', ' + y)
 
             const widthDiv = width / this.spriteCreatorWidth
+            const heightDiv = height / this.spriteCreatorHeight
             const col = Math.ceil(x / widthDiv)
+            const row = Math.ceil(y / heightDiv)
             console.log('col:', col)
+            console.log('row:', row)
         }
     }
 })

@@ -46,4 +46,4 @@ function updateCode() {
     document.getElementById('code').value = code
 }
 
-workspace.addChangeListener(updateCode)
+// workspace.addChangeListener(updateCode)

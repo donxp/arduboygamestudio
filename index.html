@@ -90,7 +90,6 @@
                 <div class="col-sm-3">
                     Sprite height: {{ spriteCreatorHeight }}
                     <input v-model="spriteCreatorHeight" min="0" step="8" max="64" type="range">
-                    <button class="btn btn-sm" @click="draw">draw</button>
                 </div>
               </div>
               <canvas ref="spriteCreator" width="766" height="766" @click="spriteCreatorCanvasClick($event)">
