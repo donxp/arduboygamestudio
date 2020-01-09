@@ -92,17 +92,10 @@
                     <input v-model="spriteCreatorHeight" min="0" step="8" max="64" type="range">
                 </div>
               </div>
-              <canvas ref="spriteCreator" width="766" height="766" @click="spriteCreatorCanvasClick($event)">
-
-              </canvas>
-              <!-- <div class="sprite-creator-grid" style="width: 100%; height: 766px">
-                <div v-for="row in spriteCreatorHeight" :key="row" :style="{height: (100/spriteCreatorHeight) + '%'}" class="row">
-                    <div class="sprite-creator-gridlet" v-for="col in spriteCreatorWidth" :key="col" style="height: 100%;" :style="{width: `calc(100% / ${spriteCreatorWidth})`}" @click="spriteCreatorGridletClick(index)"></div>
-                </div>
-              </div> -->
+              <canvas ref="spriteCreator" width="766" height="766" @click="spriteCreatorCanvasClick($event)"></canvas>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-primary" @click="spriteCreatorSave">Save</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
           </div>

@@ -41,12 +41,9 @@ new Vue({
             // ipcRenderer.send('open_add_sprite_dialog')
             // console.log(res)
             $('#sprite-creator-modal').modal('show')
-            this.draw()
+            this.spriteCreatorDrawGrid()
         },
-        spriteCreatorGridletClick(idx) {
-            console.log('Clicked on ' + idx)
-        },
-        draw() {
+        spriteCreatorDrawGrid() {
             const ctx = this.$refs.spriteCreator.getContext('2d')
             
             const width = this.$refs.spriteCreator.width
@@ -91,14 +88,16 @@ new Vue({
             const height = canvas.height
             const x = event.clientX - canvasRect.left
             const y = event.clientY - canvasRect.top
-            console.log(x + ', ' + y)
 
-            const widthDiv = width / this.spriteCreatorWidth
-            const heightDiv = height / this.spriteCreatorHeight
-            const col = Math.ceil(x / widthDiv)
-            const row = Math.ceil(y / heightDiv)
-            console.log('col:', col)
-            console.log('row:', row)
+            const col = Math.ceil(x / (width / this.spriteCreatorWidth))
+            const row = Math.ceil(y / (height / this.spriteCreatorHeight))
+            this.handleSpriteCreatorGridClick(row, col)
+        },
+        handleSpriteCreatorGridClick(row, col) {
+            console.log('row: ' + row + ' col: ' + col)
+        },
+        spriteCreatorSave() {
+            // save sprite
         }
     }
 })
