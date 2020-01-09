@@ -99,6 +99,7 @@ function loadProject()
  */
 function openTab(page)
 {
+    saveCurrentTab();
     //Save Current Tab in Recent
     workspace.clear();//clear workspace
     //Opens specific tab
@@ -124,10 +125,18 @@ function saveCurrentTab()
     var multifiles = xml.getElementsByTagName("file");
     for (i=0; i<multifiles.length; i++) {
         if (multifiles[i].getAttribute("name") == currentwindow) {
-            var xml2 = Blockly.Xml.workspaceToDom(workspace);
-            multifiles[i].innerHTML = Blockly.Xml.domToText(xml);
+            var xml2 = Blockly.Xml.workspaceToDom(workspace);//converts currenttab to Dom then to text
+            multifiles[i].innerHTML = Blockly.Xml.domToText(xml2);//puts text of Dom workspace into window in recent
         }
     }
+    FS.writeFile('recent.ard', xml, (err) => {//rewrites to recent.ard
+        if (err) {
+            console.log("Something went wrong rewriting recent.ard");
+        }
+        else {
+            console.log("Success in saveCurrentTab()");
+        }
+    });
 }
 
 /**
@@ -189,14 +198,12 @@ function openFile(data)
  * Opens another tab from the file "recent"
  * <files>
  * <file name="x">
+ * //Blockly stuff
  * <xml>CONTENT STUFF</XML>
+ * //END Blockly stuff
  * </file>
  * </files>
  */
-function openTab()
-{
-
-}
 
 /**
  * The purpose of this is to make sure the user wants to leave without saving
