@@ -47,9 +47,9 @@ html, body {
 
 
 .blockly-container {
-    width: 90vw;
+    width: 100vw;
     margin: 0 auto;
-    height: 50%;
+    height: 100%;
 }
 
 table {
@@ -59,4 +59,16 @@ table {
 
 #blocklyArea {
     height: 99%;
+}
+
+#sprite-container .sprite:not(:first-child) {
+    margin-top: 5px;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.sprite-creator-gridlet {
+    border: 1px solid black;
 }

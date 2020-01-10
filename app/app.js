@@ -4,53 +4,17 @@ var {dialog} = require('electron').remote
 var FS = require('fs')
 var parser = new DOMParser()
 var serializer = new XMLSerializer()
-/* Setup generator */
-// require('./generators/cpp')
+
 
 var windows = ['main'] //stores all window names, main being the main function
 var currentWindow = "main"; //Stores the current tab open
 var currentpath = ""; //pathway of save location (NOT recent.ard)
 
-
-Blockly.Blocks['string_length'] = {
-    init: function() {
-        this.appendValueInput('VALUE')
-            .setCheck('String')
-            .appendField('length of');
-        this.setOutput(true, 'Number')
-        this.setColour(345);
-        this.setTooltip("Gets the length of a string");
-        this.setHelpUrl("");
-    }
-  };
+require('./app/blocks')(Blockly.Blocks)
 
 var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');
 
-
-var workspace = Blockly.inject(blocklyDiv,
-    {toolbox: document.getElementById('toolbox')});
-
-var onresize = function(e) {
-    // Compute the absolute coordinates and dimensions of blocklyArea.
-    var element = blocklyArea;
-    var x = 0;
-    var y = 0;
-    do {
-        x += element.offsetLeft;
-        y += element.offsetTop;
-        element = element.offsetParent;
-    } while (element);
-    // Position blocklyDiv over blocklyArea.
-    blocklyDiv.style.left = x + 'px';
-    blocklyDiv.style.top = y + 'px';
-    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-    Blockly.svgResize(workspace);
-};
-window.addEventListener('resize', onresize, false);
-onresize();
-Blockly.svgResize(workspace);
 
 resetProject();
 
@@ -117,7 +81,7 @@ function addTabToBar()
 
 }
 
-/**""
+/**
  * Opens a new Tab
  * adds a new tab and stores it in recent.ard
  */
@@ -450,4 +414,4 @@ function updateCode() {
     document.getElementById('code').value = code
 }
 
-workspace.addChangeListener(updateCode)
+// workspace.addChangeListener(updateCode)

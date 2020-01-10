@@ -4,7 +4,7 @@
   "description": "Visual IDE for Arduboy platform",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron . --js-flags=\"--experimental-modules\""
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -21,7 +21,11 @@
   },
   "dependencies": {
     "blockly": "^3.20191014.1",
+    "bootstrap": "^4.3.1",
     "dialogs": "^2.0.1",
-    "google-closure-library": "^20191027.0.1"
+    "electron-reloader": "^0.3.0",
+    "google-closure-library": "^20191027.0.1",
+    "jquery": "^3.4.1",
+    "vue": "^2.6.10"
   }
 }
