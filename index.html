@@ -8,17 +8,18 @@
     </script>
   </head>
   <body>
+    
     <div class="project-actions">
       <div class="action" onClick="newProject()">New</div>
       <div class="action" onClick="loadProject()">Load</div>
       <div class="action" onClick="saveProject()">Save</div>
       <div class="action">Verify</div>
-      <div class="action">Upload</div>
+      <div class="action" onClick="optionTest()">Upload</div>
     </div>
     <b>Tabs:</b>
     <div class="project-tabs">
-      <div class="tab" id="main">Main</div>
-	  <div class="tab" id="tabAddition" onClick="addTab()">+</div>
+      <div class="tab" id="main">main</div> 
+	    <div class="tabadd" id="tabAddition">+</div>
     </div>
     <div class="blockly-container">
         <table>
@@ -48,6 +49,7 @@
       <category name="Variables" custom="VARIABLE"></category>
     </xml>
     <textarea name="code" id="code" cols="50" rows="20"></textarea>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="./app/app.js"></script>
     <script src="./app/generators/arduino.js"></script>
     <script src="./app/generators/arduino/boards.js"></script>
@@ -65,5 +67,6 @@
     <script src="./app/generators/arduino/text.js"></script>
     <script src="./app/generators/arduino/time.js"></script>
     <script src="./app/generators/arduino/variables.js"></script>
+    
   </body>
 </html>
