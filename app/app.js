@@ -48,6 +48,7 @@ function resetProject()
         }
     });//resets the recent.ard
     newTab("main");
+    currentWindow = "main";
     currentpath = "";
 }
 
@@ -115,72 +116,108 @@ function newTab(name = "")
 }
 
 /**
+ * 
+ * @param {*} name 
+ */
+async function readRecentFile()
+{
+    return new Promise(function(resolve,reject) {
+        FS.readFile("recent.ard", (err,data) => {
+        
+            if (!err) {
+                /**
+                console.log("Oof: " + data);
+                var xml = parser.parseFromString(data, 'text/xml');
+                console.log(xml);
+                var x = xml.createElement("file");
+                x.setAttribute("name", name);
+                xml.getElementsByTagName("files")[0].appendChild(x);
+                console.log(xml);
+                //xml.appendChild(x); 
+                //MAKE SURE TO MAKE SAVE AS BUTTOn
+                
+                resolve(serializer.serializeToString(xml));
+                */
+               resolve(data);
+                
+            }
+            else {
+                console.log("Error reading recent.ard");
+                console.log(err.message);
+                resolve("");
+            }
+        });
+    });
+}
+
+/**
  * Adds a new <file name="x"></file> to recent in <files>
  */
-function insertToRecent(name)
+async function insertToRecent(name)
 {
-    var data = "";
-    FS.readFile("recent.ard", (err,data2) => {
-        if (!err) {data = data2;}
-        else {
-            console.log("Error reading recent.ard");
-            console.log(err.message);
-        }
-    });
-    //try {
-        var xml = parser.parseFromString(data, 'text/xml');
-        console.log(data);
-        var x = xml.createElement("file");
-        x.setAttribute("name", name);
-        console.log(xml.getElementsByTagName("files"));
-        xml.getElementsByTagName("files")[0].appendChild(x);
-        
-        FS.writeFile("recent.ard", serializer.serializeToString(xml));//converts from DOM to String
-    //} catch {
-    //    alert("Error editing recent.ard");
-    //}
+    var dataToSave = await readRecentFile();//This should bloody wait for the function to finish
+    console.log("Oof: " + dataToSave);
+    var xml = parser.parseFromString(dataToSave, 'text/xml');
+    console.log(xml);
+    var x = xml.createElement("file");
+     x.setAttribute("name", name);
+    xml.getElementsByTagName("files")[0].appendChild(x);
+    console.log(xml);
+    //xml.appendChild(x); 
+    //MAKE SURE TO MAKE SAVE AS BUTTOn
+                
+    dataToSave= serializer.serializeToString(xml);
+    console.log("Saving: " + dataToSave);//lmao a promise?
+    if (dataToSave.length >0) {
+        FS.writeFile("recent.ard", dataToSave, (err) => {
+            if (err) {
+                console.log("Error writing recent.ard");
+            }
+            else {
+                console.log("Saved to recent.ard:" + dataToSave);//converts from DOM to String
+            }
+        });
+    }
+    else {
+        console.log("Error loading recent");
+    }
 }
 
 /**
  * Save the file basically make recent.ard the other file
  */
-function saveProject()
+async function saveProject()
 {
-    saveCurrentTab();
-    var dataToTranfer = "";
-    FS.readFile("recent.ard", (err,data) => {
-        if (!err) {
-            dataToTranfer = data;
-            console.log(data+ "has transfered");
-        }
-        else {
-            console.log("Something has gone wrong");
-            return;
-        }
-    });
+    await saveCurrentTab();
+    var dataToTransfer = await readRecentFile();
+    Promise.all([saveCurrentTab, readRecentFile]);  
     if (currentpath == "") {
         console.log("I am here 5");
         var filename = dialog.showSaveDialogSync();//(filename) => {
             if (filename === undefined) {
-                console.log("User pressed save but hasn't saved");
+                console.log("User pressed save but hasn't clicked anything :(");
                 alert("Error 54");
                 return;
             }
-            currentpath = filename;
+            else {
+                currentpath = filename;
+                console.log("File Path set YAY")
+            }
         //});
     }
-    
-    FS.writeFile(currentpath,dataToTranfer, (err) => {
+    console.log("Attempting to write to file");
+    FS.writeFile(currentpath,dataToTransfer, (err) => {
         if (err) {
             console.log("error saving");
             console.log(err.message);
             return;
         }
         else {
+            console.log(dataToTransfer)
             console.log("Saved!")
             alert("Saved!")
         }
-        currentpath = filename;
+        //Should be saved
     })
 }
 
@@ -188,26 +225,31 @@ function saveProject()
  * Applies to recent.ard ONLY RUN BEFORE FULL SAVE
  * as well as changing tabs
  */
-function saveCurrentTab()
+async function saveCurrentTab()
 {
-    var datatoedit = "";
-    FS.readFile('recent.ard', 'utf-8', (err, data) => {datatoedit=data});
-    var xml = parser.parseFromString(datatoedit, 'text/xml');
-    var multifiles = xml.getElementsByTagName("file");
-    for (i=0; i<multifiles.length; i++) {
-        if (multifiles[i].getAttribute("name") == currentwindow) {
-            var xml2 = Blockly.Xml.workspaceToDom(workspace);//converts currenttab to Dom then to text
-            multifiles[i].innerHTML = Blockly.Xml.domToText(xml2);//puts text of Dom workspace into window in recent
-            //xml.getElementsByTagName("file")[i].innerHTML = Blockly.Xml.workspaceToDom(workspace); //Simpler way of saving maybe
+    new Promise(async function(resolve,reject) {
+        var datatoedit = await readRecentFile();
+        var xml = parser.parseFromString(datatoedit, 'text/xml');
+        var multifiles = xml.getElementsByTagName("file");
+        for (i=0; i<multifiles.length; i++) {
+            if (multifiles[i].getAttribute("name") == currentWindow) {
+                var xml2 = Blockly.Xml.workspaceToDom(workspace);//converts currenttab to Dom then to text
+                multifiles[i].innerHTML = Blockly.Xml.domToText(xml2);//puts text of Dom workspace into window in recent
+                //xml.getElementsByTagName("file")[i].innerHTML = Blockly.Xml.workspaceToDom(workspace); //Simpler way of saving maybe
+            }
         }
-    }
-    FS.writeFile('recent.ard', xml, (err) => {//rewrites to recent.ard
-        if (err) {
-            console.log("Something went wrong rewriting recent.ard");
-        }
-        else {
-            console.log("Success in saveCurrentTab()");
-        }
+        textToSave = serializer.serializeToString(xml);//DOM to text
+        FS.writeFile('recent.ard', textToSave, (err) => {//rewrites to recent.ard
+            if (err) {
+                console.log("Something went wrong rewriting recent.ard");
+                reject();
+            }
+            else {
+                console.log("Success in saveCurrentTab()");
+                resolve();
+            }
+            
+        });
     });
 }
 
@@ -222,9 +264,9 @@ function saveCurrentTab()
  * </file>
  * </files>
  */
-function openTab(page)
+async function openTab(page)
 {
-    saveCurrentTab();
+    await saveCurrentTab();
     //Save Current Tab in Recent
     workspace.clear();//clear workspace
     //Opens specific tab
@@ -263,12 +305,14 @@ function loadProject()
                 return;
             }
             if (confirmLeave()) {//Makes Sure they want to leave
+                workspace.clear();
                 openFile(data);
-                
+                currentPath = filename[0];
             }
         })
     })
 }
+
 
 /**
  * loads file into recent.ard
