@@ -16,7 +16,7 @@ var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');
 
 
-resetProject();
+// resetProject();
 
 // Create new Workspace and remove all old workspace(s)
 function newProject()
@@ -33,24 +33,24 @@ function newProject()
     }
 }
 
-function resetProject()
-{
-    windows= [];
-    workspace.clear();
-    //reset recent
-    var defaultFile = "<files></files>";
-    FS.writeFile("recent.ard", defaultFile, (err) => {
-        if (err) {
-            console.log("There was an error");
-        }
-        else {
-            console.log("recent.ard is good to go!");
-        }
-    });//resets the recent.ard
-    newTab("main");
-    currentWindow = "main";
-    currentpath = "";
-}
+// function resetProject()
+// {
+//     windows= [];
+//     workspace.clear();
+//     //reset recent
+//     var defaultFile = "<files></files>";
+//     FS.writeFile("recent.ard", defaultFile, (err) => {
+//         if (err) {
+//             console.log("There was an error");
+//         }
+//         else {
+//             console.log("recent.ard is good to go!");
+//         }
+//     });//resets the recent.ard
+//     newTab("main");
+//     currentWindow = "main";
+//     currentpath = "";
+// }
 
 /**
  * Is Run when the + is pressed on the tab section

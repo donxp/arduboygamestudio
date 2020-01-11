@@ -4,6 +4,7 @@ require('./app/components/Tabs.js')
 new Vue({
     el: '#app',
     data: {
+        workspaceLoaded: false,
         showSpriteContainer: false,
         sprites: [
             {
@@ -17,8 +18,9 @@ new Vue({
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',
         {toolbox: document.getElementById('toolbox')});
+        window.workspace.addChangeListener(window.updateCode)
 
-        workspace.addChangeListener(window.updateCode)
+        this.workspaceLoaded = true
     },
     watch: {
         spriteCreatorWidth: function() {

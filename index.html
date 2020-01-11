@@ -17,8 +17,8 @@
       <div style="display: flex; justify-content: space-between">
         <div class="project-actions">
           <button class="btn btn-sm btn-primary" onClick="newProject()">New</button>
-          <button class="btn btn-sm btn-primary" onClick="newProject()">Open</button>
-          <button class="btn btn-sm btn-primary" onClick="newProject()">Save</button>
+          <button class="btn btn-sm btn-primary" onClick="loadProject()">Open</button>
+          <button class="btn btn-sm btn-primary" onClick="saveProject()">Save</button>
           <button class="btn btn-sm btn-primary" onClick="newProject()">Verify</button>
           <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button>
         </div>
@@ -31,7 +31,7 @@
         <div class="tab" id="main">main</div> 
         <div class="tabadd" id="tabAddition">+</div>
       </div> -->
-      <tabs></tabs>
+      <tabs v-if="workspaceLoaded"></tabs>
       <xml id="toolbox" style="display: none">
         <category name="Control">
             <block type="controls_if"></block>
