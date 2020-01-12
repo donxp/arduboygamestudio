@@ -28,11 +28,8 @@ Vue.component('project-actions', {
                 ]
             }).then(selection => {
                 if(selection.canceled || selection.filePaths.length < 1) return
-                AsyncFileHelper.read(file[0]).then(data => {
-                    ProjectManager.parseProjectFile(data)
-                }).catch(err => {
-                    console.error('Unable to open project file ' + file[0] + ', error: ' + err.toString())
-                })
+
+                ProjectManager.loadProject(selection.filePaths[0])
             })
         },
         saveProject: function() {
