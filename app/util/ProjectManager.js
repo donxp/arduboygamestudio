@@ -79,16 +79,18 @@ class ProjectManager {
         let xml = parser.parseFromString(data, 'text/xml')
         let files = xml.getElementsByTagName('file')
         
+        const projectFiles = []
         for(let i = 0; i < files.length; i++) {
             const file = files[i]
             const name = file.getAttribute('name')
             const inner = file.innerHTML
 
-            window.currentProject.files.push({
+            projectFiles.push({
                 name: name,
                 content: inner
             })
         }
+        window.currentProject.files = projectFiles
     }
 
     /**
@@ -96,11 +98,15 @@ class ProjectManager {
      * @param {*} path 
      */
     static loadProject(path) {
-        AsyncFileHelper.read(path).then(data => {
-            ProjectManager.parseProjectFile(data)
-            window.currentProject.path = path
-        }).catch(err => {
-            console.error('Unable to open project file ' + path + ', error: ' + err.toString())
+        return new Promise((resolve, reject) => {
+            AsyncFileHelper.read(path).then(data => {
+                ProjectManager.resetProject()
+                ProjectManager.parseProjectFile(data)
+                window.currentProject.path = path
+                resolve()
+            }).catch(err => {
+                reject('Unable to open project file ' + path + ', error: ' + err.toString())
+            })
         })
     }
 

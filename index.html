@@ -21,7 +21,7 @@
           <button class="btn btn-sm btn-primary" onClick="saveProject()">Save</button>
           <button class="btn btn-sm btn-primary" onClick="newProject()">Verify</button>
           <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button> -->
-          <project-actions></project-actions>
+          <project-actions @project-loaded="projectLoaded"></project-actions>
         </div>
         <div>
           <button class="btn btn-sm btn-warning" @click="toggleShowSpriteContainer">Sprites</button>
@@ -32,7 +32,7 @@
         <div class="tab" id="main">main</div> 
         <div class="tabadd" id="tabAddition">+</div>
       </div> -->
-      <tabs v-if="workspaceLoaded"></tabs>
+      <tabs ref="tabs" v-if="workspaceLoaded"></tabs r>
       <xml id="toolbox" style="display: none">
         <category name="Control">
             <block type="controls_if"></block>

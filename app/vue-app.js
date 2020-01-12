@@ -32,6 +32,10 @@ new Vue({
         }
     },
     methods: {
+        projectLoaded() {
+            console.log('project loaded')
+            this.$refs.tabs._updateTabs()
+        },
         toggleShowSpriteContainer() {
             this.showSpriteContainer = !this.showSpriteContainer
             this.$nextTick(function() {

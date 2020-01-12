@@ -29,7 +29,9 @@ Vue.component('project-actions', {
             }).then(selection => {
                 if(selection.canceled || selection.filePaths.length < 1) return
 
-                ProjectManager.loadProject(selection.filePaths[0])
+                ProjectManager.loadProject(selection.filePaths[0]).then(() => {
+                    this.$emit('project-loaded')
+                })
             })
         },
         saveProject: function() {
