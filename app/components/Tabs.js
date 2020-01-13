@@ -42,11 +42,17 @@ Vue.component('tabs', {
 		},
 		newTab: function() {
 			Dialog.prompt('Tab name:').then(name => {
-				if(name === undefined || name.trim().length < 1) return
-				name = name.trim()
+				if(name) name = name.trim
+				if(!this.validateTabName(name)) return
 				ProjectManager.createTab(name)
 				this._updateTabs()
 			})
+		},
+		validateTabName: function(name) {
+			if(!name) return false
+			if(name.indexOf(' ') !== -1) return false
+			if(this.tabs.includes(name)) return false
+			return true
 		},
 		/* Need keep and update a separate state of tabs as Vue isn't reactive enough. */
 		_updateTabs: function() {
