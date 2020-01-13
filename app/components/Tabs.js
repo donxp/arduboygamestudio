@@ -42,7 +42,8 @@ Vue.component('tabs', {
 		},
 		newTab: function() {
 			Dialog.prompt('Tab name:').then(name => {
-				if(!name) return
+				if(name === undefined || name.trim().length < 1) return
+				name = name.trim()
 				ProjectManager.createTab(name)
 				this._updateTabs()
 			})
