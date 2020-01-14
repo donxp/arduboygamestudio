@@ -14,8 +14,8 @@ Vue.component('preferences', {
                 <div class="modal-body">
 
                     <h5>COM Port Selection</h5>
-                    <select id="COMPorts">
-                    <option value="x">x</option>
+                    <select id="COMPorts" v-for="port in ports">
+                        <option value="{port}">{port}</option>
                     </select>
                 </div>
             </div>
@@ -28,13 +28,22 @@ Vue.component('preferences', {
             selectedPort: ''
         }
     }, 
+    computed: {
+        ports: function() {//loads ports into list when loaded
+            return COMHelper.checkForPorts()
+        }
+    },
     methods: {
-        importPorts: function() {
+        refreshPorts: function() {
             this.ports = COMHelper.checkForPorts();
-            
         },
-
-
+        setPort: function(port) {
+            //check to see if port is of type arduboy that we are using
+            this.selectedPort = port;
+        },
+        getPort: function() {
+            return selectedPort;
+        }
     }
 
 })
