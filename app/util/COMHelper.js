@@ -10,7 +10,6 @@ class COMHelper {
     static checkForPorts()
     {
         return new Promise((resolve,reject) => {
-            
             serialport.list(function (err, ports) {
                 if (!err) {
                     ports.array.forEach(element => {
