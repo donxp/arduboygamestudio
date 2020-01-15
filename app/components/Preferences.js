@@ -12,7 +12,6 @@ Vue.component('preferences', {
                     </button>
                 </div>
                 <div class="modal-body">
-
                     <h5>COM Port Selection</h5>
                     <select id="COMPorts" v-for="port in ports">
                         <option id="{port.name}" value="{port.name}">{port.name}</option>
@@ -33,9 +32,14 @@ Vue.component('preferences', {
             return COMHelper.checkForPorts()
         }
     },
+    mounted: function() {
+        this.refreshPorts()
+    },
     methods: {
         refreshPorts: function() {
-            this.ports = COMHelper.checkForPorts();
+            COMHelper.checkForPorts().then(res => {
+                this.ports = res
+            })
         },
         setPort: function(port) {
             //check to see if port is of type arduboy that we are using

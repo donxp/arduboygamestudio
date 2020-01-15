@@ -4,7 +4,8 @@
   "description": "Visual IDE for Arduboy platform",
   "main": "main.js",
   "scripts": {
-    "start": "electron . --js-flags=\"--experimental-modules\""
+    "start": "electron . --js-flags=\"--experimental-modules\"",
+    "rebuild": "electron-rebuild -f -w arduboy-ide"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -17,7 +18,8 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^6.0.12"
+    "electron": "^6.0.12",
+    "electron-rebuild": "^1.8.8"
   },
   "dependencies": {
     "blockly": "^3.20191014.1",
@@ -26,6 +28,7 @@
     "electron-reloader": "^0.3.0",
     "google-closure-library": "^20191027.0.1",
     "jquery": "^3.4.1",
+    "serialport": "^8.0.6",
     "vue": "^2.6.10"
   }
 }

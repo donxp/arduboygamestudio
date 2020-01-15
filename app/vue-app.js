@@ -1,7 +1,7 @@
 const { ipcRenderer } = require('electron')
 require('./app/components/Tabs.js')
 require('./app/components/ProjectActions.js')
-//require('./app/components/Preferences.js')
+require('./app/components/Preferences.js')
 
 new Vue({
     el: '#app',
