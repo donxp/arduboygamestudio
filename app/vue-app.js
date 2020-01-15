@@ -15,7 +15,8 @@ new Vue({
         ],
         spriteCreatorWidth: 8,
         spriteCreatorHeight: 8,
-        spriteCreatorImage: []
+        spriteCreatorImage: [],
+        preferencesModal: false
     },
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',
@@ -33,6 +34,9 @@ new Vue({
         }
     },
     methods: {
+        showPreferences() {
+            this.preferencesModal = true
+        },
         projectLoaded() {
             console.log('project loaded')
             this.$refs.tabs._updateTabs()

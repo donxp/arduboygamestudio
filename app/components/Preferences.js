@@ -8,7 +8,7 @@ Vue.component('preferences', {
                 <div class="modal-header">
                     <h5 class="modal-title">Preferences</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    Close
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -21,12 +21,22 @@ Vue.component('preferences', {
         </div>
     </div>
     `,//makes the template for page
+    props: ['shown'],
     data: function() {
         return {
             ports: [],
             selectedPort: ''
         }
     }, 
+    watch: {
+        shown: function(newShown) {
+            if(newShown) { 
+                $('#preferences-modal').modal('show')
+            } else {
+                $('#preferences-modal').modal('hide')
+            }
+        }
+    },
     mounted: function() {
         this.refreshPorts()
     },

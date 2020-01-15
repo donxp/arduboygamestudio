@@ -36,7 +36,8 @@
       <tabs ref="tabs" v-if="workspaceLoaded"></tabs r>
 
       <!-- Preferences opens-->
-      <preferences ref="preferences" v-if="workspaceLoaded"></preferences>
+      <preferences :shown="preferencesModal" v-if="workspaceLoaded"></preferences>
+      <button @click="showPreferences">Show pref</button>
 
       <xml id="toolbox" style="display: none">
         <category name="Control">
