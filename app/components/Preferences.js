@@ -15,7 +15,7 @@ Vue.component('preferences', {
 
                     <h5>COM Port Selection</h5>
                     <select id="COMPorts" v-for="port in ports">
-                        <option value="{port}">{port}</option>
+                        <option id="{port.name}" value="{port.name}">{port.name}</option>
                     </select>
                 </div>
             </div>
@@ -47,5 +47,3 @@ Vue.component('preferences', {
     }
 
 })
-
-module.exports = Preferences

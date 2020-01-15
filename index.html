@@ -22,6 +22,7 @@
           <button class="btn btn-sm btn-primary" onClick="newProject()">Verify</button>
           <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button> -->
           <project-actions @project-loaded="projectLoaded"></project-actions>
+          
         </div>
         <div>
           <button class="btn btn-sm btn-warning" @click="toggleShowSpriteContainer">Sprites</button>
@@ -33,6 +34,10 @@
         <div class="tabadd" id="tabAddition">+</div>
       </div> -->
       <tabs ref="tabs" v-if="workspaceLoaded"></tabs r>
+
+      <!-- Preferences opens-->
+      <preferences ref="preferences" v-if="workspaceLoaded"></preferences>
+
       <xml id="toolbox" style="display: none">
         <category name="Control">
             <block type="controls_if"></block>
@@ -108,6 +113,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <script src="./static/js/jquery.js"></script>
     <script src="./node_modules/vue/dist/vue.min.js"></script>
