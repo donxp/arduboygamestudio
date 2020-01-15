@@ -27,11 +27,6 @@ Vue.component('preferences', {
             selectedPort: ''
         }
     }, 
-    computed: {
-        ports: function() {//loads ports into list when loaded
-            return COMHelper.checkForPorts()
-        }
-    },
     mounted: function() {
         this.refreshPorts()
     },

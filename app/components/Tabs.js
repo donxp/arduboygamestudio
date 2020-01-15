@@ -21,14 +21,6 @@ Vue.component('tabs', {
 			currentTab: ''
 		}
 	},
-	computed: {
-		// tabs: function() {
-		// 	return window.currentProject.files.map(p => p.name)
-		// },
-		currentTab: function() {
-			return window.currentProject.tab
-		}
-	},
 	mounted: function() {
 		window.workspace.clear()
 		this._updateTabs()
