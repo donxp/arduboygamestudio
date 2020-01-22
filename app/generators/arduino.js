@@ -20,7 +20,7 @@ goog.require('Blockly.Generator');
  * @type {!Blockly.Generator}
  */
 Blockly.Arduino = new Blockly.Generator('Arduino');
-// Blockly.Arduino.StaticTyping = new Blockly.StaticTyping();
+Blockly.Arduino.StaticTyping = new Blockly.StaticTyping();
 
 /**
  * List of illegal variable names.
@@ -112,11 +112,11 @@ Blockly.Arduino.init = function(workspace) {
   } else {
     Blockly.Arduino.variableDB_.reset();
   }
-
+  Blockly.Arduino.variableDB_.setVariableMap(workspace.getVariableMap())
   // Iterate through to capture all blocks types and set the function arguments
-  var varsWithTypes = Blockly.Variables.allUsedVarModels(workspace);
-  // var varsWithTypes = Blockly.Arduino.StaticTyping.collectVarsWithTypes(workspace);
-  // Blockly.Arduino.StaticTyping.setProcedureArgs(workspace, varsWithTypes);
+  // var varsWithTypes = Blockly.Variables.allUsedVarModels(workspace);
+  var varsWithTypes = Blockly.Arduino.StaticTyping.collectVarsWithTypes(workspace);
+  Blockly.Arduino.StaticTyping.setProcedureArgs(workspace, varsWithTypes);
 
   // Set variable declarations with their Arduino type in the defines dictionary
   for (var varName in varsWithTypes) {
