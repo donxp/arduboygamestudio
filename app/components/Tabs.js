@@ -22,9 +22,6 @@ Vue.component('tabs', {
 		}
 	},
 	computed: {
-		// tabs: function() {
-		// 	return window.currentProject.files.map(p => p.name)
-		// },
 		currentTab: function() {
 			return window.currentProject.tab
 		}
@@ -36,7 +33,6 @@ Vue.component('tabs', {
 	},
 	methods: {
 		switchTab: function(tab) {
-			// console.log('switch tab to', tab)
 			ProjectManager.switchToTab(tab)
 			this._updateCurrentTab()
 		},
