@@ -11,6 +11,8 @@
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"></script>
+    <!---  <script src="blockly_compressed.js"></script>
+      <script src="javascript_compressed.js"></script> -->
   </head>
   <body style="margin-top: 2px; margin-left: 2px;">
     <div id="app" class="container-fluid m-0 p-0">
@@ -40,10 +42,12 @@
         </category>
         <category name="Logic">
             <block type="logic_compare"></block>
+            <block type="checkforbuttonpress"></block>
         </category>
         <category name="Math">
             <block type="math_number"></block>
             <block type="math_arithmetic"></block>
+            <block type="randomrange"></block>
         </category>
         <category name="Text">
             <block type="text"></block>
@@ -109,9 +113,24 @@
         </div>
       </div>
     </div>
+   <!--- <p id="demo"></p>-->
+
+    <script>
+      function myUpdateFunction(event) {
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        document.getElementById('textarea').value = code;
+    }
+    workspace.addChangeListener(myUpdateFunction);
+
+
+      //var code = Blockly.Arduino.workspaceToCode(workspace);
+    //  document.getElementById("demo").innerHTML = code;
+    </script>
+   
     <script src="./static/js/jquery.js"></script>
     <script src="./node_modules/vue/dist/vue.min.js"></script>
     <script src="./app/app.js"></script>
+    <script src="./app/blocks.js"></script>
     <script src="./app/vue-app.js"></script>
     <script src="./app/generators/arduino.js"></script>
     <script src="./app/generators/arduino/boards.js"></script>

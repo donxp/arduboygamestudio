@@ -11,6 +11,7 @@ var currentWindow = "main"; //Stores the current tab open
 var currentpath = ""; //pathway of save location (NOT recent.ard)
 
 require('./app/blocks')(Blockly.Blocks)
+require('./app/blockly/')
 
 var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');
