@@ -122,7 +122,19 @@ Vue.component('sprite-creator', {
                 ctx.moveTo(0, curY)
                 ctx.lineTo(width, curY)
                 ctx.stroke()
-            }
+			}
+			
+			// fill in selected squares
+			for(let col = 0; col < this.creatorWidth; col++) {
+				for(let row = 0; row < this.creatorHeight; row++) {
+					if(this.image[col][row]) {
+						ctx.beginPath()
+						ctx.rect(lineWidth * col, lineHeight * row, lineWidth, lineHeight)
+						ctx.fillStyle = 'black'
+						ctx.fill()
+					}
+				}
+			}
         },
         spriteCreatorCanvasClick(event) {
             const canvas = this.$refs.spriteCreator
@@ -137,7 +149,10 @@ Vue.component('sprite-creator', {
             this.handleSpriteCreatorGridClick(row, col)
         },
         handleSpriteCreatorGridClick(row, col) {
-            console.log('row: ' + row + ' col: ' + col)
+			console.log('row: ' + row + ' col: ' + col)
+			this.image[col-1][row-1] = !this.image[col-1][row-1]
+			console.log(this.image)
+			this.render()
         },
 		spriteCreatorSave: function() {}
 	}
