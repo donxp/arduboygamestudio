@@ -190,10 +190,9 @@ Blockly.Arduino.finish = function(code) {
   var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
   var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
 
-  
+  var codeToShow = code.replace(/\n/g, '\n  ');
 
-  var wrapperCode = '#include <Arduboy2.h> +\n' +
-                    window.currentProject.tab + 
+  var wrapperCode = '#include <Arduboy2.h> +\n' + 
                     '#include <ArdBitmap.h>\n' +
                     '#include <ArduboyTones.h>\n' +
                     '#define ARDBITMAP_SBUF arduboy.getBuffer()\n' +
@@ -237,7 +236,7 @@ Blockly.Arduino.finish = function(code) {
                     '}\n' +
                     '};\n' +
                     '\n' +
-                    
+                    generateClass("firstObject",code) + 
                     '\n' +
                     '\n' +
                     '\n' +
@@ -276,15 +275,15 @@ Blockly.Arduino.finish = function(code) {
                     ;
 
  // return allDefs + setup + loop;
- return wrapperCode;
+ return codeToShow;
 };
 
 var gameobjectCount;
-function myFunction() {
-  var newGameObjectCode = 'class ' + window.currentProject.tab + ' : public GameObject {\n' +
+function generateClass(name,code) {
+  var newGameObjectCode = '\nclass ' + name + ' : public GameObject {\n' +
                           'public:\n' +
-                          '' + window.currentProject.tab + '(){}\n' +
-                          '' + window.currentProject.tab + '(int x, int y, int spr){\n' +
+                          '' + name + '(){}\n' +
+                          '' + name + '(int x, int y, int spr){\n' +
                           'GameObject(x,y,spr);\n' +
                           'changePos(x,y);\n' +
                           'mainRect.height = spriteHeight;\n' +
@@ -292,9 +291,12 @@ function myFunction() {
                           '}\n' +
                           'void mainFunction() override {\n' +
                           'drawSprite();\n' +
+                          code + '\n' +
+                          '}\n' +
+                         
                           '\n' +
                           '};\n';
-  return ;   
+  return newGameObjectCode;   
 }
 
 /**

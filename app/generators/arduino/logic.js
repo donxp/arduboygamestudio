@@ -146,3 +146,41 @@ Blockly.Arduino['logic_ternary'] = function(block) {
   var code = valueIf + ' ? ' + valueThen + ' : ' + valueElse;
   return [code, Blockly.Arduino.ORDER_CONDITIONAL];
 };
+
+
+
+Blockly.Arduino['checkforbuttonpress'] = function(block) {
+  var dropdown_name = block.getFieldValue('NAME');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'arduboy.pressed('+ dropdown_name +')';
+  return [code, Blockly.Arduino.ORDER_EQUALITY];
+};
+
+
+Blockly.Arduino['incrementx'] = function(block) {
+  var value_incrementamount = Blockly.Arduino.valueToCode(block, 'incrementAmount', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'changeXByAmount(' + value_incrementamount +');\n';
+  return code;
+};
+
+
+Blockly.Arduino['incrementy'] = function(block) {
+  var value_incrementamount = Blockly.Arduino.valueToCode(block, 'incrementAmount', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'changeYByAmount(' + value_incrementamount +');\n';
+  return code;
+};
+
+
+Blockly.Arduino['is_colliding_with'] = function(block) {
+  var value_objectname = Blockly.Arduino.valueToCode(block, 'objectname', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'checkForCollision(' + value_objectname + ')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Arduino.ORDER_NONE];
+};
+
+
+
+

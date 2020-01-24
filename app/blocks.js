@@ -111,13 +111,13 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['checkforbuttonpress'] = { //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#tmdw4b
+    Blockly.Blocks['checkforbuttonpress'] = {       //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ynbpt3
       init: function() {
         this.appendDummyInput()
-            .appendField("When ")
-            .appendField(new Blockly.FieldDropdown([["up","UPBUTTON"], ["down","DOWNBUTTON"], ["left","LEFTBUTTON"], ["right","RIGHTBUTTON"], ["A","ABUTTON"], ["B","BUTTON"]]), "NAME")
+            .appendField("Button")
+            .appendField(new Blockly.FieldDropdown([["up","UP_BUTTON"], ["down","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
             .appendField("is pressed");
-        this.setNextStatement(true, null);
+        this.setOutput(true, "Boolean");
         this.setColour(230);
      this.setTooltip("");
      this.setHelpUrl("");
@@ -173,7 +173,57 @@ module.exports = function(blocks) {
       }
     };
 
+    Blockly.Blocks['incrementx'] = {    //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#mfzt59
+      init: function() {
+        this.appendValueInput("incrementAmount")
+            .setCheck("Number")
+            .appendField("Increment X by");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['incrementy'] = {    //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#mfzt59
+      init: function() {
+        this.appendValueInput("incrementAmount")
+            .setCheck("Number")
+            .appendField("Increment Y by");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['is_colliding_with'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("Is colliding with")
+            .appendField(new Blockly.FieldDropdown(
+              this.generateOptions), 'DAY');
+        this.setOutput(true, "Boolean");
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      },
+      generateOptions: function() {
+        var options = [];
+       
+        return options;
+      }
+      
+    };
+
     
+
+    
+
+    
+
 
 
 

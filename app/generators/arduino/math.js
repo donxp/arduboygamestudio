@@ -352,5 +352,5 @@ Blockly.Arduino['randomrange'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = 'randomRange(' + value_min + ',' + value_max + ')';
   // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.Arduino.ORDER_MEMBER];
+  return [code, Blockly.Arduino.ORDER_NONE];
 };
