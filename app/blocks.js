@@ -204,7 +204,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("Is colliding with")
             .appendField(new Blockly.FieldDropdown(
-              this.generateOptions), 'DAY');
+              this.generateOptions), 'OBJECTNAME');
         this.setOutput(true, "Boolean");
         this.setColour(230);
      this.setTooltip("");
@@ -212,10 +212,30 @@ module.exports = function(blocks) {
       },
       generateOptions: function() {
         var options = [];
-       
+        var tabnames = window.currentProject.files.map(p => p.name);
+        for(i = 0; i < tabnames.length; i++){
+          options.push([tabnames[i], "allObjects[" + i + "]"]);
+        }
+        options.push(["Wassap", "allObjects[" + i + "]"]);
+
+        if(options.length == 0){
+          return options.push(['mem','MEMES']);
+        }
+
         return options;
       }
       
+    };
+
+    Blockly.Blocks['gamestart'] = {
+      init: function() {
+        this.appendStatementInput("NAME")
+            .setCheck(null)
+            .appendField("When game starts");
+        this.setColour(315);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
     };
 
     

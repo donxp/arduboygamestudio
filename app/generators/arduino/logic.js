@@ -173,14 +173,33 @@ Blockly.Arduino['incrementy'] = function(block) {
 };
 
 
+
 Blockly.Arduino['is_colliding_with'] = function(block) {
-  var value_objectname = Blockly.Arduino.valueToCode(block, 'objectname', Blockly.Arduino.ORDER_ATOMIC);
+  var dropdown_objectname = block.getFieldValue('OBJECTNAME');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'checkForCollision(' + value_objectname + ')';
+  var code = 'checkForCollision(' + dropdown_objectname + ')';
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Arduino.ORDER_NONE];
 };
 
+Blockly.Arduino['gamestart'] = function(block) {
+  var statements_name = Blockly.Arduino.statementToCode(block, 'NAME');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'if(inital){\ninitial = false;\n'+ statements_name +'\n};\n';
+  return code;
+};
 
 
+Blockly.Arduino['changexpos'] = function(block) {
+  var value_newxpos = Blockly.Arduino.valueToCode(block, 'newxpos', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'changeXpos('+value_newxpos + ');\n';
+  return code;
+};
 
+Blockly.Arduino['changeypos'] = function(block) {
+  var value_newypos = Blockly.Arduino.valueToCode(block, 'newypos', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'changeYpos('+value_newypos + ');\n';
+  return code;
+};
