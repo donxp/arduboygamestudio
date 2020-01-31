@@ -275,7 +275,7 @@ Blockly.Arduino.finish = function(code) {
                     ;
 
  // return allDefs + setup + loop;
- return codeToShow;
+ return allDefs + codeToShow;
 };
 
 var gameobjectCount;

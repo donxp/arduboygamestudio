@@ -238,6 +238,81 @@ module.exports = function(blocks) {
       }
     };
 
+    Blockly.Blocks['playnotes3'] = {   //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#wgxxin
+      init: function() {
+        this.appendValueInput("First")
+            .setCheck("Note")
+            .appendField("Play Notes");
+        this.appendValueInput("Second")
+            .setCheck("Note");
+        this.appendValueInput("Third")
+            .setCheck("Note");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['playnotes2'] = {   //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#wgxxin
+      init: function() {
+        this.appendValueInput("First")
+            .setCheck("Note")
+            .appendField("Play Notes");
+        this.appendValueInput("Second")
+            .setCheck("Note");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['playnote'] = {   //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#wgxxin
+      init: function() {
+        this.appendValueInput("First")
+            .setCheck("Note")
+            .appendField("Play Note");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#q9tve5
+    Blockly.Blocks['note'] = {
+      init: function() {
+        this.appendValueInput("Note")
+            .setCheck("Number")
+            .appendField("Note")
+            .appendField(new Blockly.FieldDropdown([["a","A"], ["b","B"], ["c","C"], ["d","D"], ["e","E"], ["f","F"], ["g","G"]]), "note")
+            .appendField(new Blockly.FieldDropdown([["1","1"], ["2","2"], ["3","3"], ["4","4"], ["5","5"], ["6","6"], ["7","7"]]), "octive")
+            .appendField("For a duration of (ms)");
+        this.setOutput(true, "Note");
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['wait'] = {
+      init: function() {
+        this.appendValueInput("Milis")
+            .setCheck("Number")
+            .appendField("Wait For (ms)");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+    
+
     
 
     

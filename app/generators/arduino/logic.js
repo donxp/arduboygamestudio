@@ -160,6 +160,9 @@ Blockly.Arduino['checkforbuttonpress'] = function(block) {
 Blockly.Arduino['incrementx'] = function(block) {
   var value_incrementamount = Blockly.Arduino.valueToCode(block, 'incrementAmount', Blockly.Arduino.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
+  if(value_incrementamount == ""){
+    value_incrementamount = 0;
+  }
   var code = 'changeXByAmount(' + value_incrementamount +');\n';
   return code;
 };
@@ -168,6 +171,9 @@ Blockly.Arduino['incrementx'] = function(block) {
 Blockly.Arduino['incrementy'] = function(block) {
   var value_incrementamount = Blockly.Arduino.valueToCode(block, 'incrementAmount', Blockly.Arduino.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
+  if(value_incrementamount == ""){
+    value_incrementamount = 0;
+  }
   var code = 'changeYByAmount(' + value_incrementamount +');\n';
   return code;
 };
@@ -193,6 +199,9 @@ Blockly.Arduino['gamestart'] = function(block) {
 Blockly.Arduino['changexpos'] = function(block) {
   var value_newxpos = Blockly.Arduino.valueToCode(block, 'newxpos', Blockly.Arduino.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
+  if(value_newxpos == ""){
+    value_newxpos = 0;
+  }
   var code = 'changeXpos('+value_newxpos + ');\n';
   return code;
 };
@@ -200,6 +209,83 @@ Blockly.Arduino['changexpos'] = function(block) {
 Blockly.Arduino['changeypos'] = function(block) {
   var value_newypos = Blockly.Arduino.valueToCode(block, 'newypos', Blockly.Arduino.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
+  if(value_newypos == ""){
+    value_newypos = 0;
+  }
   var code = 'changeYpos('+value_newypos + ');\n';
   return code;
 };
+
+Blockly.Arduino['playnotes3'] = function(block) {
+  var value_first = Blockly.Arduino.valueToCode(block, 'First', Blockly.Arduino.ORDER_ATOMIC);
+  var value_second = Blockly.Arduino.valueToCode(block, 'Second', Blockly.Arduino.ORDER_ATOMIC);
+  var value_third = Blockly.Arduino.valueToCode(block, 'Third', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  if(value_first == ""){
+    value_first = "1000,100";
+  }
+  if(value_second == ""){
+    value_second = "1000,100";
+  }
+  if(value_third == ""){
+    value_third = "1000,100";
+  }
+
+  var code = 'sound.tone('+ value_first + ',' + value_second + ',' + value_third + ');\n';
+
+
+  return  code ;
+};
+
+Blockly.Arduino['note'] = function(block) {
+  var dropdown_note = block.getFieldValue('note');
+  var dropdown_octive = block.getFieldValue('octive');
+  var value_note = Blockly.Arduino.valueToCode(block, 'Note', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  
+  if(value_note == ""){
+    value_note = 100;
+  }
+  var code = 'NOTE_' + dropdown_note + dropdown_octive + ',' + value_note;
+  // TODO: Change ORDER_NONE to the correct strength.
+ 
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+Blockly.Arduino['playnotes2'] = function(block) {
+  var value_first = Blockly.Arduino.valueToCode(block, 'First', Blockly.Arduino.ORDER_ATOMIC);
+  var value_second = Blockly.Arduino.valueToCode(block, 'Second', Blockly.Arduino.ORDER_ATOMIC);
+  if(value_first == ""){
+    value_first = "1000,100";
+  }
+  if(value_second == ""){
+    value_second = "1000,100";
+  }
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'sound.tone('+ value_first + ',' + value_second + ');\n';
+
+  return code;
+};
+
+Blockly.Arduino['playnote'] = function(block) {
+  var value_first = Blockly.Arduino.valueToCode(block, 'First', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  if(value_first == ""){
+    value_first = "1000,100";
+  }
+  var code = 'sound.tone('+ value_first +');\n';
+
+  return code;
+};
+
+Blockly.Arduino['wait'] = function(block) {
+  var value_milis = Blockly.Arduino.valueToCode(block, 'Milis', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  if(value_milis == ""){
+    value_milis = 0;
+  }
+  var code = 'wait('+ value_milis +');\n';
+  return code;
+};
+
+
