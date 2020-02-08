@@ -1,6 +1,7 @@
 var { dialog } = require('electron').remote
 let ProjectManager = require('../util/ProjectManager.js')
 let AsyncFileHelper = require('../util/AsyncFileHelper.js')
+let Preferences = require('../components/Preferences.js')
 
 Vue.component('project-actions', {
     template: `
@@ -58,7 +59,12 @@ Vue.component('project-actions', {
             })
         },
         verifyProject: function() {
+            var comPort = Preferences.getPort();//used when retrieving com port
+            //process for compiling to hex
 
+            //process for then uploading to board using set Port
+
+            
         },
         uploadProject: function() {
 

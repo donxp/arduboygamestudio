@@ -23,6 +23,8 @@
           <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button> -->
           <project-actions @project-loaded="projectLoaded"></project-actions>
           
+
+          <button @click="showPreferences">Show pref</button>
         </div>
         <div>
           <button class="btn btn-sm btn-warning" @click="toggleShowSpriteContainer">Sprites</button>
@@ -37,7 +39,7 @@
 
       <!-- Preferences opens-->
       <preferences :shown="preferencesModal" v-if="workspaceLoaded"></preferences>
-      <button @click="showPreferences">Show pref</button>
+      
 
       <xml id="toolbox" style="display: none">
         <category name="Control">

@@ -12,10 +12,12 @@ Vue.component('preferences', {
                     </button>
                 </div>
                 <div class="modal-body">
+                    <table><tr>
                     <h5>COM Port Selection</h5>
-                    <select id="COMPorts" v-for="port in ports">
-                        <option id="{port.name}" value="{port.name}">{port.name}</option>
-                    </select>
+                    <select id="COMPorts">
+                        <option v-for="port in ports" id="{port.name}" value="{port.name}">{port.name}</option>
+                    </select></tr>
+                    </table>
                 </div>
             </div>
         </div>
