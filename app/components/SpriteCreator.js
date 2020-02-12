@@ -1,3 +1,5 @@
+const Dialog = require('dialogs')()
+
 Vue.component('sprite-creator', {
 	template: `
 	<div class="col-sm-4">
@@ -9,8 +11,8 @@ Vue.component('sprite-creator', {
 				<div class="sprite" v-for="(item, index) in sprites">
 					<div class="row">
 					<div class="col">{{ item.name }}</div>
-					<div class="col-3 pr-1"><button class="btn btn-sm btn-warning btn-block">Rename</button></div>
-					<div class="col-3 pl-1"><button class="btn btn-sm btn-danger btn-block">Remove</button></div>
+					<div class="col-3 pr-1"><button class="btn btn-sm btn-warning btn-block" @click="rename(index)">Rename</button></div>
+					<div class="col-3 pl-1"><button class="btn btn-sm btn-danger btn-block" @click="remove(index)">Remove</button></div>
 					</div>
 				</div>
 				</div>
@@ -50,7 +52,11 @@ Vue.component('sprite-creator', {
 	props: ['shown'],
 	data: function() {
 		return {
-			sprites: [],
+			sprites: [
+				{
+					name: 'test'
+				}
+			],
 			creatorWidth: 8,
 			creatorHeight: 8,
 			image: []
@@ -58,12 +64,12 @@ Vue.component('sprite-creator', {
 	},
 	watch: {
 		creatorWidth: function() {
-			this.render()
 			this.recreateArray()
+			this.render()
 		},
 		creatorHeight: function() {
-			this.render()
 			this.recreateArray()
+			this.render()
 		}
 	},
 	methods: {
@@ -72,6 +78,25 @@ Vue.component('sprite-creator', {
 			this.recreateArray()
 			$('#sprite-creator-modal').modal('show')
 			this.render()
+		},
+		rename(index) {
+			Dialog.prompt('New name:').then(name => {
+				if(!name) return
+				name = name.trim()
+				if(!this.validateSpriteName(name)) {
+					Dialog.alert('Invalid new sprite name.')
+				} else {
+					this.sprites[index].name = name
+				}
+			})
+		},
+		remove(index) {
+			console.log('remove', index)
+		},
+		validateSpriteName(name) {
+			if(name.length < 3) return false
+			else if(name.indexOf(' ') !== -1) return false
+			return true
 		},
 		recreateArray() {
 			// create colums
