@@ -91,7 +91,11 @@ Vue.component('sprite-creator', {
 			})
 		},
 		remove(index) {
-			console.log('remove', index)
+			Dialog.confirm('Are you sure?').then(confirm => {
+				if(confirm) {
+					this.sprites.splice(index, 1)
+				}
+			})
 		},
 		validateSpriteName(name) {
 			if(name.length < 3) return false
