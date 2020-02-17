@@ -1,7 +1,7 @@
 const Dialog = require('dialogs')()
 
 Vue.component('sprite-creator', {
-	template: `
+	template: /*html*/`
 	<div class="col-sm-4">
 		<div id="sprite-container">
 			<div class="card">
@@ -10,7 +10,7 @@ Vue.component('sprite-creator', {
 				<hr class="mt-3 mb-4">
 				<div class="sprite" v-for="(item, index) in sprites">
 					<div class="row">
-					<div class="col">{{ item.name }}</div>
+                    <div class="col">{{ item.name }}</div>
 					<div class="col-3 pr-1"><button class="btn btn-sm btn-warning btn-block" @click="edit(index)">Edit</button></div>
 					<div class="col-3 pl-1"><button class="btn btn-sm btn-danger btn-block" @click="remove(index)">Remove</button></div>
 					</div>
@@ -27,16 +27,67 @@ Vue.component('sprite-creator', {
 					<span aria-hidden="true">&times;</span>
 				</button>
 				</div>
-				<div class="modal-body">
-				<div class="row">
+                <div class="modal-body">
+                <div class="d-flex">
+                    <div style="width: 25%">
+                        <input v-model="newSpriteName" type="text" class="form-control form-control-sm" placeholder="Name">
+                    </div>
+                    <div style="width: 75%; margin-left: 10px">
+                        <div class="d-flex">
+                            <div style="width: 40%">
+                                <div class="d-flex">
+                                    <div style="width: 30%">
+                                        Width:
+                                    </div>
+                                    <div style="width: 70%">
+                                        <template v-if="!editDimensions">
+                                            {{ creatorWidth }}
+                                        </template>
+                                        <template v-else>
+                                            <input v-model="editDimensionsWidth" class="form-control form-control-sm" type="number">
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 40%; margin-left: 5px">
+                                <div class="d-flex">
+                                    <div style="width: 30%">
+                                        Height:
+                                    </div>
+                                    <div style="width: calc(70% - 10px); margin-right: 10px">
+                                        <template v-if="!editDimensions">
+                                            {{ creatorHeight }}
+                                        </template>
+                                        <template v-else>
+                                            <input v-model="editDimensionsHeight" class="form-control form-control-sm" type="number">
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 20%">
+                                <button v-if="!editDimensions" class="btn btn-primary btn-block btn-sm" @click="toggleEditDimensions">Edit</button>
+                                <button v-else class="btn btn-warning btn-block btn-sm" @click="toggleEditDimensions">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<!--<div class="row">
 					<div class="col-sm-4 d-flex align-items-center">
 						<input v-model="newSpriteName" type="text" class="form-control form-control-sm" placeholder="Name">
 					</div>
 					<div class="col-sm-8">
-						<div class="row">
-							<div class="col-sm-6">
-								Width: {{ creatorWidth }}
-								<input v-model="creatorWidth" min="8" max="64" type="range">
+                        <div class="row">
+                            <div class="col-sm-6">width</div>
+                            <div class="col-sm-6">height</div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        Width: {{ creatorWidth }}
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input v-model="creatorWidth" min="8" max="64" type="range">
+                                    </div>
+                                </div>
 							</div>
 							<div class="col-sm-6">
 								Height: {{ creatorHeight }}
@@ -44,7 +95,7 @@ Vue.component('sprite-creator', {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>-->
 				<canvas class="mt-3" ref="spriteCreator" width="766" height="766" @click="spriteCreatorCanvasClick($event)"></canvas>
 				</div>
 				<div class="modal-footer">
@@ -66,29 +117,10 @@ Vue.component('sprite-creator', {
 			newSpriteName: '',
 			editMode: false,
 			editingIdx: -1,
-			spriteDimensionWatcher: true
-		}
-	},
-	watch: {
-		creatorWidth: {
-			immediate: true,
-			handler() {
-				console.log(this.spriteDimensionWatcher)
-				if(this.spriteDimensionWatcher) {
-					this.recreateArray()
-					this.render()
-				}
-			}
-		},
-		creatorHeight: {
-			immediate: true,
-			handler() {
-				console.log(this.spriteDimensionWatcher)
-				if(this.spriteDimensionWatcher) {
-					this.recreateArray()
-					this.render()
-				}
-			}
+            spriteDimensionWatcher: true,
+            editDimensions: false,
+            editDimensionsWidth: 0,
+            editDimensionsHeight: 0
 		}
 	},
 	methods: {
@@ -108,26 +140,28 @@ Vue.component('sprite-creator', {
 		},
 		edit(index) {
 			this.editMode = true
-			this.editingIdx = index
+            this.editingIdx = index
+            
+            const sprite = this.sprites[index]
+            const spriteWidth = sprite.image.length
+            const spriteHeight = sprite.image[0].length
 
-			this.spriteDimensionWatcher = false
+            console.log(`edit sprite idx ${index}, dimensions: ${spriteWidth}x${spriteHeight}`)
 
-			this.$nextTick(() => {
-				this.creatorWidth = this.sprites[index].image.length
-				console.log('set width:', this.creatorWidth)
-				this.creatorHeight = this.sprites[index].image[0].length
-				console.log('set height:', this.creatorHeight)
-	
-				//this.spriteDimensionWatcher = true
-	
-				console.log('set image to', this.sprites[index].image)
-				this.image = this.sprites[index].image
-			})
+            this.creatorWidth = spriteWidth
+            this.creatorHeight = spriteHeight
+
+
+            console.log('set image to', this.sprites[index].image)
+            this.image = sprite.image
 			
 			this.newSpriteName = this.sprites[index].name
 
-			$('#sprite-creator-modal').modal('show')
-			this.render()
+            $('#sprite-creator-modal').modal('show')
+            $('#sprite-creator-modal').on('shown.bs.modal', () => {
+                this.render()
+            })
+			// this.render()
 		},
 		remove(index) {
 			Dialog.confirm('Are you sure?').then(confirm => {
@@ -156,7 +190,8 @@ Vue.component('sprite-creator', {
 			this.image = []
 		},
 		render() {
-			if(!this.$refs.spriteCreator) return
+            if(!this.$refs.spriteCreator) return
+            console.log('render call')
 			const ctx = this.$refs.spriteCreator.getContext('2d')
 				
 			const width = this.$refs.spriteCreator.width
@@ -235,6 +270,18 @@ Vue.component('sprite-creator', {
 
 			this.newSpriteName = ''
 			console.log(this.sprites)
-		}
+        },
+        toggleEditDimensions() {
+            this.editDimensions = !this.editDimensions
+            if(this.editDimensions) {
+                this.editDimensionsWidth = this.creatorWidth
+                this.editDimensionsHeight = this.creatorHeight
+            } else {
+                this.creatorWidth = this.editDimensionsWidth
+                this.creatorHeight = this.editDimensionsHeight
+                this.recreateArray()
+                this.render()
+            }
+        }
 	}
 })
