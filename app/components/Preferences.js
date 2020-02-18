@@ -1,5 +1,7 @@
 let COMHelper = require('../util/COMHelper')
 
+window.selectedPort = '';
+
 Vue.component('preferences', {
     template: `
     <div id="preferences-modal" class="modal" tabindex="-1" role="dialog">
@@ -14,8 +16,8 @@ Vue.component('preferences', {
                 <div class="modal-body">
                     <table><tr>
                     <h5>COM Port Selection</h5>
-                    <select id="COMPorts">
-                        <option v-for="port in ports" id="{{port.path}}" value="{{port.path}}">{{port.path}}</option>
+                    <select id="COMPorts" v-model="selectedPort">
+                        <option v-for="port in ports" :value="port.path">{{port.path}}</option>
                     </select></tr>
                     </table>
                 </div>
@@ -31,9 +33,13 @@ Vue.component('preferences', {
         }
     }, 
     watch: {
+        selectedPort: function(newPort) {
+            window.selectedPort = newPort;
+        },
         shown: function(newShown) {
             if(newShown) { 
                 $('#preferences-modal').modal('show')
+                this.refreshPorts()
             } else {
                 $('#preferences-modal').modal('hide')
             }

@@ -47,21 +47,28 @@ class ArduHelper {
         //});
     static setup() {
         var options = {cwd: '/bats/', shell: true}
-        let ls = process.spawn('cd bats && setup.bat', {}, options)//sets up basic files from arduinoIDE source files
+        let ls = process.spawn('setup.bat', {}, options)//sets up basic files from arduinoIDE source files
         //let ls = process.exec('setup.bat', options)
     }
     static verfiy() {
         var options = {cwd: '/bats/', shell: true}
         //put the text into the file (HelloWorld)
-
+        //var data = PLEASE PUT WHATEVER CALL TO MAKE HERE PLS
+        //==================================================================================================MARKER LOOK HERE PLEASE!
         FileHelper.write('arduino-cli/HelloWorld/HelloWorld.ino', data)
         //compile text
         let ls = process.spawn('verify.bat', {}, options)
     }
 
-    static upload(comport) {
-        var options = {cwd: '/bats/', shell: true}
-        let ls = process.spawn('upload.bat ' + comport, {comport}, options)
+    static upload(comPort) {
+        //get the global selectedPort value
+        var options = {cwd: '/bats/'}
+        let ls = process.exec('upload.bat ' + comPort, {}, function(err, stdout, stderr) { 
+            // Node.js will invoke this callback when process terminates.
+            console.log('stdout:' + stdout);
+            console.log('stderr:' + stderr);
+            console.log('err: ' + err);
+        })
         
 
     }

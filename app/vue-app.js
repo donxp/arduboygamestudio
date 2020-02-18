@@ -9,6 +9,7 @@ new Vue({
     data: {
         workspaceLoaded: false,
         showSpriteContainer: false,
+        selectedPort: '',
         sprites: [
             {
                 name: 'sprite1'

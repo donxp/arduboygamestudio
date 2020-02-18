@@ -1,7 +1,6 @@
 var { dialog } = require('electron').remote
 let ProjectManager = require('../util/ProjectManager.js')
 let AsyncFileHelper = require('../util/AsyncFileHelper.js')
-let Preferences = require('../components/Preferences.js')
 let ArduHelper = require('../util/ArduHelper.js');
 
 
@@ -14,8 +13,8 @@ Vue.component('project-actions', {
         <button class="btn btn-sm btn-primary" onClick="newProject()">New</button>
         <button class="btn btn-sm btn-primary" @click="openProject">Open</button>
         <button class="btn btn-sm btn-primary" @click="saveProject">Save</button>
-        <button class="btn btn-sm btn-primary" onClick="newProject()">Verify</button>
-        <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button>
+        <button class="btn btn-sm btn-primary" @click="verifyProject">Verify</button>
+        <button class="btn btn-sm btn-primary" @click="uploadProject">Upload</button>
     </div>
     `,
     methods: {
@@ -67,15 +66,16 @@ Vue.component('project-actions', {
             //take code and place it into ino file
             
             //Do the compilation command
-
+            console.log(window.selectedPort);
 
         },
         uploadProject: function() {
-            var comPort = Preferences.getPort();
-            if (comPort.path == '') {
+            var comPort = window.selectedPort
+            if (comPort == '') {
                 alert("Please select a Port in Preferences!");
+            } else {
+                ArduHelper.upload(comPort)
             }
-            ArduHelper.upload(comPort)
             //process for then uploading to board using set Port
             
         }
