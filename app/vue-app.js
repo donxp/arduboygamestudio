@@ -2,6 +2,7 @@ const { ipcRenderer } = require('electron')
 require('./app/components/Tabs.js')
 require('./app/components/ProjectActions.js')
 require('./app/components/Preferences.js')
+let ard = require('./app/util/ArduHelper.js')
 
 new Vue({
     el: '#app',
@@ -22,7 +23,7 @@ new Vue({
         window.workspace = Blockly.inject('blocklyDiv',
         {toolbox: document.getElementById('toolbox')});
         window.workspace.addChangeListener(window.updateCode)
-
+        ard.setup()
         this.workspaceLoaded = true
     },
     watch: {

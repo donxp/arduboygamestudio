@@ -1,11 +1,6 @@
 const serialport = require('serialport') //Module
 const SerialPort = serialport.SerialPort; //
 
-const board = {
-    name: 'sf-pro-micro'
-
-}
-
 class COMHelper {
 
     /**
