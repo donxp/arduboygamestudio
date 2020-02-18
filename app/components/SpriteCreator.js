@@ -71,32 +71,7 @@ Vue.component('sprite-creator', {
                         </div>
                     </div>
                 </div>
-				<!--<div class="row">
-					<div class="col-sm-4 d-flex align-items-center">
-						<input v-model="newSpriteName" type="text" class="form-control form-control-sm" placeholder="Name">
-					</div>
-					<div class="col-sm-8">
-                        <div class="row">
-                            <div class="col-sm-6">width</div>
-                            <div class="col-sm-6">height</div>
-                            <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        Width: {{ creatorWidth }}
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <input v-model="creatorWidth" min="8" max="64" type="range">
-                                    </div>
-                                </div>
-							</div>
-							<div class="col-sm-6">
-								Height: {{ creatorHeight }}
-								<input v-model="creatorHeight" min="8" step="8" max="64" type="range">
-							</div>
-						</div>
-					</div>
-				</div>-->
-				<canvas class="mt-3" ref="spriteCreator" width="766" height="766" @click="spriteCreatorCanvasClick($event)"></canvas>
+				<canvas class="mt-3" ref="spriteCreator" width="766" height="766" @click="spriteCreatorCanvasClick($event)" @mousedown="mousedown($event)" @mouseup="mouseup($event)" @mousemove="mousemove($event)"></canvas>
 				</div>
 				<div class="modal-footer">
 				<button type="button" class="btn btn-primary" @click="save" :disabled="newSpriteName.length < 3">Save</button>
@@ -120,7 +95,10 @@ Vue.component('sprite-creator', {
             spriteDimensionWatcher: true,
             editDimensions: false,
             editDimensionsWidth: 0,
-            editDimensionsHeight: 0
+            editDimensionsHeight: 0,
+            mouseDown: false,
+            lastRow: 0,
+            lastCol: 0
 		}
 	},
 	methods: {
@@ -247,15 +225,53 @@ Vue.component('sprite-creator', {
 						
 			const col = Math.ceil(x / (width / this.creatorWidth))
 			const row = Math.ceil(y / (height / this.creatorHeight))
-			this.handleSpriteCreatorGridClick(row, col)
-		},
+			// this.handleSpriteCreatorGridClick(row, col)
+        },
+        getClickPos(event) {
+            const canvas = this.$refs.spriteCreator
+			const canvasRect = canvas.getBoundingClientRect()
+			const width = canvas.width
+			const height = canvas.height
+			const x = event.clientX - canvasRect.left
+			const y = event.clientY - canvasRect.top
+						
+			const col = Math.ceil(x / (width / this.creatorWidth))
+            const row = Math.ceil(y / (height / this.creatorHeight))
+            return { col, row }
+        },
 		handleSpriteCreatorGridClick(row, col) {
 			// console.log('row: ' + row + ' col: ' + col)
 			this.image[col-1][row-1] = !this.image[col-1][row-1]
 			// console.log(this.image)
 			this.render()
-		},
+        },
+        mousedown(event) {
+            const pos = this.getClickPos(event)
+            this.lastRow = pos.row
+            this.lastCol = pos.col
+            this.enterNewCell(pos.row, pos.col)
+            this.mouseDown = true
+        },
+        mouseup(event) {
+            this.mouseDown = false
+            console.log('mup', event)
+        },
+        mousemove(event) {
+            if(!this.mouseDown) return
+            const pos = this.getClickPos(event)
+            if(this.lastRow != pos.row || this.lastCol != pos.col) {
+                this.lastRow = pos.row
+                this.lastCol = pos.col
+                this.enterNewCell(pos.row, pos.col)
+            }
+        },
+        enterNewCell(row, col) {
+            console.log(row + ', ' + col)
+            this.image[col-1][row-1] = !this.image[col-1][row-1]
+            this.render()
+        },
 		save() {
+            
 			if(this.editMode) {
 				this.sprites[this.editingIdx].name = this.newSpriteName
 				this.sprites[this.editingIdx].image = this.image
@@ -269,7 +285,7 @@ Vue.component('sprite-creator', {
 			$('#sprite-creator-modal').modal('hide')
 
 			this.newSpriteName = ''
-			console.log(this.sprites)
+            window.currentProject.sprites = this.sprites
         },
         toggleEditDimensions() {
             this.editDimensions = !this.editDimensions
