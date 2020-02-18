@@ -11,6 +11,8 @@
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"></script>
+    <!---  <script src="blockly_compressed.js"></script>
+      <script src="javascript_compressed.js"></script> -->
   </head>
   <body style="margin-top: 2px; margin-left: 2px;">
     <div id="app" class="container-fluid m-0 p-0">
@@ -19,7 +21,7 @@
           <!-- <button class="btn btn-sm btn-primary" onClick="newProject()">New</button>
           <button class="btn btn-sm btn-primary" onClick="loadProject()">Open</button>
           <button class="btn btn-sm btn-primary" onClick="saveProject()">Save</button>
-          <button class="btn btn-sm btn-primary" onClick="newProject()">Verify</button>
+          <button class="btn btn-sm btn-primary" onClick="newProject()">Ver</button>
           <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button> -->
           <project-actions @project-loaded="projectLoaded"></project-actions>
         </div>
@@ -40,15 +42,30 @@
         </category>
         <category name="Logic">
             <block type="logic_compare"></block>
+            <block type="checkforbuttonpress"></block>
+            <block type="incrementx"></block>
+            <block type="incrementy"></block>
+            <block type="is_colliding_with"></block>
+            <block type="gamestart"></block>
+            <block type="changexpos"></block>
+            <block type="changeypos"></block>
+            <block type="playnotes3"></block>
+            <block type="playnotes2"></block>
+            <block type="playnote"></block>
+            <block type="note"></block>
+            <block type="wait"></block>
+            
         </category>
         <category name="Math">
             <block type="math_number"></block>
             <block type="math_arithmetic"></block>
+            <block type="randomrange"></block>
         </category>
         <category name="Text">
             <block type="text"></block>
             <block type="text_print"></block>
             <block type="string_length"></block>
+            
         </category>
         <category name="Variables" custom="VARIABLE"></category>
       </xml>
@@ -78,7 +95,9 @@
       <!-- Fix blockly container hogging area -->
       <div style="margin-top: 45px;"></div>
       <textarea name="code" id="code" cols="50" rows="20"></textarea>
-
+      <textarea name="theP" id="theP" cols="50" rows="20"></textarea>
+      <button id="myBtn">Try it</button>
+      <p id="demo"></p>
       <div id="sprite-creator-modal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -109,9 +128,36 @@
         </div>
       </div>
     </div>
+
+    <button onclick="myFunction()">Click me</button>
+
+      <p id="demo2"></p>
+
+<script>
+function myFunction() {
+  Blockly.Arduino.showMeTheCode();
+}
+</script>
+    
+    <script>
+      document.getElementById("myBtn").addEventListener("click", function(){
+      document.getElementById("demo").innerHTML = "Hello World";
+      });
+      function myUpdateFunction(event) {
+       // var code = Blockly.JavaScript.workspaceToCode(workspace);
+      //  document.getElementById('textarea').value = code;
+    }
+    workspace.addChangeListener(myUpdateFunction);
+
+
+      //var code = Blockly.Arduino.workspaceToCode(workspace);
+    //  document.getElementById("demo").innerHTML = code;
+    </script>
+   
     <script src="./static/js/jquery.js"></script>
     <script src="./node_modules/vue/dist/vue.min.js"></script>
     <script src="./app/app.js"></script>
+    <script src="./app/blocks.js"></script>
     <script src="./app/vue-app.js"></script>
     <script src="./app/generators/arduino.js"></script>
     <script src="./app/generators/arduino/boards.js"></script>

@@ -343,3 +343,20 @@ Blockly.Arduino['math_random_int'] = function(block) {
 Blockly.Arduino['math_random_float'] = function(block) {
   return ['(rand() / RAND_MAX)', Blockly.Arduino.ORDER_UNARY_POSTFIX];
 };
+
+
+
+Blockly.Arduino['randomrange'] = function(block) {
+  var value_min = Blockly.Arduino.valueToCode(block, 'min', Blockly.Arduino.ORDER_ATOMIC);
+  var value_max = Blockly.Arduino.valueToCode(block, 'max', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  if(value_min == ""){
+    value_min = 0;
+  }
+  if(value_max == ""){
+    value_max = 0;
+  }
+  var code = 'randomRange(' + value_min + ',' + value_max + ')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Arduino.ORDER_NONE];
+};
