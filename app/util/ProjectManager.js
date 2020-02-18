@@ -2,6 +2,7 @@ const defaultProjectFileContents = '<files></files>'
 const parser = new DOMParser()
 const serializer = new XMLSerializer()
 let AsyncFileHelper = require('./AsyncFileHelper')
+const pif = require('./pixeldata')
 
 window.currentProject = {
     tab: 'main',
@@ -11,7 +12,8 @@ window.currentProject = {
             name: 'main',
             content: null
         }
-    ]
+    ],
+    sprites: []
 }
 
 class ProjectManager {
@@ -140,6 +142,49 @@ class ProjectManager {
         console.log('serialized:', serialized)
         return AsyncFileHelper.write(path, serialized)
     }
+
+    static generateSpriteArray() {
+        const sprites = window.currentProject.sprites
+        const resultSprites = []
+        for(let i = 0; i < sprites.length; i++) {
+            const matrix = ProjectManager.rotateMatrix(sprites[i].image)
+            const lines = [
+                // `! sprite ${sprites[i].image.length}x${sprites[i].image[0].length}`
+            ]
+            for(let row = 0; row < matrix.length; row++) {
+                lines.push(matrix[row].map(p => p ? '#' : '.').join(''))
+            }
+            console.log(lines)
+            resultSprites.push({
+                name: sprites[i].name,
+                code: (window.PixelData(lines.join('\n'))).c()
+            })
+        }
+        return resultSprites
+        // const test = [
+        //     '.........',
+        //     '..#...#..',
+        //     '...#.#...',
+        //     '.#######.',
+        //     '##.###.##',
+        //     '#########',
+        //     '#.#.#.#.#',
+        //     '.........'
+        // ]
+        // const str = test.join('\n')
+        // const a = window.PixelData(str)
+        // console.log(a)
+    }
+
+    static rotateMatrix(matrix) {
+        let result = []
+        for(let i = 0; i < matrix[0].length; i++) {
+            let row = matrix.map(e => e[i])
+            result.push(row)
+        }
+        return result
+    }
+
 }
 
 module.exports = ProjectManager

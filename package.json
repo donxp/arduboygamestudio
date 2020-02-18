@@ -29,6 +29,7 @@
     "google-closure-library": "^20191027.0.1",
     "jquery": "^3.4.1",
     "serialport": "^8.0.6",
+    "pif": "^0.1.1",
     "vue": "^2.6.10"
   }
 }

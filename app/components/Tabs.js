@@ -21,6 +21,11 @@ Vue.component('tabs', {
 			currentTab: ''
 		}
 	},
+	computed: {
+		currentTab: function() {
+			return window.currentProject.tab
+		}
+	},
 	mounted: function() {
 		window.workspace.clear()
 		this._updateTabs()
@@ -28,7 +33,6 @@ Vue.component('tabs', {
 	},
 	methods: {
 		switchTab: function(tab) {
-			// console.log('switch tab to', tab)
 			ProjectManager.switchToTab(tab)
 			this._updateCurrentTab()
 		},
