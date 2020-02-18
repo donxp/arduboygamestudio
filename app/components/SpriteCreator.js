@@ -225,7 +225,6 @@ Vue.component('sprite-creator', {
 						
 			const col = Math.ceil(x / (width / this.creatorWidth))
 			const row = Math.ceil(y / (height / this.creatorHeight))
-			// this.handleSpriteCreatorGridClick(row, col)
         },
         getClickPos(event) {
             const canvas = this.$refs.spriteCreator
@@ -240,9 +239,7 @@ Vue.component('sprite-creator', {
             return { col, row }
         },
 		handleSpriteCreatorGridClick(row, col) {
-			// console.log('row: ' + row + ' col: ' + col)
 			this.image[col-1][row-1] = !this.image[col-1][row-1]
-			// console.log(this.image)
 			this.render()
         },
         mousedown(event) {
@@ -254,7 +251,6 @@ Vue.component('sprite-creator', {
         },
         mouseup(event) {
             this.mouseDown = false
-            console.log('mup', event)
         },
         mousemove(event) {
             if(!this.mouseDown) return
