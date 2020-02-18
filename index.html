@@ -24,6 +24,9 @@
           <button class="btn btn-sm btn-primary" onClick="newProject()">Ver</button>
           <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button> -->
           <project-actions @project-loaded="projectLoaded"></project-actions>
+          
+
+          <button @click="showPreferences">Show pref</button>
         </div>
         <div>
           <button class="btn btn-sm btn-warning" @click="toggleShowSpriteContainer">Sprites</button>
@@ -35,6 +38,11 @@
         <div class="tabadd" id="tabAddition">+</div>
       </div> -->
       <tabs ref="tabs" v-if="workspaceLoaded"></tabs r>
+
+      <!-- Preferences opens-->
+      <preferences :shown="preferencesModal" v-if="workspaceLoaded"></preferences>
+      
+
       <xml id="toolbox" style="display: none">
         <category name="Control">
             <block type="controls_if"></block>
@@ -127,6 +135,7 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <button onclick="myFunction()">Click me</button>

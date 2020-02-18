@@ -1,12 +1,15 @@
 const { ipcRenderer } = require('electron')
 require('./app/components/Tabs.js')
 require('./app/components/ProjectActions.js')
+require('./app/components/Preferences.js')
+let ard = require('./app/util/ArduHelper.js')
 
 new Vue({
     el: '#app',
     data: {
         workspaceLoaded: false,
         showSpriteContainer: false,
+        selectedPort: '',
         sprites: [
             {
                 name: 'sprite1'
@@ -14,13 +17,14 @@ new Vue({
         ],
         spriteCreatorWidth: 8,
         spriteCreatorHeight: 8,
-        spriteCreatorImage: []
+        spriteCreatorImage: [],
+        preferencesModal: false
     },
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',
         {toolbox: document.getElementById('toolbox')});
         window.workspace.addChangeListener(window.updateCode)
-
+        ard.setup()
         this.workspaceLoaded = true
     },
     watch: {
@@ -32,6 +36,9 @@ new Vue({
         }
     },
     methods: {
+        showPreferences() {
+            this.preferencesModal = true
+        },
         projectLoaded() {
             console.log('project loaded')
             this.$refs.tabs._updateTabs()
