@@ -25,7 +25,6 @@ Vue.component('preferences', {
         </div>
     </div>
     `,//makes the template for page
-    props: ['shown'],
     data: function() {
         return {
             ports: [],
@@ -35,14 +34,6 @@ Vue.component('preferences', {
     watch: {
         selectedPort: function(newPort) {
             window.selectedPort = newPort;
-        },
-        shown: function(newShown) {
-            if(newShown) { 
-                $('#preferences-modal').modal('show')
-                this.refreshPorts()
-            } else {
-                $('#preferences-modal').modal('hide')
-            }
         }
     },
     mounted: function() {
@@ -61,6 +52,9 @@ Vue.component('preferences', {
         },
         getPort: function() {
             return selectedPort;
+        },
+        showModal() {
+            $('#preferences-modal').modal('show')
         }
     }
 

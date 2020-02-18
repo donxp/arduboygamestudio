@@ -40,7 +40,7 @@
       <tabs ref="tabs" v-if="workspaceLoaded"></tabs r>
 
       <!-- Preferences opens-->
-      <preferences :shown="preferencesModal" v-if="workspaceLoaded"></preferences>
+      <preferences ref="preferencesModal" v-if="workspaceLoaded"></preferences>
       
 
       <xml id="toolbox" style="display: none">

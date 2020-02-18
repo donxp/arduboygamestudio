@@ -37,7 +37,7 @@ new Vue({
     },
     methods: {
         showPreferences() {
-            this.preferencesModal = true
+            this.$refs.preferencesModal.showModal()
         },
         projectLoaded() {
             console.log('project loaded')
@@ -50,11 +50,6 @@ new Vue({
             })
         },
         addSprite() {
-            // this.sprites.push({
-            //     name: 'new sprite'
-            // })
-            // ipcRenderer.send('open_add_sprite_dialog')
-            // console.log(res)
             $('#sprite-creator-modal').modal('show')
             this.spriteCreatorDrawGrid()
         },

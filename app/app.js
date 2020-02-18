@@ -392,61 +392,6 @@ function confirmLeave()
     return true;
 }
 
-//Update - Use Electron to access the File System
-//Save a file
-/** DEPRECATED by tsdh2
-function saveProject()
-{
-
-    var xml = Blockly.Xml.workspaceToDom(workspace);
-    var xml_text = Blockly.Xml.domToText(xml);
-    alert(xml_text);
-    var xmlDoc = document.implementation.createDocument(null, "project");
-    var node = xmlDoc.createElement("file");
-    node.innerHTML = xml_text;
-    FS.writeFile(filename,node);
-}
-*/
-
-//Works for Singular Files
-//Loads Project into workspace
-/*
-var loadProject = function(event) {
-    dialog.showOpenDialog(filename => {
-        if (filename === undefined) {
-            console.log("No File selected");
-            return;
-        }
-        FS.readFile(filename[0], 'utf-8', (err, data) => {
-            if (err) {
-                console.log("something went wrong: " + err.message)
-                return;
-            }
-            var xml = Blockly.Xml.textToDom(data);
-            Blockly.Xml.domToWorkspace(xml, workspace)
-        })
-    })
-    
-}
-*/
-
-//Load an existing project
-//depreciated by tsdh
-/**
-function loadProject()
-{
-    document.getElementById('fileChooser').get
-    var doc = document.implementation.createDocument(file, 'xml', null)
-    var files = doc.getElemmentByTagName('file')
-    //Used to load up each tab of project
-    for (i= 0; i < files.length; i++) {
-        var xml = Blockly.Xml.textToDom(files[i])
-        Blockly.Xml.domToWorkspace(xml, workspace)
-    }
-
-}
-*/
-
 // Overwrite default blockly behaviour to support async ui.
 Blockly.prompt = (message, b, callback) => {
     Dialogs.prompt(message, ok => {
@@ -458,5 +403,3 @@ function updateCode() {
     var code = Blockly.Arduino.workspaceToCode(workspace)
     document.getElementById('code').value = code
 }
-
-// workspace.addChangeListener(updateCode)
