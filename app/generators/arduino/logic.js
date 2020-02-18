@@ -191,7 +191,7 @@ Blockly.Arduino['is_colliding_with'] = function(block) {
 Blockly.Arduino['gamestart'] = function(block) {
   var statements_name = Blockly.Arduino.statementToCode(block, 'NAME');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'if(inital){\ninitial = false;\n'+ statements_name +'\n};\n';
+  var code = 'if(initial){\ninitial = false;\n'+ statements_name +'\n};\n';
   return code;
 };
 

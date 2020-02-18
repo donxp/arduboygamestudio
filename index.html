@@ -21,7 +21,7 @@
           <!-- <button class="btn btn-sm btn-primary" onClick="newProject()">New</button>
           <button class="btn btn-sm btn-primary" onClick="loadProject()">Open</button>
           <button class="btn btn-sm btn-primary" onClick="saveProject()">Save</button>
-          <button class="btn btn-sm btn-primary" onClick="newProject()">Verify</button>
+          <button class="btn btn-sm btn-primary" onClick="newProject()">Ver</button>
           <button class="btn btn-sm btn-primary" onClick="newProject()">Upload</button> -->
           <project-actions @project-loaded="projectLoaded"></project-actions>
         </div>
@@ -95,7 +95,9 @@
       <!-- Fix blockly container hogging area -->
       <div style="margin-top: 45px;"></div>
       <textarea name="code" id="code" cols="50" rows="20"></textarea>
-
+      <textarea name="theP" id="theP" cols="50" rows="20"></textarea>
+      <button id="myBtn">Try it</button>
+      <p id="demo"></p>
       <div id="sprite-creator-modal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -126,12 +128,24 @@
         </div>
       </div>
     </div>
-   <!--- <p id="demo"></p>-->
 
+    <button onclick="myFunction()">Click me</button>
+
+      <p id="demo2"></p>
+
+<script>
+function myFunction() {
+  Blockly.Arduino.showMeTheCode();
+}
+</script>
+    
     <script>
+      document.getElementById("myBtn").addEventListener("click", function(){
+      document.getElementById("demo").innerHTML = "Hello World";
+      });
       function myUpdateFunction(event) {
-        var code = Blockly.JavaScript.workspaceToCode(workspace);
-        document.getElementById('textarea').value = code;
+       // var code = Blockly.JavaScript.workspaceToCode(workspace);
+      //  document.getElementById('textarea').value = code;
     }
     workspace.addChangeListener(myUpdateFunction);
 

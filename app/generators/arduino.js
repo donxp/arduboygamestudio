@@ -1,7 +1,12 @@
+
+
+let ProjectManager = require('./app/util/ProjectManager.js')
+
 /**
  * @license Licensed under the Apache License, Version 2.0 (the "License"):
  *          http://www.apache.org/licenses/LICENSE-2.0
  */
+
 
 /**
  * Based on work of Fred Lin (gasolin@gmail.com) for Blocklyduino.
@@ -192,102 +197,209 @@ Blockly.Arduino.finish = function(code) {
 
   var codeToShow = code.replace(/\n/g, '\n  ');
 
-  var wrapperCode = '#include <Arduboy2.h> +\n' + 
-                    '#include <ArdBitmap.h>\n' +
-                    '#include <ArduboyTones.h>\n' +
-                    '#define ARDBITMAP_SBUF arduboy.getBuffer()\n' +
-                    'Arduboy2 arduboy;\n' +
-                    'ArduboyTones sound(arduboy.audio.enabled);\n' +
-                    'const unsigned char *spriteArray[] = {\n' +
-                    '\n' +
-                    '};\n' +
-                    '\n' +
-                    'int randomRange(int lower, int upper){\n' +
-                    'return (rand() % (upper - lower)) + lower;\n' +
-                    '}\n' +
-                    '\n' +
-                    'class GameObject {\n' +
-                    'public:\n' +
-                    'int xPos;\n' +
-                    'int yPos;\n' +
-                    'int spriteIndex;\n' +
-                    'uint8_t spriteHeight = 8, spriteWidth = 8;\n' +
-                    'Rect mainRect;\n' +
-                    'GameObject(){}\n' +
-                    'GameObject(int x,int y,int mySpriteIndex){\n' +
-                    'xPos = x;\n' +
-                    'yPos = y;\n' +
-                    'spriteIndex = mySpriteIndex;\n' +
-                    'spriteWidth = spriteArray[mySpriteIndex][0];\n' +
-                    'spriteHeight = spriteArray[mySpriteIndex][1];\n' +
-                    'mainRect.x = xPos;\n' +
-                    'mainRect.y = yPos;\n' +
-                    'mainRect.width = spriteWidth;\n' +
-                    'mainRect.height = spriteHeight;\n' +
-                    'drawSprite();\n' +
-                    '}\n' +
-                    '\n' +
-                    'virtual void mainFunction(){\n' +
-                    '\n' +
-                    '}\n' +
-                    '\n' +
-                    'void drawSprite(){\n' +
-                    'Sprites::drawOverwrite(xPos, yPos, spriteArray[spriteIndex], 0);\n' +
-                    '}\n' +
-                    '};\n' +
-                    '\n' +
-                    generateClass("firstObject",code) + 
-                    '\n' +
-                    '\n' +
-                    '\n' +
-                    '\n' +
-                    '\n' +
-                    '\n' + 
-                    '\n' + 
-                    'void setup() {\n' + 
-                    'arduboy.begin();\n' + 
-                    'arduboy.setFrameRate(40);\n' + 
-                    'arduboy.initRandomSeed();\n' + 
-                    'gameObjectCreation();\n' + 
-                    '}\n' + 
-                    'const int arraySize = 2;\n' + 
-                    'GameObject *allObjects[arraySize];\n' + 
-                    '\n' + 
-                    'void gameObjectCreation(){\n' + 
-                    '\n' + 
-                    '}\n' + 
-                    '\n' + 
-                    'void loop() {\n' + 
-                    'if (!(arduboy.nextFrame())){\n' + 
-                    'return;\n' + 
-                    '}\n' +
-                    'arduboy.clear();\n' + 
-                    'for (int i = 0; i < 2; i++){ \n' + 
-                    'allObjects[i]->mainFunction();\n' + 
-                    '}\n' + 
-                    'arduboy.display();\n' + 
-                    '} \n' + 
-                    '\n' + 
-                    '\n' + 
-                    '\n' + 
-                    '\n' + 
-                    '\n' 
-                    ;
+ 
 
  // return allDefs + setup + loop;
- return allDefs + codeToShow;
+ //return Blockly.Arduino.generateAllCode();
+ 
+ //Blockly.Arduino.showMeTheMoney();
+ return codeToShow;
 };
 
-var gameobjectCount;
+
+Blockly.Arduino.showMeTheCode = function showMe(){
+  document.getElementById("theP").innerHTML = Blockly.Arduino.generateAllCode();
+}
+
+Blockly.Arduino.generateAllCode = function generateAllCode1(){
+    var fullCode = includes + generateSpriteArrays() +
+                   outOfClassMethods +
+                   gameobjectClass +
+                   generateArrayDeclaration() +
+                   generateSubclasses() +
+                   setupVoid + 
+                   generateGameObjectCreation() + 
+                   loopVoid;
+
+                   
+
+  return fullCode;
+}
+
+var includes = '#include <Arduboy2.h>\n' +
+'Arduboy2 arduboy;\n' +
+'#define ARDBITMAP_SBUF arduboy.getBuffer()\n' +
+'#include <ArdBitmap.h>\n' +
+'#include <ArduboyTones.h>\n' +
+'ArduboyTones sound(arduboy.audio.enabled);\n';
+
+function generateSpriteArrays(){
+  var spriteArrays = 'const unsigned char RABBIT[] PROGMEM = {\n' +
+    '8, 8,\n' +
+    '0x00, 0x78, 0x7E, 0x78, 0x78, 0x7E, 0x78, 0x00,\n' +
+    '};' +
+    'const unsigned char PROGMEM PLAYER[] = {\n' +
+    '16, 16,\n' +
+    '0xfe, 0x01, 0x3d, 0x25, 0x25, 0x3d, 0x01, 0x01, 0xc1, 0x01, 0x3d, 0x25, 0x25, 0x3d, 0x01, 0xfe,\n' +
+    '0x7f, 0x80, 0x9c, 0xbc, 0xb0, 0xb0, 0xb2, 0xb2, 0xb3, 0xb0, 0xb0, 0xb0, 0xbc, 0x9c, 0x80, 0x7f,\n' +
+    '};\n\n';
+
+    var arrayWithNames = 'const unsigned char *spriteArray[] = {\n' +
+      'RABBIT,\n' +
+      'PLAYER,\n' +
+      '};\n';
+
+
+  return spriteArrays + arrayWithNames;
+}
+
+var outOfClassMethods = 'int randomRange(int lower, int upper){\n' + 
+                        'return (rand() % (upper - lower)) + lower;' +
+                        '}\n' +
+                        '\n'  +
+                        'void wait(int milis){\n'  +
+                        'delay(milis);\n'  +
+                        '}\n'  +
+                        '\n';
+  
+
+var gameobjectClass = 'class GameObject {\n' + 
+                      'public:\n'+
+                      'int xPos;\n'+         
+                      'int yPos;\n'+         
+                      'int spriteIndex;\n'+         
+                      'int spriteHeight = 8, spriteWidth = 8;\n'+         
+                      'bool initial = true;\n'+
+                      'int instanceNumber;\n'+ 
+                      'Rect mainRect;\n'+         
+                      'GameObject(){}\n'+         
+                      ' GameObject(int x,int y,int mySpriteIndex,int sprH,int sprW,int instNumber){\n'+         
+                      'xPos = x;\n'+         
+                      'yPos = y;\n'+
+                      'instanceNumber = instNumber;\n' + 
+                      'spriteIndex = mySpriteIndex;\n'+         
+                      'spriteWidth = sprW;\n'+         
+                      'spriteHeight = sprH;\n'+         
+                      'mainRect.x = xPos;\n'+         
+                      'mainRect.y = yPos;\n'+         
+                      'mainRect.width = spriteWidth;\n'+         
+                      'mainRect.height = spriteHeight;\n'+         
+                      'changePos(x,y);\n'+         
+                      'drawSprite();\n'+         
+                      '}\n'+         
+                      'boolean checkForCollision(GameObject* other){\n'+         
+                      'if (arduboy.collide(mainRect, other->getRect())) {\n'+         
+                      'return true;\n'+
+                      ' }else{\n'+
+                      'return false;\n'+   
+                      '}\n'+   
+                      '}\n'+   
+                      '\n'+   
+                      'void goToRandomPos(){\n'+   
+                      'changePos(randomRange(0,WIDTH),randomRange(0,HEIGHT));\n'+   
+                      '}\n'+   
+                      'Rect getRect(){\n'+   
+                      ' return mainRect;\n'+   
+                      '}\n'+   
+                      ' int getSpriteHeight(){\n'+   
+                      'return spriteHeight;\n'+   
+                      '}\n'+  
+                      ' int getSpriteWidth(){\n'+  
+                      'return spriteWidth;\n'+  
+                      '}\n'+    
+                      'void changePos(int newX, int newY) {\n'+  
+                      'xPos = newX;\n'+  
+                      'yPos = newY;\n'+  
+                      'mainRect.x = xPos;\n'+  
+                      'mainRect.y = yPos;\n'+  
+                      '}\n'+  
+                      'void changeXByAmount(int incrementAmount) {  \n'+  
+                      'xPos = xPos + incrementAmount;\n'+  
+                      'mainRect.x = xPos;\n'+
+                      '}\n'+    
+                      ' void changeYByAmount(int incrementAmount) {\n'+  
+                      'yPos = yPos + incrementAmount;\n'+  
+                      'mainRect.y = yPos;\n'+  
+                      '}\n'+
+                      'void changeXpos(int newX) {\n' +
+                        'xPos = newX;\n' +
+                        'mainRect.x = newX;\n' +
+                        '}\n' +
+                        'void changeYpos(int newY) {\n' +
+                        'yPos = newY;\n' +
+                        'mainRect.y = newY;\n' +
+                        '}\n' +
+                      'virtual void mainFunction(){\n'+  
+                      '\n'+  
+                      '}\n'+
+                      'void drawSprite(){\n'+  
+                      'Sprites::drawOverwrite(xPos, yPos, spriteArray[spriteIndex], 0);\n'+  
+                      '}\n'+ 
+                      '};\n';
+
+function generateArrayDeclaration(){
+    var myString = 'const int arraySize = ' + getAmountOfObjects() + ';\n' +
+    'GameObject *allObjects[arraySize];\n';
+
+    return myString;
+}
+//returns the amount of objects for all tabs combined
+function getAmountOfObjects(){
+  return window.currentProject.files.length;
+}
+//returns the amount of tabs
+function getAmountOfTabs(){
+  return window.currentProject.files.length;
+}
+
+
+function generateSubclasses(){
+    var myString = '';
+    for(var i = 0; i < getAmountOfTabs(); i++){
+        myString =  myString + generateClass("mySubClass" + i,getTabCodeByNumber(i));
+    }
+
+    return myString;
+}
+
+var sampleCode1 = 'if(initial){\n' +
+                'initial = false;\n' +
+                'changeXpos(30);\n' +
+                'changeYpos(30);\n' +
+                '};\n' +
+            'if (checkForCollision(allObjects[1])) {\n' +
+            'changeXByAmount(10);\n' +
+                '}\n';
+
+var sampleCode2 = 'if(initial){\n' +
+'initial = false;\n' +
+'changeXpos(50);\n' +
+'changeYpos(30);\n' +
+'};\n' +
+'\n' +
+'  if (arduboy.pressed(LEFT_BUTTON)) {\n' +
+'changeXByAmount(-1);\n' +
+'}\n' +
+' if (arduboy.pressed(RIGHT_BUTTON)) {\n' +
+'changeXByAmount(1);\n' +
+'}\n';
+
+//getTabCodeByIndex(2) would return the second tab's code
+function getTabCodeByNumber(tabNumber){
+  const tabObj = window.currentProject.files[tabNumber];
+  ProjectManager.switchToTab(tabObj.name);
+  
+  return Blockly.Arduino.workspaceToCode(window.workspace);
+  
+}
+
 function generateClass(name,code) {
   var newGameObjectCode = '\nclass ' + name + ' : public GameObject {\n' +
                           'public:\n' +
-                          '' + name + '(){}\n' +
-                          '' + name + '(int x, int y, int spr){\n' +
-                          'GameObject(x,y,spr);\n' +
-                          'changePos(x,y);\n' +
-                          'mainRect.height = spriteHeight;\n' +
-                          'mainRect.width = spriteWidth;\n' +
+                          name + '(){}\n' +
+                          name + '(int x, int y, int spr,int sprH,int sprW,int inst):\n' +
+                          'GameObject(x,y,spr,sprH,sprW,inst){\n' +
+                          'arduboy.print("");\n' +
                           '}\n' +
                           'void mainFunction() override {\n' +
                           'drawSprite();\n' +
@@ -298,6 +410,55 @@ function generateClass(name,code) {
                           '};\n';
   return newGameObjectCode;   
 }
+
+var setupVoid = 'void setup() {\n' +
+  'arduboy.begin();\n' +
+  'arduboy.setFrameRate(20);\n' +
+  'arduboy.initRandomSeed();\n' +
+  'gameObjectCreation();\n}\n\n';
+
+
+function generateGameObjectCreation(){
+    var theString = 'void gameObjectCreation(){\n';
+    var counter = 0;
+    for(var i = 0; i < getAmountOfTabs();i++){
+      for(var u = 0; u < getAmountOfObjectsInTab(i); u++){
+        theString = theString + 'mySubClass' + i + ' objName' + i + '_' + u + '(0,0,' + getSpriteIndexAndDimensionsForTab(i) + ',' + (getAmountOfObjectsInTab(i) - u) + ');\n';
+        theString = theString + 'allObjects['+ counter +'] = &objName' + i + '_' + u + ';\n' 
+        counter = counter + 1;
+      }
+    }
+
+    return theString + '}\n';
+}
+
+function getAmountOfObjectsInTab(tabNumber){
+  return 1; 
+}
+
+function getSpriteIndexAndDimensionsForTab(tabNumber){
+  return '1,16,16';   //spriteNumber, sprite height, sprite width
+}
+
+var loopVoid = 'void loop() {\n'+
+      'if (!(arduboy.nextFrame())){\n'+
+      'return;\n'+
+      '}\n'+
+      'arduboy.clear(); //clears the screen\n'+
+      'for (int i = 0; i < arraySize; i++){ \n'+
+      'allObjects[i]->mainFunction();\n'+
+      '}\n'+
+      'arduboy.display();\n'+
+      '}\n';
+
+
+
+
+
+
+
+
+
 
 /**
  * Adds a string of "include" code to be added to the sketch.
