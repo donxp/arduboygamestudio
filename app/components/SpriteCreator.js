@@ -75,6 +75,7 @@ Vue.component('sprite-creator', {
 				</div>
 				<div class="modal-footer">
 				<button type="button" class="btn btn-primary" @click="save" :disabled="newSpriteName.length < 3">Save</button>
+				<button type="button" class="btn btn-warning" @click="clear">Clear</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
@@ -294,6 +295,11 @@ Vue.component('sprite-creator', {
                 this.recreateArray()
                 this.render()
             }
-        }
+		},
+		clear() {
+			this.resetImage()
+			this.recreateArray()
+			this.render()
+		}
 	}
 })
