@@ -65,8 +65,7 @@ Vue.component('project-actions', {
         verifyProject: function() {
             //take code and place it into ino file
             
-            //Do the compilation command
-            console.log(window.selectedPort);
+            ArduHelper.verify(Blockly.Arduino.generateAllCode());
 
         },
         uploadProject: function() {

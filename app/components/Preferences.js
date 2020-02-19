@@ -43,7 +43,8 @@ Vue.component('preferences', {
         refreshPorts: function() {
             COMHelper.checkForPorts().then(res => {
                 this.ports = res
-                console.log(this.ports);
+                //prints out the found com ports
+                //console.log(this.ports);
             })
             
         },

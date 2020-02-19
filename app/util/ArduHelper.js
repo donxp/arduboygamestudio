@@ -50,10 +50,9 @@ class ArduHelper {
         let ls = process.spawn('setup.bat', {}, options)//sets up basic files from arduinoIDE source files
         //let ls = process.exec('setup.bat', options)
     }
-    static verfiy() {
+    static verify(data) {
         var options = {cwd: '/bats/', shell: true}
         //put the text into the file (HelloWorld)
-        //var data = PLEASE PUT WHATEVER CALL TO MAKE HERE PLS
         //==================================================================================================MARKER LOOK HERE PLEASE!
         FileHelper.write('arduino-cli/HelloWorld/HelloWorld.ino', data)
         //compile text
@@ -64,10 +63,10 @@ class ArduHelper {
         //get the global selectedPort value
         var options = {cwd: '/bats/'}
         let ls = process.exec('upload.bat ' + comPort, {}, function(err, stdout, stderr) { 
-            // Node.js will invoke this callback when process terminates.
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
+            
         })
         
 
