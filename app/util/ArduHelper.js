@@ -66,6 +66,9 @@ class ArduHelper {
             if (code==0) {
                 alert("Compiled with no errors!");
             }
+            else {
+                alert("There was errors when compiling!");
+            }
             console.log(`Compilation finished with code:  ${code}`);
           });
     }
@@ -78,7 +81,13 @@ class ArduHelper {
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
         })
-        ls.on('exit', (code) => {
+        ls.on('close', (code) => {
+            if (code != 0) {
+                alert("There was a Problem Uploading!")
+            }
+            else {
+                alert("Successfully uploaded to the Arduboy!");
+            }
             console.log(`Uploading finished with code:  ${code}`);
           });
 

@@ -69,7 +69,7 @@ Vue.component('project-actions', {
 
         },
         uploadProject: function() {
-            console.log("Verifying in PA");
+            console.log("Uploading in PA");
             var comPort = window.selectedPort;
             if (comPort == '') {
                 alert("Please select a Port in Preferences!");
