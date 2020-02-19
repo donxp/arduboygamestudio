@@ -54,9 +54,20 @@ class ArduHelper {
         var options = {cwd: '/bats/', shell: true}
         //put the text into the file (HelloWorld)
         //==================================================================================================MARKER LOOK HERE PLEASE!
+        console.log("Write to HelloWorld.ino");
         FileHelper.write('arduino-cli/HelloWorld/HelloWorld.ino', data)
         //compile text
+        console.log("Starting Compile")
         let ls = process.spawn('verify.bat', {}, options)
+        ls.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+          });
+        ls.on('close', (code) => {
+            if (code==0) {
+                alert("Compiled with no errors!");
+            }
+            console.log(`Compilation finished with code:  ${code}`);
+          });
     }
 
     static upload(comPort) {
@@ -66,9 +77,10 @@ class ArduHelper {
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
-            
         })
-        
+        ls.on('exit', (code) => {
+            console.log(`Uploading finished with code:  ${code}`);
+          });
 
     }
 }

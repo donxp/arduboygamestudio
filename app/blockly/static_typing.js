@@ -43,7 +43,7 @@ Blockly.StaticTyping.prototype.collectVarsWithTypes = function(workspace) {
     //blocks[i].select();  // for step debugging, highlights block in workspace
     // Each statement block iterates through its input children collecting vars
     var blockVarAndTypes = Blockly.StaticTyping.getBlockVars(blocks[i]);
-    console.log(blockVarAndTypes)
+    //console.log(blockVarAndTypes)
     for (var j = 0; j < blockVarAndTypes.length; j++) {
       var variableName = blockVarAndTypes[j][0];
       var variableType = blockVarAndTypes[j][1];
@@ -135,7 +135,7 @@ Blockly.StaticTyping.getAllStatementsOrdered = function(workspace) {
   *     block variable as the first item pair and variable type as the second.
   */
 Blockly.StaticTyping.getBlockVars = function(block) {
-    console.log('get block vars:', block)
+    //console.log('get block vars:', block)
   var blockVarAndTypes = [];
   var getVars = block.getVars;
   if (getVars) {
