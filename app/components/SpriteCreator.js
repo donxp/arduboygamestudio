@@ -71,12 +71,12 @@ Vue.component('sprite-creator', {
                         </div>
                     </div>
                 </div>
-				<canvas class="mt-3" ref="spriteCreator" width="766" height="766" @click="spriteCreatorCanvasClick($event)" @mousedown="mousedown($event)" @mouseup="mouseup($event)" @mousemove="mousemove($event)"></canvas>
+				<canvas class="mt-3" ref="spriteCreator" width="766" height="766" @mousedown="mousedown($event)" @mouseup="mouseup($event)" @mousemove="mousemove($event)"></canvas>
 				</div>
 				<div class="modal-footer">
-				<button type="button" class="btn btn-primary" @click="save" :disabled="newSpriteName.length < 3">Save</button>
-				<button type="button" class="btn btn-warning" @click="clear">Clear</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-primary" @click="save" :disabled="newSpriteName.length < 3">Save</button>
+					<button type="button" class="btn btn-warning" @click="clear">Clear</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 				</div>
 			</div>
 			</div>
@@ -125,13 +125,9 @@ Vue.component('sprite-creator', {
             const spriteWidth = sprite.image.length
             const spriteHeight = sprite.image[0].length
 
-            console.log(`edit sprite idx ${index}, dimensions: ${spriteWidth}x${spriteHeight}`)
-
             this.creatorWidth = spriteWidth
             this.creatorHeight = spriteHeight
 
-
-            console.log('set image to', this.sprites[index].image)
             this.image = sprite.image
 			
 			this.newSpriteName = this.sprites[index].name
@@ -140,7 +136,6 @@ Vue.component('sprite-creator', {
             $('#sprite-creator-modal').on('shown.bs.modal', () => {
                 this.render()
             })
-			// this.render()
 		},
 		remove(index) {
 			Dialog.confirm('Are you sure?').then(confirm => {
@@ -155,7 +150,6 @@ Vue.component('sprite-creator', {
 			return true
 		},
 		recreateArray() {
-			console.log('array recreated')
 			// create colums
 			for(let i = 0; i < this.creatorWidth; i++) {
 				this.image[i] = []
@@ -163,14 +157,12 @@ Vue.component('sprite-creator', {
 					this.image[i][k] = false
 				}
 			}
-			// console.log(this.image)
 		},
 		resetImage() {
 			this.image = []
 		},
 		render() {
             if(!this.$refs.spriteCreator) return
-            console.log('render call')
 			const ctx = this.$refs.spriteCreator.getContext('2d')
 				
 			const width = this.$refs.spriteCreator.width
@@ -216,17 +208,6 @@ Vue.component('sprite-creator', {
 				}
 			}
 		},
-		spriteCreatorCanvasClick(event) {
-			const canvas = this.$refs.spriteCreator
-			const canvasRect = canvas.getBoundingClientRect()
-			const width = canvas.width
-			const height = canvas.height
-			const x = event.clientX - canvasRect.left
-			const y = event.clientY - canvasRect.top
-						
-			const col = Math.ceil(x / (width / this.creatorWidth))
-			const row = Math.ceil(y / (height / this.creatorHeight))
-        },
         getClickPos(event) {
             const canvas = this.$refs.spriteCreator
 			const canvasRect = canvas.getBoundingClientRect()
@@ -263,7 +244,6 @@ Vue.component('sprite-creator', {
             }
         },
         enterNewCell(row, col) {
-            console.log(row + ', ' + col)
             this.image[col-1][row-1] = !this.image[col-1][row-1]
             this.render()
         },
