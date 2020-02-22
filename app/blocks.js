@@ -1,3 +1,7 @@
+let ProjectManager = require('./util/ProjectManager.js')
+
+
+
 module.exports = function(blocks) {
   blocks['string_length'] = {
       init: function() {
@@ -311,6 +315,43 @@ module.exports = function(blocks) {
      this.setHelpUrl("");
       }
     };
+
+
+    Blockly.Blocks['setSprite'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("Set Sprite To")
+            .appendField(new Blockly.FieldDropdown(
+              this.generateOptions), 'OBJECTNAME');
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      },
+      generateOptions: function() {
+        var options = [];
+        var spriteAmount = window.currentProject.sprites.length
+        for(i = 0; i < spriteAmount; i++){
+          var width = ProjectManager.generateSpriteArray()[i].code.charAt(2);
+          var height = ProjectManager.generateSpriteArray()[i].code.charAt(4);
+          options.push([ProjectManager.generateSpriteArray()[i].name, i + "," + width + "," + height]);
+        }
+        options.push(["Wassap", "allObjects[" + i + "]"]);
+        if(options.length == 0){
+          return options.push(['mem','MEMES']);
+        }
+
+        return options;
+      }
+      
+    };
+
+
+
+
+
     
 
     

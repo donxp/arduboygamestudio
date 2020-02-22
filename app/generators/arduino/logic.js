@@ -188,6 +188,15 @@ Blockly.Arduino['is_colliding_with'] = function(block) {
   return [code, Blockly.Arduino.ORDER_NONE];
 };
 
+
+Blockly.Arduino['setSprite'] = function(block) {
+  var dropdown_objectname = block.getFieldValue('OBJECTNAME');
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'setSprite(' + dropdown_objectname + ');\n';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return code;
+};
+
 Blockly.Arduino['gamestart'] = function(block) {
   var statements_name = Blockly.Arduino.statementToCode(block, 'NAME');
   // TODO: Assemble JavaScript into code variable.
