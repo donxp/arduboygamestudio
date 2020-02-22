@@ -15,6 +15,10 @@ module.exports = function(blocks) {
       }
   };
 
+  Blockly.Blocks.math_number.getBlockType = function() {
+      return Blockly.Types.NUMBER
+  }
+
   blocks['text'] = {
       /**
        * Block for text value.
@@ -37,13 +41,6 @@ module.exports = function(blocks) {
               Blockly.Msg.TEXT_TEXT_TOOLTIP;
         });
       },
-      /**
-       * Create an image of an open or closed quote.
-       * @param {boolean} open True if open quote, false if closed.
-       * @return {!Blockly.FieldImage} The field image of the quote.
-       * @this Blockly.Block
-       * @private
-       */
       newQuote_: function(open) {
         if (open == this.RTL) {
           var file = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAQAAAAqJXdxAAAAqUlEQVQI1z3KvUpCcRiA8ef9E4JNHhI0aFEacm1o0BsI0Slx8wa8gLauoDnoBhq7DcfWhggONDmJJgqCPA7neJ7p934EOOKOnM8Q7PDElo/4x4lFb2DmuUjcUzS3URnGib9qaPNbuXvBO3sGPHJDRG6fGVdMSeWDP2q99FQdFrz26Gu5Tq7dFMzUvbXy8KXeAj57cOklgA+u1B5AoslLtGIHQMaCVnwDnADZIFIrXsoXrgAAAABJRU5ErkJggg==';
@@ -59,7 +56,7 @@ module.exports = function(blocks) {
     };
 
   /* variables */
-  blocks['variables_set'] = {
+    blocks['variables_set'] = {
       /**
        * Block for variable setter.
        * @this Blockly.Block
@@ -80,7 +77,7 @@ module.exports = function(blocks) {
           ],
           "previousStatement": null,
           "nextStatement": null,
-          "colour": Blockly.Blocks.variables.HUE,
+          "colour": 1,
           "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
           "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL
         });
