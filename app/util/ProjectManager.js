@@ -91,6 +91,10 @@ class ProjectManager {
                 name: name,
                 content: inner
             })
+
+            if(name == 'main') {
+                ProjectManager.loadContentIntoWorkspace(window.workspace, inner)
+            }
         }
         window.currentProject.files = projectFiles
     }
@@ -104,6 +108,7 @@ class ProjectManager {
             AsyncFileHelper.read(path).then(data => {
                 ProjectManager.resetProject()
                 ProjectManager.parseProjectFile(data)
+                // ProjectManager.switchToTab(window.currentProject.files[0].name)
                 window.currentProject.path = path
                 resolve()
             }).catch(err => {
@@ -161,19 +166,6 @@ class ProjectManager {
             })
         }
         return resultSprites
-        // const test = [
-        //     '.........',
-        //     '..#...#..',
-        //     '...#.#...',
-        //     '.#######.',
-        //     '##.###.##',
-        //     '#########',
-        //     '#.#.#.#.#',
-        //     '.........'
-        // ]
-        // const str = test.join('\n')
-        // const a = window.PixelData(str)
-        // console.log(a)
     }
 
     static rotateMatrix(matrix) {
