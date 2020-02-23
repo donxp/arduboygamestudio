@@ -277,6 +277,7 @@ Vue.component('sprite-creator', {
             } else {
                 this.creatorWidth = this.editDimensionsWidth
                 this.creatorHeight = this.editDimensionsHeight
+                this.resetImage()
                 this.recreateArray()
                 this.render()
             }
