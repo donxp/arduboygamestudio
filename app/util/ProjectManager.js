@@ -78,8 +78,9 @@ class ProjectManager {
      * @param {*} data xml data
      */
     static parseProjectFile(data) {
-        let xml = parser.parseFromString(data, 'text/xml')
-        let files = xml.getElementsByTagName('file')
+        const xml = parser.parseFromString(data, 'text/xml')
+        const files = xml.getElementsByTagName('file')
+        const sprites = xml.getElementsByTagName('sprite')
         
         const projectFiles = []
         for(let i = 0; i < files.length; i++) {
@@ -91,8 +92,26 @@ class ProjectManager {
                 name: name,
                 content: inner
             })
+
+            if(name == 'main') {
+                ProjectManager.loadContentIntoWorkspace(window.workspace, inner)
+            }
         }
         window.currentProject.files = projectFiles
+
+        const projectSprites = []
+        for(let i = 0; i < sprites.length; i++) {
+            const sprite = sprites[i]
+            const name = sprite.getAttribute('name')
+            const inner = sprite.innerHTML
+
+            projectSprites.push({
+                name: name,
+                image: JSON.parse(inner)
+            })
+        }
+        window.currentProject.sprites = projectSprites
+        if(window.vm && window.vm.showSprites) window.vm.toggleShowSprites()
     }
 
     /**
@@ -104,6 +123,7 @@ class ProjectManager {
             AsyncFileHelper.read(path).then(data => {
                 ProjectManager.resetProject()
                 ProjectManager.parseProjectFile(data)
+                // ProjectManager.switchToTab(window.currentProject.files[0].name)
                 window.currentProject.path = path
                 resolve()
             }).catch(err => {
@@ -138,8 +158,15 @@ class ProjectManager {
             root.documentElement.appendChild(fileNode)
         }
 
+        for(let i = 0; i < window.currentProject.sprites.length; i++) {
+            const sprite = window.currentProject.sprites[i]
+            const spriteNode = root.createElement('sprite')
+            spriteNode.setAttribute('name', sprite.name)
+            spriteNode.innerHTML = JSON.stringify(sprite.image)
+            root.documentElement.appendChild(spriteNode)
+        }
+
         const serialized = serializer.serializeToString(root)
-        console.log('serialized:', serialized)
         return AsyncFileHelper.write(path, serialized)
     }
 
@@ -161,19 +188,6 @@ class ProjectManager {
             })
         }
         return resultSprites
-        // const test = [
-        //     '.........',
-        //     '..#...#..',
-        //     '...#.#...',
-        //     '.#######.',
-        //     '##.###.##',
-        //     '#########',
-        //     '#.#.#.#.#',
-        //     '.........'
-        // ]
-        // const str = test.join('\n')
-        // const a = window.PixelData(str)
-        // console.log(a)
     }
 
     static rotateMatrix(matrix) {
