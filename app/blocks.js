@@ -147,6 +147,112 @@ module.exports = function(blocks) {
       }
     };
 
+    blocks['controls_repeat_ext'] = {
+      init: function() {
+        this.jsonInit({
+          type: "controls_repeat_ext",
+          message0: "%{BKY_CONTROLS_REPEAT_TITLE}",
+          args0: [{
+              type: "input_value",
+              name: "TIMES",
+              check: "Number"
+          }],
+          message1: "%{BKY_CONTROLS_REPEAT_INPUT_DO} %1",
+          args1: [{
+              type: "input_statement",
+              name: "DO"
+          }],
+          previousStatement: null,
+          nextStatement: null,
+          tooltip: "%{BKY_CONTROLS_REPEAT_TOOLTIP}",
+          helpUrl: "%{BKY_CONTROLS_REPEAT_HELPURL}",
+          colour: 10
+      })
+      }
+    }
+
+    blocks['controls_if'] = {
+      init: function() {
+        this.jsonInit({
+          type: "controls_if",
+          message0: "%{BKY_CONTROLS_IF_MSG_IF} %1",
+          args0: [{
+              type: "input_value",
+              name: "IF0",
+              check: "Boolean"
+          }],
+          message1: "%{BKY_CONTROLS_IF_MSG_THEN} %1",
+          args1: [{
+              type: "input_statement",
+              name: "DO0"
+          }],
+          previousStatement: null,
+          nextStatement: null,
+          helpUrl: "%{BKY_CONTROLS_IF_HELPURL}",
+          mutator: "controls_if_mutator",
+          extensions: ["controls_if_tooltip"],
+          colour: 10
+      })
+      }
+    }
+
+    blocks['logic_compare'] = {
+      init: function() {
+        this.jsonInit({
+          type: "logic_compare",
+          message0: "%1 %2 %3",
+          args0: [{
+              type: "input_value",
+              name: "A"
+          }, {
+              type: "field_dropdown",
+              name: "OP",
+              options: [
+                  ["=", "EQ"],
+                  ["\u2260", "NEQ"],
+                  ["\u200f<", "LT"],
+                  ["\u200f\u2264", "LTE"],
+                  ["\u200f>", "GT"],
+                  ["\u200f\u2265", "GTE"]
+              ]
+          }, {
+              type: "input_value",
+              name: "B"
+          }],
+          inputsInline: !0,
+          output: "Boolean",
+          helpUrl: "%{BKY_LOGIC_COMPARE_HELPURL}",
+          extensions: ["logic_compare",
+              "logic_op_tooltip"
+          ],
+          colour: 54
+      })
+      }
+    }
+
+    blocks['variables_set'] = {
+      init: function() {
+        this.jsonInit({
+          type: "variables_set",
+          message0: "%{BKY_VARIABLES_SET}",
+          args0: [{
+              type: "field_variable",
+              name: "VAR",
+              variable: "%{BKY_VARIABLES_DEFAULT_NAME}"
+          }, {
+              type: "input_value",
+              name: "VALUE"
+          }],
+          previousStatement: null,
+          nextStatement: null,
+          tooltip: "%{BKY_VARIABLES_SET_TOOLTIP}",
+          helpUrl: "%{BKY_VARIABLES_SET_HELPURL}",
+          extensions: ["contextMenu_variableSetterGetter"],
+          colour: 317
+      })
+      }
+    }
+
     Blockly.Blocks['randomrange'] = {       //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ida2k6
       init: function() {
         this.appendValueInput("min")
@@ -170,7 +276,7 @@ module.exports = function(blocks) {
             .appendField(new Blockly.FieldDropdown([["up","UP_BUTTON"], ["down","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
             .appendField("is pressed");
         this.setOutput(true, "Boolean");
-        this.setColour(10);
+        this.setColour(54);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -258,7 +364,7 @@ module.exports = function(blocks) {
             .appendField(new Blockly.FieldDropdown(
               this.generateOptions), 'OBJECTNAME');
         this.setOutput(true, "Boolean");
-        this.setColour(267);
+        this.setColour(54);
      this.setTooltip("");
      this.setHelpUrl("");
       },
