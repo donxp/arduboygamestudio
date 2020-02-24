@@ -199,11 +199,11 @@ Blockly.Arduino.finish = function(code) {
 
  
 
- return allDefs + setup + loop;
+//  return allDefs + setup + loop;
  //return Blockly.Arduino.generateAllCode();
  
  //Blockly.Arduino.showMeTheMoney();
-//  return codeToShow;
+ return codeToShow;
 };
 
 
