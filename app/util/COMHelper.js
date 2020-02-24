@@ -25,23 +25,5 @@ class COMHelper {
         // });
         return serialport.list()
     }
-
-        
-
-    /**
-     * Attempt to upload some Code
-     */
-    static uploadToDevice(device,data)
-    {
-        return new Promise((resolve, reject) => {
-            //Might use Avrgirl library to upload to device
-
-
-            //Convert data to a hex file
-
-            //push to device
-        });
-    }
-
 }
 module.exports = COMHelper

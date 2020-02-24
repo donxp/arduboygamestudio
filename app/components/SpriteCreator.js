@@ -86,7 +86,6 @@ Vue.component('sprite-creator', {
 	props: ['shown'],
 	data: function() {
 		return {
-			sprites: [],
 			creatorWidth: 8,
 			creatorHeight: 8,
 			image: [],
@@ -101,7 +100,12 @@ Vue.component('sprite-creator', {
             lastRow: 0,
             lastCol: 0
 		}
-	},
+    },
+    computed: {
+        sprites() {
+            return window.currentProject.sprites
+        }
+    },
 	methods: {
 		addSprite() {
 			this.editMode = false
@@ -132,6 +136,7 @@ Vue.component('sprite-creator', {
 			
 			this.newSpriteName = this.sprites[index].name
 
+            this.render()
             $('#sprite-creator-modal').modal('show')
             $('#sprite-creator-modal').on('shown.bs.modal', () => {
                 this.render()
@@ -248,7 +253,6 @@ Vue.component('sprite-creator', {
             this.render()
         },
 		save() {
-            
 			if(this.editMode) {
 				this.sprites[this.editingIdx].name = this.newSpriteName
 				this.sprites[this.editingIdx].image = this.image
@@ -270,8 +274,12 @@ Vue.component('sprite-creator', {
                 this.editDimensionsWidth = this.creatorWidth
                 this.editDimensionsHeight = this.creatorHeight
             } else {
+				this.editDimensionsWidth = Math.min(this.editDimensionsWidth, 128)
+				this.editDimensionsHeight = Math.min(this.editDimensionsHeight, 64)
+
                 this.creatorWidth = this.editDimensionsWidth
                 this.creatorHeight = this.editDimensionsHeight
+                this.resetImage()
                 this.recreateArray()
                 this.render()
             }

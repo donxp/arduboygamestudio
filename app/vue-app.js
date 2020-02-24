@@ -5,7 +5,7 @@ require('./app/components/Preferences.js')
 let ard = require('./app/util/ArduHelper.js')
 require('./app/components/SpriteCreator.js')
 
-new Vue({
+var vm = new Vue({
     el: '#app',
     data: {
         workspaceLoaded: false,
@@ -24,7 +24,9 @@ new Vue({
     },
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',
-        {toolbox: document.getElementById('toolbox')});
+        {
+            toolbox: document.getElementById('toolbox')
+        });
         window.workspace.addChangeListener(window.updateCode)
         ard.setup()
         this.workspaceLoaded = true
@@ -42,7 +44,6 @@ new Vue({
             this.$refs.preferencesModal.showModal()
         },
         projectLoaded() {
-            console.log('project loaded')
             this.$refs.tabs._updateTabs()
         },
         toggleShowSpriteContainer() {
@@ -51,18 +52,11 @@ new Vue({
                 Blockly.svgResize(workspace)
             })
         },
-        addSprite() {
-            // $('#sprite-creator-modal').modal('show')
-            // this.spriteCreatorDrawGrid()
-        },
         toggleShowSprites() {
             this.showSprites = !this.showSprites
             this.$nextTick(function() {
                 Blockly.svgResize(workspace)
             })
-        },
-        spriteCreatorSave() {
-            // save sprite
         }
     }
 })

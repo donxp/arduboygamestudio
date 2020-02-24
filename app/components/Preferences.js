@@ -14,11 +14,14 @@ Vue.component('preferences', {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table><tr>
+                    <table><tr> 
                     <h5>COM Port Selection</h5>
                     <select id="COMPorts" v-model="selectedPort">
                         <option v-for="port in ports" :value="port.path">{{port.path}}</option>
-                    </select></tr>
+                    </select>
+                    <button class="btn btn-sm btn-default" @click=refreshPorts>Refresh</button>
+                    </tr>
+                    <tr></tr>
                     </table>
                 </div>
             </div>
@@ -44,9 +47,8 @@ Vue.component('preferences', {
             COMHelper.checkForPorts().then(res => {
                 this.ports = res
                 //prints out the found com ports
-                //console.log(this.ports);
+                console.log(this.ports);
             })
-            
         },
         setPort: function(port) {
             this.selectedPort = port;
@@ -56,6 +58,7 @@ Vue.component('preferences', {
         },
         showModal() {
             $('#preferences-modal').modal('show')
+            this.refreshPorts();
         }
     }
 

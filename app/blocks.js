@@ -15,9 +15,64 @@ module.exports = function(blocks) {
       }
   };
 
+  blocks['math_number'] = {
+    init: function() {
+      this.jsonInit({
+        type: "math_number",
+        message0: "%1",
+        args0: [{
+            type: "field_number",
+            name: "NUM",
+            value: 0
+        }],
+        output: "Number",
+        helpUrl: "%{BKY_MATH_NUMBER_HELPURL}",
+        tooltip: "%{BKY_MATH_NUMBER_TOOLTIP}",
+        extensions: ["parent_tooltip_when_inline"],
+        colour: 137
+      })
+    }
+  }
+
+  blocks['math_arithmetic'] = {
+    init: function() {
+      this.jsonInit({
+        type: "math_arithmetic",
+        message0: "%1 %2 %3",
+        args0: [{
+            type: "input_value",
+            name: "A",
+            check: "Number"
+        }, {
+            type: "field_dropdown",
+            name: "OP",
+            options: [
+                ["%{BKY_MATH_ADDITION_SYMBOL}", "ADD"],
+                ["%{BKY_MATH_SUBTRACTION_SYMBOL}", "MINUS"],
+                ["%{BKY_MATH_MULTIPLICATION_SYMBOL}",
+                    "MULTIPLY"
+                ],
+                ["%{BKY_MATH_DIVISION_SYMBOL}", "DIVIDE"],
+                ["%{BKY_MATH_POWER_SYMBOL}", "POWER"]
+            ]
+        }, {
+            type: "input_value",
+            name: "B",
+            check: "Number"
+        }],
+        inputsInline: !0,
+        output: "Number",
+        helpUrl: "%{BKY_MATH_ARITHMETIC_HELPURL}",
+        extensions: ["math_op_tooltip"],
+        colour: 137
+    })
+    }
+  }
+
   Blockly.Blocks.math_number.getBlockType = function() {
       return Blockly.Types.NUMBER
   }
+
 
   blocks['text'] = {
       /**
@@ -96,6 +151,112 @@ module.exports = function(blocks) {
       }
     };
 
+    blocks['controls_repeat_ext'] = {
+      init: function() {
+        this.jsonInit({
+          type: "controls_repeat_ext",
+          message0: "%{BKY_CONTROLS_REPEAT_TITLE}",
+          args0: [{
+              type: "input_value",
+              name: "TIMES",
+              check: "Number"
+          }],
+          message1: "%{BKY_CONTROLS_REPEAT_INPUT_DO} %1",
+          args1: [{
+              type: "input_statement",
+              name: "DO"
+          }],
+          previousStatement: null,
+          nextStatement: null,
+          tooltip: "%{BKY_CONTROLS_REPEAT_TOOLTIP}",
+          helpUrl: "%{BKY_CONTROLS_REPEAT_HELPURL}",
+          colour: 10
+      })
+      }
+    }
+
+    blocks['controls_if'] = {
+      init: function() {
+        this.jsonInit({
+          type: "controls_if",
+          message0: "%{BKY_CONTROLS_IF_MSG_IF} %1",
+          args0: [{
+              type: "input_value",
+              name: "IF0",
+              check: "Boolean"
+          }],
+          message1: "%{BKY_CONTROLS_IF_MSG_THEN} %1",
+          args1: [{
+              type: "input_statement",
+              name: "DO0"
+          }],
+          previousStatement: null,
+          nextStatement: null,
+          helpUrl: "%{BKY_CONTROLS_IF_HELPURL}",
+          mutator: "controls_if_mutator",
+          extensions: ["controls_if_tooltip"],
+          colour: 10
+      })
+      }
+    }
+
+    blocks['logic_compare'] = {
+      init: function() {
+        this.jsonInit({
+          type: "logic_compare",
+          message0: "%1 %2 %3",
+          args0: [{
+              type: "input_value",
+              name: "A"
+          }, {
+              type: "field_dropdown",
+              name: "OP",
+              options: [
+                  ["=", "EQ"],
+                  ["\u2260", "NEQ"],
+                  ["\u200f<", "LT"],
+                  ["\u200f\u2264", "LTE"],
+                  ["\u200f>", "GT"],
+                  ["\u200f\u2265", "GTE"]
+              ]
+          }, {
+              type: "input_value",
+              name: "B"
+          }],
+          inputsInline: !0,
+          output: "Boolean",
+          helpUrl: "%{BKY_LOGIC_COMPARE_HELPURL}",
+          extensions: ["logic_compare",
+              "logic_op_tooltip"
+          ],
+          colour: 54
+      })
+      }
+    }
+
+    blocks['variables_set'] = {
+      init: function() {
+        this.jsonInit({
+          type: "variables_set",
+          message0: "%{BKY_VARIABLES_SET}",
+          args0: [{
+              type: "field_variable",
+              name: "VAR",
+              variable: "%{BKY_VARIABLES_DEFAULT_NAME}"
+          }, {
+              type: "input_value",
+              name: "VALUE"
+          }],
+          previousStatement: null,
+          nextStatement: null,
+          tooltip: "%{BKY_VARIABLES_SET_TOOLTIP}",
+          helpUrl: "%{BKY_VARIABLES_SET_HELPURL}",
+          extensions: ["contextMenu_variableSetterGetter"],
+          colour: 317
+      })
+      }
+    }
+
     Blockly.Blocks['randomrange'] = {       //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ida2k6
       init: function() {
         this.appendValueInput("min")
@@ -106,7 +267,7 @@ module.exports = function(blocks) {
             .appendField("max");
         this.setInputsInline(true);
         this.setOutput(true, "Number");
-        this.setColour(105);
+        this.setColour(137);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -119,7 +280,7 @@ module.exports = function(blocks) {
             .appendField(new Blockly.FieldDropdown([["up","UP_BUTTON"], ["down","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
             .appendField("is pressed");
         this.setOutput(true, "Boolean");
-        this.setColour(230);
+        this.setColour(54);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -132,7 +293,7 @@ module.exports = function(blocks) {
             .appendField("Change X position to");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -146,7 +307,7 @@ module.exports = function(blocks) {
             .appendField("Change Y position to");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -157,7 +318,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("When Game Begins");
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -168,7 +329,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("When collides with anything");
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -181,7 +342,7 @@ module.exports = function(blocks) {
             .appendField("Increment X by");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -194,7 +355,7 @@ module.exports = function(blocks) {
             .appendField("Increment Y by");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -207,7 +368,7 @@ module.exports = function(blocks) {
             .appendField(new Blockly.FieldDropdown(
               this.generateOptions), 'OBJECTNAME');
         this.setOutput(true, "Boolean");
-        this.setColour(230);
+        this.setColour(54);
      this.setTooltip("");
      this.setHelpUrl("");
       },
@@ -233,7 +394,7 @@ module.exports = function(blocks) {
         this.appendStatementInput("NAME")
             .setCheck(null)
             .appendField("When game starts");
-        this.setColour(315);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -250,7 +411,7 @@ module.exports = function(blocks) {
             .setCheck("Note");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(168);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -265,7 +426,7 @@ module.exports = function(blocks) {
             .setCheck("Note");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(168);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -278,7 +439,7 @@ module.exports = function(blocks) {
             .appendField("Play Note");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(168);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -294,7 +455,7 @@ module.exports = function(blocks) {
             .appendField(new Blockly.FieldDropdown([["1","1"], ["2","2"], ["3","3"], ["4","4"], ["5","5"], ["6","6"], ["7","7"]]), "octive")
             .appendField("For a duration of (ms)");
         this.setOutput(true, "Note");
-        this.setColour(230);
+        this.setColour(168);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -307,7 +468,7 @@ module.exports = function(blocks) {
             .appendField("Wait For (ms)");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }
