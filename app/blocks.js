@@ -170,7 +170,7 @@ module.exports = function(blocks) {
             .appendField(new Blockly.FieldDropdown([["up","UP_BUTTON"], ["down","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
             .appendField("is pressed");
         this.setOutput(true, "Boolean");
-        this.setColour(230);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -183,7 +183,7 @@ module.exports = function(blocks) {
             .appendField("Change X position to");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -197,7 +197,7 @@ module.exports = function(blocks) {
             .appendField("Change Y position to");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -208,7 +208,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("When Game Begins");
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -219,7 +219,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("When collides with anything");
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -232,7 +232,7 @@ module.exports = function(blocks) {
             .appendField("Increment X by");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -245,7 +245,7 @@ module.exports = function(blocks) {
             .appendField("Increment Y by");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -258,7 +258,7 @@ module.exports = function(blocks) {
             .appendField(new Blockly.FieldDropdown(
               this.generateOptions), 'OBJECTNAME');
         this.setOutput(true, "Boolean");
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       },
@@ -284,7 +284,7 @@ module.exports = function(blocks) {
         this.appendStatementInput("NAME")
             .setCheck(null)
             .appendField("When game starts");
-        this.setColour(315);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -301,7 +301,7 @@ module.exports = function(blocks) {
             .setCheck("Note");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(168);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -316,7 +316,7 @@ module.exports = function(blocks) {
             .setCheck("Note");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(168);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -329,7 +329,7 @@ module.exports = function(blocks) {
             .appendField("Play Note");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(168);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -345,7 +345,7 @@ module.exports = function(blocks) {
             .appendField(new Blockly.FieldDropdown([["1","1"], ["2","2"], ["3","3"], ["4","4"], ["5","5"], ["6","6"], ["7","7"]]), "octive")
             .appendField("For a duration of (ms)");
         this.setOutput(true, "Note");
-        this.setColour(230);
+        this.setColour(168);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -358,7 +358,7 @@ module.exports = function(blocks) {
             .appendField("Wait For (ms)");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }
