@@ -199,11 +199,11 @@ Blockly.Arduino.finish = function(code) {
 
  
 
- // return allDefs + setup + loop;
+ return allDefs + setup + loop;
  //return Blockly.Arduino.generateAllCode();
  
  //Blockly.Arduino.showMeTheMoney();
- return codeToShow;
+//  return codeToShow;
 };
 
 
@@ -652,7 +652,7 @@ Blockly.Arduino.getArduinoType_ = function(typeBlockly) {
     case Blockly.Types.BOOLEAN.typeId:
       return 'boolean';
     case Blockly.Types.NULL.typeId:
-      return 'void';
+      return 'int';
     case Blockly.Types.UNDEF.typeId:
       return 'undefined';
     case Blockly.Types.CHILD_BLOCK_MISSING.typeId:

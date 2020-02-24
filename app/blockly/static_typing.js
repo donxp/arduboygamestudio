@@ -135,7 +135,11 @@ Blockly.StaticTyping.getAllStatementsOrdered = function(workspace) {
   *     block variable as the first item pair and variable type as the second.
   */
 Blockly.StaticTyping.getBlockVars = function(block) {
+<<<<<<< HEAD
     //console.log('get block vars:', block)
+=======
+    // console.log('get block vars:', block)
+>>>>>>> 113aad1f7a3dd7fafcf42b172208d6e6d9d19f1a
   var blockVarAndTypes = [];
   var getVars = block.getVars;
   if (getVars) {

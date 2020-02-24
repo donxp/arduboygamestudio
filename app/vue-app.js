@@ -5,7 +5,7 @@ require('./app/components/Preferences.js')
 let ard = require('./app/util/ArduHelper.js')
 require('./app/components/SpriteCreator.js')
 
-new Vue({
+var vm = new Vue({
     el: '#app',
     data: {
         workspaceLoaded: false,
