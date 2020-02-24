@@ -297,4 +297,32 @@ Blockly.Arduino['wait'] = function(block) {
   return code;
 };
 
+Blockly.Arduino['xpos'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'xPos';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Arduino.ORDER_NONE];
+};
+
+Blockly.Arduino['ypos'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'yPos';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Arduino.ORDER_NONE];
+};
+
+Blockly.Arduino['screenheight'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'arduboy.height()';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Arduino.ORDER_NONE];
+};
+
+Blockly.Arduino['screenwidth'] = function(block) {
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'arduboy.width()';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Arduino.ORDER_NONE];
+};
+
 

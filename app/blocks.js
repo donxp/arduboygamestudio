@@ -331,8 +331,31 @@ module.exports = function(blocks) {
         var options = [];
         var spriteAmount = window.currentProject.sprites.length
         for(i = 0; i < spriteAmount; i++){
-          var width = ProjectManager.generateSpriteArray()[i].code.charAt(2);
-          var height = ProjectManager.generateSpriteArray()[i].code.charAt(4);
+          var spriteInfo = ProjectManager.generateSpriteArray()[i].code;
+          var width = 0;
+          var height = 0;
+          if(spriteInfo.charAt(3) == 'x'){
+              width = spriteInfo.charAt(2);
+              if(spriteInfo.charAt(5) == '*'){
+                height = spriteInfo.charAt(4)
+              }else{
+                if(spriteInfo.charAt(6) == '*'){
+                  height = spriteInfo.charAt(4) + "" + spriteInfo.charAt(5);
+              }
+          }
+        }
+
+        if(spriteInfo.charAt(4) == 'x'){
+            width = spriteInfo.charAt(2) + "" + spriteInfo.charAt(3);
+            if(spriteInfo.charAt(6) == '*'){
+              height = spriteInfo.charAt(5);
+            }else{
+              if(spriteInfo.charAt(7) == '*'){
+                  height = spriteInfo.charAt(5) + "" + spriteInfo.charAt(6);
+              }
+            }
+        }
+
           options.push([ProjectManager.generateSpriteArray()[i].name, i + "," + width + "," + height]);
         }
         options.push(["Wassap", "allObjects[" + i + "]"]);
@@ -344,6 +367,54 @@ module.exports = function(blocks) {
       }
       
     };
+
+    Blockly.Blocks['xpos'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("X Position");
+        this.setOutput(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['ypos'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("Y Position");
+        this.setOutput(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['screenheight'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("Screen Height");
+        this.setOutput(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['screenwidth'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("Screen Width");
+        this.setOutput(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+
+
+
 
 
 

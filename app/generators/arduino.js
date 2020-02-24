@@ -337,6 +337,8 @@ var gameobjectClass = 'class GameObject {\n' +
                       'spriteIndex = spriteInd;\n' +
                       'spriteHeight = spriteH;\n' +
                       'spriteWidth = spriteW;\n' + 
+                      'mainRect.width = spriteW;\n' + 
+                      'mainRect.height = spriteH;\n' + 
                       '}\n' +
                       'virtual void mainFunction(){\n'+  
                       '\n'+  
