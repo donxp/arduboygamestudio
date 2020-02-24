@@ -71,6 +71,7 @@ class ArduHelper {
             }
             console.log(`Compilation finished with code:  ${code}`);
           });
+        alert("Compiling Your Program!\n Please Wait!")
     }
 
     static upload(comPort) {
@@ -81,15 +82,17 @@ class ArduHelper {
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
         })
+        
         ls.on('close', (code) => {
             if (code != 0) {
-                alert("There was a Problem Uploading!")
+                alert("There was a Problem Uploading! \n Error Code: " + code);
             }
             else {
                 alert("Successfully uploaded to the Arduboy!");
             }
             console.log(`Uploading finished with code:  ${code}`);
           });
+        alert("Uploading Your Program! \n Please Wait!");
 
     }
 }
