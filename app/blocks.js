@@ -11,9 +11,64 @@ module.exports = function(blocks) {
       }
   };
 
+  blocks['math_number'] = {
+    init: function() {
+      this.jsonInit({
+        type: "math_number",
+        message0: "%1",
+        args0: [{
+            type: "field_number",
+            name: "NUM",
+            value: 0
+        }],
+        output: "Number",
+        helpUrl: "%{BKY_MATH_NUMBER_HELPURL}",
+        tooltip: "%{BKY_MATH_NUMBER_TOOLTIP}",
+        extensions: ["parent_tooltip_when_inline"],
+        colour: 137
+      })
+    }
+  }
+
+  blocks['math_arithmetic'] = {
+    init: function() {
+      this.jsonInit({
+        type: "math_arithmetic",
+        message0: "%1 %2 %3",
+        args0: [{
+            type: "input_value",
+            name: "A",
+            check: "Number"
+        }, {
+            type: "field_dropdown",
+            name: "OP",
+            options: [
+                ["%{BKY_MATH_ADDITION_SYMBOL}", "ADD"],
+                ["%{BKY_MATH_SUBTRACTION_SYMBOL}", "MINUS"],
+                ["%{BKY_MATH_MULTIPLICATION_SYMBOL}",
+                    "MULTIPLY"
+                ],
+                ["%{BKY_MATH_DIVISION_SYMBOL}", "DIVIDE"],
+                ["%{BKY_MATH_POWER_SYMBOL}", "POWER"]
+            ]
+        }, {
+            type: "input_value",
+            name: "B",
+            check: "Number"
+        }],
+        inputsInline: !0,
+        output: "Number",
+        helpUrl: "%{BKY_MATH_ARITHMETIC_HELPURL}",
+        extensions: ["math_op_tooltip"],
+        colour: 137
+    })
+    }
+  }
+
   Blockly.Blocks.math_number.getBlockType = function() {
       return Blockly.Types.NUMBER
   }
+
 
   blocks['text'] = {
       /**
@@ -102,7 +157,7 @@ module.exports = function(blocks) {
             .appendField("max");
         this.setInputsInline(true);
         this.setOutput(true, "Number");
-        this.setColour(105);
+        this.setColour(137);
      this.setTooltip("");
      this.setHelpUrl("");
       }

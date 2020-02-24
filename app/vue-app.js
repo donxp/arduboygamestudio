@@ -4,6 +4,7 @@ require('./app/components/ProjectActions.js')
 require('./app/components/Preferences.js')
 let ard = require('./app/util/ArduHelper.js')
 require('./app/components/SpriteCreator.js')
+const theme = require('./app/blockly/theme.js')
 
 var vm = new Vue({
     el: '#app',
@@ -24,7 +25,9 @@ var vm = new Vue({
     },
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',
-        {toolbox: document.getElementById('toolbox')});
+        {
+            toolbox: document.getElementById('toolbox')
+        });
         window.workspace.addChangeListener(window.updateCode)
         ard.setup()
         this.workspaceLoaded = true
