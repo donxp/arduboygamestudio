@@ -19,9 +19,10 @@
           <project-actions @project-loaded="projectLoaded"></project-actions>
           
 
-          <button @click="showPreferences">Show pref</button>
+          
         </div>
         <div>
+          <button class="btn btn-sm btn-primary" @click="showPreferences">Preferences</button>
           <button class="btn btn-sm btn-warning" @click="toggleShowSprites">Sprites</button>
         </div>
       </div>
@@ -35,13 +36,6 @@
         <category name="Control">
             <block type="controls_if"></block>
             <block type="controls_repeat_ext"></block>
-        </category>
-        <category name="Logic">
-            <block type="logic_compare"></block>
-            <block type="checkforbuttonpress"></block>
-            <block type="incrementx"></block>
-            <block type="incrementy"></block>
-            <block type="is_colliding_with"></block>
             <block type="gamestart"></block>
             <block type="changexpos"></block>
             <block type="changeypos"></block>
@@ -50,6 +44,25 @@
             <block type="playnote"></block>
             <block type="note"></block>
             <block type="wait"></block>
+        </category>
+        <category name="Logic">
+            <block type="logic_compare"></block>
+            <block type="checkforbuttonpress"></block>
+            <block type="incrementx"></block>
+            <block type="incrementy"></block>
+            <block type="is_colliding_with"></block>
+<<<<<<< HEAD
+
+=======
+            <block type="gamestart"></block>
+            <block type="changexpos"></block>
+            <block type="changeypos"></block>
+            <block type="playnotes3"></block>
+            <block type="playnotes2"></block>
+            <block type="playnote"></block>
+            <block type="note"></block>
+            <block type="wait"></block>
+>>>>>>> 113aad1f7a3dd7fafcf42b172208d6e6d9d19f1a
         </category>
         <category name="Math">
             <block type="math_number"></block>

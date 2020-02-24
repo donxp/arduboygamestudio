@@ -64,12 +64,13 @@ Vue.component('project-actions', {
         },
         verifyProject: function() {
             //take code and place it into ino file
-            
+            console.log("Verifying in PA");
             ArduHelper.verify(Blockly.Arduino.generateAllCode());
 
         },
         uploadProject: function() {
-            var comPort = window.selectedPort
+            console.log("Uploading in PA");
+            var comPort = window.selectedPort;
             if (comPort == '') {
                 alert("Please select a Port in Preferences!");
             } else {
