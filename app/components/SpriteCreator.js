@@ -86,7 +86,6 @@ Vue.component('sprite-creator', {
 	props: ['shown'],
 	data: function() {
 		return {
-			// sprites: [],
 			creatorWidth: 8,
 			creatorHeight: 8,
 			image: [],
@@ -275,6 +274,9 @@ Vue.component('sprite-creator', {
                 this.editDimensionsWidth = this.creatorWidth
                 this.editDimensionsHeight = this.creatorHeight
             } else {
+				this.editDimensionsWidth = Math.min(this.editDimensionsWidth, 128)
+				this.editDimensionsHeight = Math.min(this.editDimensionsHeight, 64)
+
                 this.creatorWidth = this.editDimensionsWidth
                 this.creatorHeight = this.editDimensionsHeight
                 this.resetImage()

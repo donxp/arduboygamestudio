@@ -4,7 +4,6 @@ require('./app/components/ProjectActions.js')
 require('./app/components/Preferences.js')
 let ard = require('./app/util/ArduHelper.js')
 require('./app/components/SpriteCreator.js')
-const theme = require('./app/blockly/theme.js')
 
 var vm = new Vue({
     el: '#app',
@@ -45,7 +44,6 @@ var vm = new Vue({
             this.$refs.preferencesModal.showModal()
         },
         projectLoaded() {
-            console.log('project loaded')
             this.$refs.tabs._updateTabs()
         },
         toggleShowSpriteContainer() {
@@ -54,18 +52,11 @@ var vm = new Vue({
                 Blockly.svgResize(workspace)
             })
         },
-        addSprite() {
-            // $('#sprite-creator-modal').modal('show')
-            // this.spriteCreatorDrawGrid()
-        },
         toggleShowSprites() {
             this.showSprites = !this.showSprites
             this.$nextTick(function() {
                 Blockly.svgResize(workspace)
             })
-        },
-        spriteCreatorSave() {
-            // save sprite
         }
     }
 })
