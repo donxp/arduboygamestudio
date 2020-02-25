@@ -217,8 +217,8 @@ Blockly.Arduino.generateAllCode = function generateAllCode1(){
                    gameobjectClass +
                    generateArrayDeclaration() +
                    generateSubclasses() +
-                   setupVoid + 
                    generateGameObjectCreation() + 
+                   setupVoid + 
                    loopVoid;
 
                    
