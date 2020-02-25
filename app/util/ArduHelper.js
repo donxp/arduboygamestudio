@@ -58,10 +58,15 @@ class ArduHelper {
         FileHelper.write('arduino-cli/HelloWorld/HelloWorld.ino', data)
         //compile text
         console.log("Starting Compile")
-        let ls = process.spawn('verify.bat', {}, options)
-        ls.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-          });
+       // let ls = process.spawn('verify.bat', {}, options)
+        //ls.stdout.on('data', (data) => {
+          //  console.log(`stdout: ${data}`);
+          //});
+        let ls = process.exec('verify.bat', {}, function(err, stdout, stderr) { 
+            console.log('stdout:' + stdout);
+            console.log('stderr:' + stderr);
+            console.log('err: ' + err);
+        })
         ls.on('close', (code) => {
             if (code==0) {
                 alert("Compiled with no errors!");
@@ -69,7 +74,7 @@ class ArduHelper {
             else {
                 alert("There was errors when compiling!");
             }
-            console.log(`Compilation finished with code:  ${code}`);
+            //console.log(`Compilation finished with code:  ${code}`);
           });
         alert("Compiling Your Program!\n Please Wait!")
     }
