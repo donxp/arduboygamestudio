@@ -195,18 +195,15 @@ Blockly.Arduino.finish = function(code) {
   var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
   var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
 
-  var codeToShow = variables.join('\n') + "//seperator\n" + code.replace(/\n/g, '\n  ');
+  var codeToShow = code.replace(/\n/g, '\n  ');
 
  
 
- // return allDefs + setup + loop;
+//  return allDefs + setup + loop;
  //return Blockly.Arduino.generateAllCode();
  
  //Blockly.Arduino.showMeTheMoney();
  return codeToShow;
- //console.log("MAN LOOK AT THIS!!!!!!!!!!!!!");
- //console.log(ProjectManager.generateSpriteArray());
- //return generateSpriteArrays() + generateClass("name",codeToShow);
 };
 
 
@@ -237,24 +234,23 @@ var includes = '#include <Arduboy2.h>\n' +
 'ArduboyTones sound(arduboy.audio.enabled);\n';
 
 function generateSpriteArrays(){
-  var spriteArrays = "";
-  var spriteAmount = window.currentProject.sprites.length
-  for(i = 0; i < spriteAmount; i++){
-    thisSpriteArray = 'const unsigned char SPRITENUMBER' + i + ' [] PROGMEM = {\n' + 
-    ProjectManager.generateSpriteArray()[i].code + ',};\n'
-    spriteArrays = spriteArrays + thisSpriteArray;
-  }
-  
-  var arrayWithNames = "const unsigned char *spriteArray[] = {";
-  for(i = 0; i < spriteAmount; i++){
-    arrayWithNames = arrayWithNames + "\nSPRITENUMBER" + i + ","; 
-  }
-  
-  arrayWithNames = arrayWithNames + "\n};\n"
+  var spriteArrays = 'const unsigned char RABBIT[] PROGMEM = {\n' +
+    '8, 8,\n' +
+    '0x00, 0x78, 0x7E, 0x78, 0x78, 0x7E, 0x78, 0x00,\n' +
+    '};' +
+    'const unsigned char PROGMEM PLAYER[] = {\n' +
+    '16, 16,\n' +
+    '0xfe, 0x01, 0x3d, 0x25, 0x25, 0x3d, 0x01, 0x01, 0xc1, 0x01, 0x3d, 0x25, 0x25, 0x3d, 0x01, 0xfe,\n' +
+    '0x7f, 0x80, 0x9c, 0xbc, 0xb0, 0xb0, 0xb2, 0xb2, 0xb3, 0xb0, 0xb0, 0xb0, 0xbc, 0x9c, 0x80, 0x7f,\n' +
+    '};\n\n';
+
+    var arrayWithNames = 'const unsigned char *spriteArray[] = {\n' +
+      'RABBIT,\n' +
+      'PLAYER,\n' +
+      '};\n';
 
 
-
-  return spriteArrays + "\n" + arrayWithNames;
+  return spriteArrays + arrayWithNames;
 }
 
 var outOfClassMethods = 'int randomRange(int lower, int upper){\n' + 
@@ -333,18 +329,11 @@ var gameobjectClass = 'class GameObject {\n' +
                         'yPos = newY;\n' +
                         'mainRect.y = newY;\n' +
                         '}\n' +
-                      'void setSprite(int spriteInd,int spriteH,int spriteW){\n' +
-                      'spriteIndex = spriteInd;\n' +
-                      'spriteHeight = spriteH;\n' +
-                      'spriteWidth = spriteW;\n' + 
-                      'mainRect.width = spriteW;\n' + 
-                      'mainRect.height = spriteH;\n' + 
-                      '}\n' +
                       'virtual void mainFunction(){\n'+  
                       '\n'+  
                       '}\n'+
                       'void drawSprite(){\n'+  
-                      'arduboy.drawBitmap(xPos, yPos, spriteArray[spriteIndex],spriteWidth,spriteHeight,1);\n'+  
+                      'Sprites::drawOverwrite(xPos, yPos, spriteArray[spriteIndex], 0);\n'+  
                       '}\n'+ 
                       '};\n';
 
@@ -412,39 +401,14 @@ function generateClass(name,code) {
                           'GameObject(x,y,spr,sprH,sprW,inst){\n' +
                           'arduboy.print("");\n' +
                           '}\n' +
-                          isolateVariables(code) + '\n' + 
                           'void mainFunction() override {\n' +
                           'drawSprite();\n' +
-                          isolateCode(code) + '\n' +
+                          code + '\n' +
                           '}\n' +
                          
                           '\n' +
                           '};\n';
   return newGameObjectCode;   
-}
-
-function isolateVariables(code){
-  for (var i = 0; i < code.length; i++) {
-    if(code.charAt(i) == '/'){
-      if(code.charAt(i + 1) == '/'){
-        if(code.charAt(i + 2) == 's'){
-          return code.slice(0, i);
-      }
-    }
-  }
-  }
-}
-
-function isolateCode(code){
-  for (var i = 0; i < code.length; i++) {
-    if(code.charAt(i) == '/'){
-      if(code.charAt(i + 1) == '/'){
-        if(code.charAt(i + 2) == 's'){
-          return code.slice(i, code.length);
-      }
-    }
-  }
-  }
 }
 
 var setupVoid = 'void setup() {\n' +
@@ -473,7 +437,7 @@ function getAmountOfObjectsInTab(tabNumber){
 }
 
 function getSpriteIndexAndDimensionsForTab(tabNumber){
-  return '0,0,0';   //spriteNumber, sprite height, sprite width
+  return '1,16,16';   //spriteNumber, sprite height, sprite width
 }
 
 var loopVoid = 'void loop() {\n'+
@@ -688,7 +652,7 @@ Blockly.Arduino.getArduinoType_ = function(typeBlockly) {
     case Blockly.Types.BOOLEAN.typeId:
       return 'boolean';
     case Blockly.Types.NULL.typeId:
-      return 'void';
+      return 'int';
     case Blockly.Types.UNDEF.typeId:
       return 'undefined';
     case Blockly.Types.CHILD_BLOCK_MISSING.typeId:

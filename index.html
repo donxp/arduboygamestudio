@@ -19,9 +19,10 @@
           <project-actions @project-loaded="projectLoaded"></project-actions>
           
 
-          <button @click="showPreferences">Show pref</button>
+          
         </div>
         <div>
+          <button class="btn btn-sm btn-primary" @click="showPreferences">Preferences</button>
           <button class="btn btn-sm btn-warning" @click="toggleShowSprites">Sprites</button>
         </div>
       </div>
@@ -32,42 +33,35 @@
       
 
       <xml id="toolbox" style="display: none">
-        <category name="Control">
+        <category name="Logic" colour="54">
+          <block type="logic_compare"></block>
+          <block type="checkforbuttonpress"></block>
+          <block type="is_colliding_with"></block>
+        </category>
+        <category name="Game Object" colour="267">
+          <block type="incrementx"></block>
+          <block type="incrementy"></block>
+          <block type="changexpos"></block>
+          <block type="changeypos"></block>
+        </category>
+        <category name="Math" colour="137">
+          <block type="math_number"></block>
+          <block type="math_arithmetic"></block>
+          <block type="randomrange"></block>
+        </category>
+        <category name="Control" colour="10">
             <block type="controls_if"></block>
             <block type="controls_repeat_ext"></block>
-        </category>
-        <category name="Logic">
-            <block type="logic_compare"></block>
-            <block type="checkforbuttonpress"></block>
-            <block type="incrementx"></block>
-            <block type="incrementy"></block>
-            <block type="is_colliding_with"></block>
-            <block type="gamestart"></block>
-            <block type="changexpos"></block>
-            <block type="changeypos"></block>
-            <block type="playnotes3"></block>
-            <block type="playnotes2"></block>
-            <block type="playnote"></block>
-            <block type="note"></block>
             <block type="wait"></block>
-            <block type="setSprite"></block>
-            <block type="xpos"></block>
-            <block type="ypos"></block>
-            <block type="screenheight"></block>
-            <block type="screenwidth"></block>
+            <block type="gamestart"></block>
         </category>
-        <category name="Math">
-            <block type="math_number"></block>
-            <block type="math_arithmetic"></block>
+        <category name="Sound" colour="168">
+          <block type="playnotes3"></block>
+          <block type="playnotes2"></block>
+          <block type="playnote"></block>
+          <block type="note"></block>
         </category>
-        <category name="Text">
-            <block type="text"></block>
-            <block type="text_print"></block>
-            <block type="string_length"></block>
-        </category>
-        <category name="Variables" custom="VARIABLE">
-        
-        </category>
+        <category name="Variables" colour="317" custom="VARIABLE"></category>
       </xml>
       <div class="row w-100">
         <div class="col">
@@ -81,19 +75,8 @@
       <!-- Fix blockly container hogging area -->
       <div style="margin-top: 45px;"></div>
       <textarea name="code" id="code" cols="50" rows="20"></textarea>
-      <textarea name="fullcode" id="fullcode" cols="50" rows="20"></textarea>
+      
     </div>
-
-    <button onclick="myFunction()">Click me</button>
-
-<p id="demo"></p>
-
-<script>
-function myFunction() {
-  document.getElementById("fullcode").innerHTML = Blockly.Arduino.generateAllCode();
-}
-</script>
-
     <script src="./static/js/jquery.js"></script>
     <script src="./node_modules/vue/dist/vue.min.js"></script>
     <script src="./app/app.js"></script>
