@@ -1,6 +1,7 @@
 
 let process = require('child_process')
 let FileHelper = require('./AsyncFileHelper.js')
+const Dialog = require('dialogs')()
 
 class ArduHelper {
     
@@ -51,6 +52,7 @@ class ArduHelper {
         //let ls = process.exec('setup.bat', options)
     }
     static verify(data) {
+        Dialog.alert("Compiling Please Wait");
         var options = {cwd: '/bats/', shell: true}
         //put the text into the file (HelloWorld)
         //==================================================================================================MARKER LOOK HERE PLEASE!
@@ -68,19 +70,24 @@ class ArduHelper {
             console.log('err: ' + err);
         })
         ls.on('close', (code) => {
+            Dialog.cancel()
             if (code==0) {
-                alert("Compiled with no errors!");
+                //alert("Compiled with no errors!");
+                Dialog.alert("Compiled successfully!")
             }
             else {
-                alert("There was errors when compiling!");
+                Dialog.alert("There was an error Compiling!");
+                //alert("There was errors when compiling!");
             }
             //console.log(`Compilation finished with code:  ${code}`);
           });
-        alert("Compiling Your Program!\n Please Wait!")
+        //alert("Compiling Your Program!\n Please Wait!")
     }
 
     static upload(comPort) {
         //get the global selectedPort value
+
+        Dialog.alert("Uploading, Please Wait!");
         var options = {cwd: '/bats/'}
         let ls = process.exec('upload.bat ' + comPort, {}, function(err, stdout, stderr) { 
             console.log('stdout:' + stdout);
@@ -89,16 +96,23 @@ class ArduHelper {
         })
         
         ls.on('close', (code) => {
+           //todo console.log(dia)
+           Dialog.cancel();
             if (code != 0) {
-                alert("There was a Problem Uploading! \n Error Code: " + code);
+               // alert("There was a Problem Uploading! \n Error Code: " + code);
+               Dialog.alert("There was a Problem Uploading! Error Code:" +  code);
             }
             else {
-                alert("Successfully uploaded to the Arduboy!");
+                //alert("Successfully uploaded to the Arduboy!");
+                Dialog.alert("Successfully uploaded to the Arduboy!");
             }
+            
             console.log(`Uploading finished with code:  ${code}`);
           });
-        alert("Uploading Your Program! \n Please Wait!");
+        //alert("Uploading Your Program! \n Please Wait!");
 
     }
+
+
 }
 module.exports = ArduHelper

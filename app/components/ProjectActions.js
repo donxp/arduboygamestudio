@@ -10,7 +10,7 @@ let ArduHelper = require('../util/ArduHelper.js');
 Vue.component('project-actions', {
     template: `
     <div>
-        <button class="btn btn-sm btn-primary" onClick="newProject()">New</button>
+        <button class="btn btn-sm btn-primary" @click="newProject">New</button>
         <button class="btn btn-sm btn-primary" @click="openProject">Open</button>
         <button class="btn btn-sm btn-primary" @click="saveProject">Save</button>
         <button class="btn btn-sm btn-primary" @click="verifyProject">Verify</button>
