@@ -27,7 +27,6 @@ class ArduHelper {
             }
             else {
                 Dialog.alert("There was an error Compiling!");
-                //alert("There was errors when compiling!");
             }
             console.log(`Compilation finished with code:  ${code}`);
           });
@@ -35,7 +34,6 @@ class ArduHelper {
 
     static upload(comPort) {
         Dialog.alert("Uploading, Please Wait!");
-        //var options = {cwd: '/bats/'}
         let ls = process.exec('upload.bat ' + comPort, {}, function(err, stdout, stderr) { 
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
