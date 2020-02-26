@@ -18,8 +18,8 @@ Vue.component('preferences', {
                     <h5>COM Port Selection</h5>
                     <select id="COMPorts" v-model="selectedPort">
                         <option v-for="port in ports" :value="port.path">{{port.path}}</option>
-                    </select>
-                    <button class="btn btn-sm btn-default" @click=refreshPorts>Refresh</button>
+                    </select>&nbsp
+                    <button class="btn btn-sm btn-info" @click=refreshPorts>Refresh</button>
                     </tr>
                     <tr></tr>
                     </table>
