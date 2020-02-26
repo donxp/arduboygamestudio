@@ -93,6 +93,7 @@ class ProjectManager {
                 content: inner
             })
 
+            // Load the main tab into current workspace
             if(name == 'main') {
                 ProjectManager.loadContentIntoWorkspace(window.workspace, inner)
             }
@@ -123,7 +124,6 @@ class ProjectManager {
             AsyncFileHelper.read(path).then(data => {
                 ProjectManager.resetProject()
                 ProjectManager.parseProjectFile(data)
-                // ProjectManager.switchToTab(window.currentProject.files[0].name)
                 window.currentProject.path = path
                 resolve()
             }).catch(err => {
@@ -150,6 +150,7 @@ class ProjectManager {
     static saveProject(path) {
         const root = document.implementation.createDocument(null, 'files')
 
+        // Save tabs
         for(let i = 0; i < window.currentProject.files.length; i++) {
             const file = window.currentProject.files[i]
             const fileNode = root.createElement('file')
@@ -158,6 +159,7 @@ class ProjectManager {
             root.documentElement.appendChild(fileNode)
         }
 
+        // Save sprites
         for(let i = 0; i < window.currentProject.sprites.length; i++) {
             const sprite = window.currentProject.sprites[i]
             const spriteNode = root.createElement('sprite')
@@ -170,6 +172,9 @@ class ProjectManager {
         return AsyncFileHelper.write(path, serialized)
     }
 
+    /**
+     * Generate sprite array containing C code.
+     */
     static generateSpriteArray() {
         const sprites = window.currentProject.sprites
         const resultSprites = []
@@ -190,6 +195,10 @@ class ProjectManager {
         return resultSprites
     }
 
+    /**
+     * Rotate matrix
+     * @param {*} matrix 
+     */
     static rotateMatrix(matrix) {
         let result = []
         for(let i = 0; i < matrix[0].length; i++) {
