@@ -4,91 +4,38 @@ let FileHelper = require('./AsyncFileHelper.js')
 const Dialog = require('dialogs')()
 
 class ArduHelper {
-    
-                    //
-        //C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\arduino-builder -dump-prefs -logger=machine -hardware C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\hardware -hardware C:\Users\thoma\Documents\ArduinoData\packages -tools C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\tools-builder -tools C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\hardware\tools\avr -tools C:\Users\thoma\Documents\ArduinoData\packages -built-in-libraries C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\libraries -libraries C:\Users\thoma\Documents\Arduino\libraries -fqbn=arduboy-homemade:avr:arduboy-homemade:based_on=promicro_alt,boot=cathy3k,core=arduboy-core,display=sh1106,flashselect=rx -ide-version=10811 -build-path C:\Users\thoma\AppData\Local\Temp\arduino_build_372733 -warnings=none -build-cache C:\Users\thoma\AppData\Local\Temp\arduino_cache_143338 -prefs=build.warn_data_percentage=75 -verbose C:\Users\thoma\AppData\Local\Temp\untitled1267264915.tmp\sketch_feb08a\sketch_feb08a.ino
-        //avrdude compilation
-        //C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\arduino-builder -compile
-        // -logger=machine -hardware C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\hardware
-        // -hardware C:\Users\thoma\Documents\ArduinoData\packages 
-        // -tools C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\tools-builder 
-        // -tools C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\hardware\tools\avr 
-        // -tools C:\Users\thoma\Documents\ArduinoData\packages 
-        // -built-in-libraries C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt\libraries
-        //  -libraries C:\Users\thoma\Documents\Arduino\libraries 
-        // -fqbn=arduboy-homemade:avr:arduboy-homemade:based_on=promicro_alt,boot=cathy3k,core=arduboy-core,display=sh1106,flashselect=rx 
-        // -ide-version=10811 -build-path C:\Users\thoma\AppData\Local\Temp\arduino_build_372733 
-        // -warnings=none -build-cache C:\Users\thoma\AppData\Local\Temp\arduino_cache_143338 
-        // -prefs=build.warn_data_percentage=75 
-        // -verbose C:\Users\thoma\AppData\Local\Temp\untitled1267264915.tmp\sketch_feb08a\sketch_feb08a.ino
-        /** 
-        var buildpath = '';
-        var arduino = 'C:\Program Files\WindowsApps\ArduinoLLC.ArduinoIDE_1.8.29.0_x86__mdqgnx93n4wtt';
-        var arduinobuilder = arduino + '\arduino-builder';
-        var arduinohardware = arduino + '\hardware';
-        var arduinohardware2 = 'C:\Users\thoma\Documents\ArduinoData\packages';
-        var arduinotools = arduino + '\toolsbuilder';
-        var arduinotools2 = arduinohardware + '\tools\avr';
-        var arduinotools3 = arduinohardware2;
-        var arduinolibraries = arduino + '\libraries';
-        var fqbn = 'arduboy-homemade:avr:arduboy-homemade:based_on=promicro_alt,boot=cathy3k,core=arduboy-core,display=sh1106,flashselect=rx';
-        var ide = '10811';
-        var buildpath = 'C:\Users\thoma\AppData\Local\Temp\arduino_build_372733';
-        var buildcache = 'C:\Users\thoma\AppData\Local\Temp\arduino_cache_143338';
-        var prefs = 'build.warn_data_percentage=75'
-        var verbose = 'C:\Users\thoma\AppData\Local\Temp\untitled.tmp\sketch_feb08a\sketch_feb08a.ino';
-        var command = 'arduino-builder -compile -logger=machine -hardware ' + arduinohardware + ' -hardware ' + arduinohardware2 + ' -tools ' + arduinotools + 
-            ' -tools ' + arduinotools2 + ' -tools ' + arduinotools3 + ' -built-in-libraries ' + arduinolibraries + ' -fqbn ' + fqbn +
-            ' -ide-version=' + ide + ' -build-path ' + buildpath + ' -warnings=none -build-cache ' + buildcache + ' -pres=' + prefs +
-            ' -verbose ' + verbose;
-            */
-        //process for compiling to hex
-        //spawn(command, function (error,stdout,stderr) {
-          //  console.log(stdout);
-        //});
     static setup() {
-        var options = {cwd: '/bats/', shell: true}
-        let ls = process.spawn('setup.bat', {}, options)//sets up basic files from arduinoIDE source files
-        //let ls = process.exec('setup.bat', options)
+        let ls = process.spawn('setup.bat', {})//sets up basic files from arduinoIDE source files
     }
     static verify(data) {
         Dialog.alert("Compiling Please Wait");
-        var options = {cwd: '/bats/', shell: true}
         //put the text into the file (HelloWorld)
-        //==================================================================================================MARKER LOOK HERE PLEASE!
         console.log("Write to HelloWorld.ino");
         FileHelper.write('arduino-cli/HelloWorld/HelloWorld.ino', data)
         //compile text
         console.log("Starting Compile")
-       // let ls = process.spawn('verify.bat', {}, options)
-        //ls.stdout.on('data', (data) => {
-          //  console.log(`stdout: ${data}`);
-          //});
+
         let ls = process.exec('verify.bat', {}, function(err, stdout, stderr) { 
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
         })
         ls.on('close', (code) => {
-            Dialog.cancel()
+            Dialog.cancel();
             if (code==0) {
-                //alert("Compiled with no errors!");
-                Dialog.alert("Compiled successfully!")
+                Dialog.alert("Compiled successfully!");
             }
             else {
                 Dialog.alert("There was an error Compiling!");
                 //alert("There was errors when compiling!");
             }
-            //console.log(`Compilation finished with code:  ${code}`);
+            console.log(`Compilation finished with code:  ${code}`);
           });
-        //alert("Compiling Your Program!\n Please Wait!")
     }
 
     static upload(comPort) {
-        //get the global selectedPort value
-
         Dialog.alert("Uploading, Please Wait!");
-        var options = {cwd: '/bats/'}
+        //var options = {cwd: '/bats/'}
         let ls = process.exec('upload.bat ' + comPort, {}, function(err, stdout, stderr) { 
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
@@ -96,20 +43,16 @@ class ArduHelper {
         })
         
         ls.on('close', (code) => {
-           //todo console.log(dia)
            Dialog.cancel();
-            if (code != 0) {
-               // alert("There was a Problem Uploading! \n Error Code: " + code);
+            if (code != 0) {//Checks if there was an error compiling
                Dialog.alert("There was a Problem Uploading! Error Code:" +  code);
             }
             else {
-                //alert("Successfully uploaded to the Arduboy!");
                 Dialog.alert("Successfully uploaded to the Arduboy!");
             }
             
             console.log(`Uploading finished with code:  ${code}`);
           });
-        //alert("Uploading Your Program! \n Please Wait!");
 
     }
 

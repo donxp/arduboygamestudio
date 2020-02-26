@@ -2,7 +2,7 @@ var { dialog } = require('electron').remote
 let ProjectManager = require('../util/ProjectManager.js')
 let AsyncFileHelper = require('../util/AsyncFileHelper.js')
 let ArduHelper = require('../util/ArduHelper.js');
-
+let Dia = require('dialogs')()
 
 
 
@@ -72,7 +72,7 @@ Vue.component('project-actions', {
             console.log("Uploading in PA");
             var comPort = window.selectedPort;
             if (comPort == '') {
-                alert("Please select a Port in Preferences!");
+                Dia.alert("Please select a Port in Preferences!");
             } else {
                 ArduHelper.upload(comPort)
             }
