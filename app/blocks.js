@@ -354,7 +354,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("X Position");
         this.setOutput(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -365,7 +365,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("Y Position");
         this.setOutput(true, null);
-        this.setColour(230);
+        this.setColour(267);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -376,7 +376,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("Screen Height");
         this.setOutput(true, null);
-        this.setColour(230);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }
@@ -387,7 +387,7 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("Screen Width");
         this.setOutput(true, null);
-        this.setColour(230);
+        this.setColour(10);
      this.setTooltip("");
      this.setHelpUrl("");
       }

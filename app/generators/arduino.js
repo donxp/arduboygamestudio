@@ -331,7 +331,7 @@ var gameobjectClass = 'class GameObject {\n' +
                         'yPos = newY;\n' +
                         'mainRect.y = newY;\n' +
                         '}\n' +
-                        'void setSprite(int spriteInd,int spriteH,int spriteW){\n' +
+                        'void setSprite(int spriteInd,int spriteW,int spriteH){\n' +
                       'spriteIndex = spriteInd;\n' +
                       'spriteHeight = spriteH;\n' +
                       'spriteWidth = spriteW;\n' + 
