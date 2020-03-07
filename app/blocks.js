@@ -607,19 +607,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['changexpos'] = {
-      init: function() {
-        this.appendValueInput("newxpos")
-            .setCheck("Number")
-            .appendField("Change X position of")
-            .appendField(new Blockly.FieldDropdown([["option","OPTIONNAME"], ["option","OPTIONNAME"], ["option","OPTIONNAME"]]), "NAME")
-            .appendField("to");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(230);
-     this.setTooltip("");
-     this.setHelpUrl("");
-      }
+ 
     };
 
     
