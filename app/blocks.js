@@ -274,7 +274,7 @@ module.exports = function(blocks) {
       init: function() {
         this.appendDummyInput()
             .appendField("Button")
-            .appendField(new Blockly.FieldDropdown([["up","UP_BUTTON"], ["down","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
+            .appendField(new Blockly.FieldDropdown([["down","UP_BUTTON"], ["up","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
             .appendField("is pressed");
         this.setOutput(true, "Boolean");
         this.setColour(54);
@@ -594,7 +594,33 @@ module.exports = function(blocks) {
     };
     
 
-    
+    Blockly.Blocks['changeyposof'] = {  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#kr8xqa
+      init: function() {
+        this.appendValueInput("newypos")
+            .setCheck("Number")
+            .appendField("Change Y position to");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(267);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['changexpos'] = {
+      init: function() {
+        this.appendValueInput("newxpos")
+            .setCheck("Number")
+            .appendField("Change X position of")
+            .appendField(new Blockly.FieldDropdown([["option","OPTIONNAME"], ["option","OPTIONNAME"], ["option","OPTIONNAME"]]), "NAME")
+            .appendField("to");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+    };
 
     
 

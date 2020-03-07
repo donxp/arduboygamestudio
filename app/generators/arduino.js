@@ -451,6 +451,8 @@ var setupVoid = 'void setup() {\n' +
   'arduboy.begin();\n' +
   'arduboy.setFrameRate(20);\n' +
   'arduboy.initRandomSeed();\n' +
+  'arduboy.flipVertical(true);\n' +
+  'arduboy.flipHorizontal(true);\n' +
   'gameObjectCreation();\n}\n\n';
 
 
