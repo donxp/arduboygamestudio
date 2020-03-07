@@ -324,3 +324,14 @@ Blockly.Arduino['setsprite'] = function(block) {
   return code;
 };
 
+Blockly.Arduino['printat'] = function(block) {
+  var value_display_text = Blockly.Arduino.valueToCode(block, 'Display Text', Blockly.Arduino.ORDER_ATOMIC);
+  var value_at_x = Blockly.Arduino.valueToCode(block, 'at X', Blockly.Arduino.ORDER_ATOMIC);
+  var value_at_y = Blockly.Arduino.valueToCode(block, 'at Y', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'tinyfont.setCursor('+value_at_x+', '+value_at_y+');\n tinyfont.print('+ value_display_text+');';
+  return code;
+};
+
+
+

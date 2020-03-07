@@ -231,6 +231,8 @@ var includes = '#include <Arduboy2.h>\n' +
 '#define ARDBITMAP_SBUF arduboy.getBuffer()\n' +
 '#include <ArdBitmap.h>\n' +
 '#include <ArduboyTones.h>\n' +
+'#include "Tinyfont.h"\n' +
+'Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());\n' +
 'ArduboyTones sound(arduboy.audio.enabled);\n';
 
 function generateSpriteArrays(){

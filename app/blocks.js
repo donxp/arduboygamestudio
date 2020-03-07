@@ -83,7 +83,7 @@ module.exports = function(blocks) {
             .appendField(this.newQuote_(true))
             .appendField(new Blockly.FieldTextInput(''), 'TEXT')
             .appendField(this.newQuote_(false));
-        this.setOutput(true, Blockly.Types.TEXT.output);
+        this.setOutput(true, "String");
         // Assign 'this' to a variable for use in the tooltip closure below.
         var thisBlock = this;
         // Text block is trivial.  Use tooltip of parent block if it exists.
@@ -560,6 +560,31 @@ module.exports = function(blocks) {
         this.appendValueInput("Milis")
             .setCheck("Number")
             .appendField("Wait For (ms)");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(10);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      }
+
+      
+    };
+
+
+    Blockly.Blocks['printat'] = {
+      init: function() {
+        this.appendValueInput("Display Text")
+            .setCheck(["String", "Number"])
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(new Blockly.FieldLabelSerializable("Print"), "PRINTTEXT");
+        this.appendValueInput("at X")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(new Blockly.FieldLabelSerializable("X pos"), "XPOS");
+        this.appendValueInput("at Y")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField(new Blockly.FieldLabelSerializable("Y pos"), "YPOS");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(10);
