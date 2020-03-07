@@ -607,14 +607,7 @@ module.exports = function(blocks) {
       }
     };
 
- 
-    };
-
     
-
-    
-
-
 
 
 
