@@ -455,33 +455,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['is_colliding_with'] = {
-      init: function() {
-        this.appendDummyInput()
-            .appendField("Is colliding with")
-            .appendField(new Blockly.FieldDropdown(
-              this.generateOptions), 'OBJECTNAME');
-        this.setOutput(true, "Boolean");
-        this.setColour(54);
-     this.setTooltip("");
-     this.setHelpUrl("");
-      },
-      generateOptions: function() {
-        var options = [];
-        var tabnames = window.currentProject.files.map(p => p.name);
-        for(i = 0; i < tabnames.length; i++){
-          options.push([tabnames[i], "allObjects[" + i + "]"]);
-        }
-        options.push(["Wassap", "allObjects[" + i + "]"]);
-
-        if(options.length == 0){
-          return options.push(['mem','MEMES']);
-        }
-
-        return options;
-      }
-      
-    };
+   
 
     Blockly.Blocks['gamestart'] = {
       init: function() {
@@ -592,25 +566,95 @@ module.exports = function(blocks) {
      this.setHelpUrl("");
       }
     };
-    
 
-    Blockly.Blocks['changeyposof'] = {  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#kr8xqa
+    Blockly.Blocks['is_colliding_with'] = {
+      init: function() {
+        this.appendDummyInput()
+            .appendField("Is colliding with")
+            .appendField(new Blockly.FieldDropdown(
+              this.generateOptions), 'OBJECTNAME');
+        this.setOutput(true, "Boolean");
+        this.setColour(54);
+     this.setTooltip("");
+     this.setHelpUrl("");
+      },
+      generateOptions: function() {
+        var options = [];
+        var tabnames = window.currentProject.files.map(p => p.name);
+        for(i = 0; i < tabnames.length; i++){
+          options.push([tabnames[i], "allObjects[" + i + "]"]);
+        }
+        options.push(["Wassap", "allObjects[" + i + "]"]);
+
+        if(options.length == 0){
+          return options.push(['mem','MEMES']);
+        }
+
+        return options;
+      }
+      
+    };
+    
+    Blockly.Blocks['changexposof'] = {
+      init: function() {
+        this.appendValueInput("newxpos")
+            .setCheck("Number")
+            .appendField("Change X position of")
+            .appendField(new Blockly.FieldDropdown(
+              this.generateOptions), 'OBJECTNAME')
+            .appendField("to");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+     this.setTooltip("");
+     this.setHelpUrl("");
+    },
+    generateOptions: function() {
+      var options = [];
+      var tabnames = window.currentProject.files.map(p => p.name);
+      for(i = 0; i < tabnames.length; i++){
+        options.push([tabnames[i], "allObjects[" + i + "]"]);
+      }
+      options.push(["Wassap", "allObjects[" + i + "]"]);
+
+      if(options.length == 0){
+        return options.push(['mem','MEMES']);
+      }
+
+      return options;
+    }
+    };
+
+    Blockly.Blocks['changeyposof'] = {
       init: function() {
         this.appendValueInput("newypos")
             .setCheck("Number")
-            .appendField("Change Y position to");
+            .appendField("Change Y position of")
+            .appendField(new Blockly.FieldDropdown(
+              this.generateOptions), 'OBJECTNAME')
+            .appendField("to");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(267);
+        this.setColour(230);
      this.setTooltip("");
      this.setHelpUrl("");
+    },
+    generateOptions: function() {
+      var options = [];
+      var tabnames = window.currentProject.files.map(p => p.name);
+      for(i = 0; i < tabnames.length; i++){
+        options.push([tabnames[i], "allObjects[" + i + "]"]);
       }
+      options.push(["Wassap", "allObjects[" + i + "]"]);
+
+      if(options.length == 0){
+        return options.push(['mem','MEMES']);
+      }
+
+      return options;
+    }
     };
 
     
-
-
-
-
 
 }

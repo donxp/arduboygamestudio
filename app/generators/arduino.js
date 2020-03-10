@@ -325,11 +325,11 @@ var gameobjectClass = 'class GameObject {\n' +
                       'yPos = yPos + incrementAmount;\n'+  
                       'mainRect.y = yPos;\n'+  
                       '}\n'+
-                      'void changeXpos(int newX) {\n' +
+                      'public : void changeXpos(int newX) {\n' +
                         'xPos = newX;\n' +
                         'mainRect.x = newX;\n' +
                         '}\n' +
-                        'void changeYpos(int newY) {\n' +
+                        'public : void changeYpos(int newY) {\n' +
                         'yPos = newY;\n' +
                         'mainRect.y = newY;\n' +
                         '}\n' +

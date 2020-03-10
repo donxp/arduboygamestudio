@@ -333,5 +333,23 @@ Blockly.Arduino['printat'] = function(block) {
   return code;
 };
 
+Blockly.Arduino['changexposof'] = function(block) {
+  var dropdown_objectname = block.getFieldValue('OBJECTNAME');
+  var value_newxpos = Blockly.Arduino.valueToCode(block, 'newxpos', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_objectname  + "->changeXpos(" + value_newxpos + ");";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return code;
+};
+
+Blockly.Arduino['changeyposof'] = function(block) {
+  var dropdown_objectname = block.getFieldValue('OBJECTNAME');
+  var value_newypos = Blockly.Arduino.valueToCode(block, 'newypos', Blockly.Arduino.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = dropdown_objectname  + "->changeYpos(" + value_newypos + ");";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return code;
+};
+
 
 
