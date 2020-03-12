@@ -265,7 +265,7 @@ module.exports = function(blocks) {
         this.setInputsInline(true);
         this.setOutput(true, "Number");
         this.setColour(137);
-     this.setTooltip("");
+     this.setTooltip("Returns a number randomly between the minimum number and the maximum");
      this.setHelpUrl("");
       }
     };
@@ -278,7 +278,7 @@ module.exports = function(blocks) {
             .appendField("is pressed");
         this.setOutput(true, "Boolean");
         this.setColour(54);
-     this.setTooltip("");
+     this.setTooltip("Retruns true if the selected button is being pressed");
      this.setHelpUrl("");
       }
     };
@@ -291,7 +291,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(267);
-     this.setTooltip("");
+     this.setTooltip("Will change the x position of the current GameObject");
      this.setHelpUrl("");
       }
     };
@@ -305,7 +305,7 @@ module.exports = function(blocks) {
         this.setNextStatement(true, null);
         
         this.setColour(267);
-     this.setTooltip("");
+     this.setTooltip("Will change the GameObject's sprite (You can create your own sprite in the sprite creator!)");
      this.setHelpUrl("");
       },
       generateOptions: function() {
@@ -315,34 +315,38 @@ module.exports = function(blocks) {
           var spriteInfo = ProjectManager.generateSpriteArray()[i].code;
           var width = 0;
           var height = 0;
-          if(spriteInfo.charAt(3) == 'x'){
-              width = spriteInfo.charAt(2);
-              if(spriteInfo.charAt(5) == '*'){
-                height = spriteInfo.charAt(4)
-              }else{
-                if(spriteInfo.charAt(6) == '*'){
-                  height = spriteInfo.charAt(4) + "" + spriteInfo.charAt(5);
-              }
-          }
-        }
+        //   if(spriteInfo.charAt(3) == 'x'){
+        //       width = spriteInfo.charAt(2);
+        //       if(spriteInfo.charAt(5) == '*'){
+        //         height = spriteInfo.charAt(4)
+        //       }
+        //         if()
+        //       else{
+        //         if(spriteInfo.charAt(6) == '*'){
+        //           height = spriteInfo.charAt(4) + "" + spriteInfo.charAt(5);
+        //       }
+        //   }
+        // }
 
-        if(spriteInfo.charAt(4) == 'x'){
-            width = spriteInfo.charAt(2) + "" + spriteInfo.charAt(3);
-            if(spriteInfo.charAt(6) == '*'){
-              height = spriteInfo.charAt(5);
-            }else{
-              if(spriteInfo.charAt(7) == '*'){
-                  height = spriteInfo.charAt(5) + "" + spriteInfo.charAt(6);
-              }
-            }
-        }
+        // if(spriteInfo.charAt(4) == 'x'){
+        //     width = spriteInfo.charAt(2) + "" + spriteInfo.charAt(3);
+        //     if(spriteInfo.charAt(6) == '*'){
+        //       height = spriteInfo.charAt(5);
+        //     }else{
+        //       if(spriteInfo.charAt(7) == '*'){
+        //           height = spriteInfo.charAt(5) + "" + spriteInfo.charAt(6);
+        //       }
+        //     }
+        // }
 
+         for(i = 2; i < spriteInfo.length; i++){
+            sprites
+         } 
+        
           options.push([ProjectManager.generateSpriteArray()[i].name, i + "," + width + "," + height]);
         }
-        options.push(["Ignore", "allObjects[" + i + "]"]);
-        if(options.length == 0){
-          return options.push(['mem','MEMES']);
-        }
+        options.push(["invisible", i + "," + 0 + "," + 0]);
+       
 
         return options;
       }
@@ -355,7 +359,7 @@ module.exports = function(blocks) {
             .appendField("X Position");
         this.setOutput(true, null);
         this.setColour(267);
-     this.setTooltip("");
+     this.setTooltip("Returns the current X position");
      this.setHelpUrl("");
       }
     };
@@ -366,7 +370,7 @@ module.exports = function(blocks) {
             .appendField("Y Position");
         this.setOutput(true, null);
         this.setColour(267);
-     this.setTooltip("");
+     this.setTooltip("Returns the current Y position");
      this.setHelpUrl("");
       }
     };
@@ -377,7 +381,7 @@ module.exports = function(blocks) {
             .appendField("Screen Height");
         this.setOutput(true, null);
         this.setColour(10);
-     this.setTooltip("");
+     this.setTooltip("Returns the screen's height");
      this.setHelpUrl("");
       }
     };
@@ -388,7 +392,7 @@ module.exports = function(blocks) {
             .appendField("Screen Width");
         this.setOutput(true, null);
         this.setColour(10);
-     this.setTooltip("");
+     this.setTooltip("Returns the screen's width");
      this.setHelpUrl("");
       }
     };
@@ -402,7 +406,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(267);
-     this.setTooltip("");
+     this.setTooltip("Will change the x position of the current GameObject");
      this.setHelpUrl("");
       }
     };
@@ -413,7 +417,7 @@ module.exports = function(blocks) {
             .appendField("When Game Begins");
         this.setNextStatement(true, null);
         this.setColour(10);
-     this.setTooltip("");
+     this.setTooltip("This block will only run on the first frame of the game (Use it to set sprite or set any variables you don't want changed each frame)");
      this.setHelpUrl("");
       }
     };
@@ -424,7 +428,7 @@ module.exports = function(blocks) {
             .appendField("When collides with anything");
         this.setNextStatement(true, null);
         this.setColour(267);
-     this.setTooltip("");
+     this.setTooltip("Returns true if the current GameObject's sprite is overlapping with the selected GameObjects sprite");
      this.setHelpUrl("");
       }
     };
@@ -437,7 +441,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(267);
-     this.setTooltip("");
+     this.setTooltip("Will change the X position by the inputed number");
      this.setHelpUrl("");
       }
     };
@@ -450,7 +454,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(267);
-     this.setTooltip("");
+     this.setTooltip("Will change the Y position by the inputed number");
      this.setHelpUrl("");
       }
     };
@@ -463,7 +467,7 @@ module.exports = function(blocks) {
             .setCheck(null)
             .appendField("When game starts");
         this.setColour(10);
-     this.setTooltip("");
+     this.setTooltip("This block will only run on the first frame of the game (Use it to set sprite or set any variables you don't want changed each frame)");
      this.setHelpUrl("");
       }
     };
@@ -480,7 +484,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(168);
-     this.setTooltip("");
+     this.setTooltip("Will play notes if noteblocks are added");
      this.setHelpUrl("");
       }
     };
@@ -495,7 +499,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(168);
-     this.setTooltip("");
+     this.setTooltip("Will play notes if noteblocks are added");
      this.setHelpUrl("");
       }
     };
@@ -508,7 +512,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(168);
-     this.setTooltip("");
+     this.setTooltip("Will play a note if a noteblock is added");
      this.setHelpUrl("");
       }
     };
@@ -524,7 +528,7 @@ module.exports = function(blocks) {
             .appendField("For a duration of (ms)");
         this.setOutput(true, "Note");
         this.setColour(168);
-     this.setTooltip("");
+     this.setTooltip("Combine this with the playnote blocks to implement sound");
      this.setHelpUrl("");
       }
     };
@@ -537,7 +541,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(10);
-     this.setTooltip("");
+     this.setTooltip("Stops the game running for a certain amount of time in miliseconds (1000 = 1 second)");
      this.setHelpUrl("");
       }
 
@@ -562,7 +566,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(10);
-     this.setTooltip("");
+     this.setTooltip("Print a variable or string at a certain position");
      this.setHelpUrl("");
       }
     };
@@ -575,7 +579,7 @@ module.exports = function(blocks) {
               this.generateOptions), 'OBJECTNAME');
         this.setOutput(true, "Boolean");
         this.setColour(54);
-     this.setTooltip("");
+     this.setTooltip("Returns true if the current GameObject's sprite is overlapping with the selected GameObjects sprite");
      this.setHelpUrl("");
       },
       generateOptions: function() {
@@ -584,7 +588,7 @@ module.exports = function(blocks) {
         for(i = 0; i < tabnames.length; i++){
           options.push([tabnames[i], "allObjects[" + i + "]"]);
         }
-        options.push(["Wassap", "allObjects[" + i + "]"]);
+       // options.push(["Wassap", "allObjects[" + i + "]"]);
 
         if(options.length == 0){
           return options.push(['mem','MEMES']);
@@ -606,7 +610,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(230);
-     this.setTooltip("");
+     this.setTooltip("Used to change the X position of other GameObjects");
      this.setHelpUrl("");
     },
     generateOptions: function() {
@@ -615,7 +619,7 @@ module.exports = function(blocks) {
       for(i = 0; i < tabnames.length; i++){
         options.push([tabnames[i], "allObjects[" + i + "]"]);
       }
-      options.push(["Wassap", "allObjects[" + i + "]"]);
+      //options.push(["Wassap", "allObjects[" + i + "]"]);
 
       if(options.length == 0){
         return options.push(['mem','MEMES']);
@@ -636,7 +640,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(230);
-     this.setTooltip("");
+     this.setTooltip("Used to change the X position of other GameObjects");
      this.setHelpUrl("");
     },
     generateOptions: function() {
@@ -645,7 +649,7 @@ module.exports = function(blocks) {
       for(i = 0; i < tabnames.length; i++){
         options.push([tabnames[i], "allObjects[" + i + "]"]);
       }
-      options.push(["Wassap", "allObjects[" + i + "]"]);
+      //options.push(["Wassap", "allObjects[" + i + "]"]);
 
       if(options.length == 0){
         return options.push(['mem','MEMES']);
