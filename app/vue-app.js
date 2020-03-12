@@ -20,7 +20,8 @@ var vm = new Vue({
         spriteCreatorWidth: 8,
         spriteCreatorHeight: 8,
         spriteCreatorImage: [],
-        preferencesModal: false
+        preferencesModal: false,
+        debugMode: false
     },
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',

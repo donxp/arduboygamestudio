@@ -35,7 +35,7 @@ class ProjectManager {
      */
     static switchToTab(tabName) {
         const tab_idx = window.currentProject.files.findIndex(p => p.name == tabName)
-        if(tab_idx > -1) {
+        if (tab_idx > -1) {
             // update current tab before switching
             ProjectManager.updateCurrentTab(window.workspace)
 
@@ -43,10 +43,10 @@ class ProjectManager {
             window.currentProject.tab = tabName
             const content = window.currentProject.files[tab_idx].content
 
-            if(content != null) {
+            if (content != null) {
                 this.loadContentIntoWorkspace(window.workspace, content)
             }
-        }   
+        }
     }
 
     /**
@@ -81,27 +81,9 @@ class ProjectManager {
         const xml = parser.parseFromString(data, 'text/xml')
         const files = xml.getElementsByTagName('file')
         const sprites = xml.getElementsByTagName('sprite')
-        
-        const projectFiles = []
-        for(let i = 0; i < files.length; i++) {
-            const file = files[i]
-            const name = file.getAttribute('name')
-            const inner = file.innerHTML
-
-            projectFiles.push({
-                name: name,
-                content: inner
-            })
-
-            // Load the main tab into current workspace
-            if(name == 'main') {
-                ProjectManager.loadContentIntoWorkspace(window.workspace, inner)
-            }
-        }
-        window.currentProject.files = projectFiles
 
         const projectSprites = []
-        for(let i = 0; i < sprites.length; i++) {
+        for (let i = 0; i < sprites.length; i++) {
             const sprite = sprites[i]
             const name = sprite.getAttribute('name')
             const inner = sprite.innerHTML
@@ -112,7 +94,26 @@ class ProjectManager {
             })
         }
         window.currentProject.sprites = projectSprites
-        if(window.vm && window.vm.showSprites) window.vm.toggleShowSprites()
+
+        const projectFiles = []
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i]
+            const name = file.getAttribute('name')
+            const inner = file.innerHTML
+
+            projectFiles.push({
+                name: name,
+                content: inner
+            })
+
+            // Load the main tab into current workspace
+            if (name == 'main') {
+                ProjectManager.loadContentIntoWorkspace(window.workspace, inner)
+            }
+        }
+        window.currentProject.files = projectFiles
+
+        if (window.vm && window.vm.showSprites) window.vm.toggleShowSprites()
     }
 
     /**
@@ -138,7 +139,7 @@ class ProjectManager {
      */
     static updateCurrentTab(workspace) {
         const file_idx = currentProject.files.findIndex(p => p.name == currentProject.tab)
-        if(file_idx > -1) {
+        if (file_idx > -1) {
             currentProject.files[file_idx].content = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(workspace))
         }
     }
@@ -151,7 +152,7 @@ class ProjectManager {
         const root = document.implementation.createDocument(null, 'files')
 
         // Save tabs
-        for(let i = 0; i < window.currentProject.files.length; i++) {
+        for (let i = 0; i < window.currentProject.files.length; i++) {
             const file = window.currentProject.files[i]
             const fileNode = root.createElement('file')
             fileNode.setAttribute('name', file.name)
@@ -160,7 +161,7 @@ class ProjectManager {
         }
 
         // Save sprites
-        for(let i = 0; i < window.currentProject.sprites.length; i++) {
+        for (let i = 0; i < window.currentProject.sprites.length; i++) {
             const sprite = window.currentProject.sprites[i]
             const spriteNode = root.createElement('sprite')
             spriteNode.setAttribute('name', sprite.name)
@@ -178,12 +179,12 @@ class ProjectManager {
     static generateSpriteArray() {
         const sprites = window.currentProject.sprites
         const resultSprites = []
-        for(let i = 0; i < sprites.length; i++) {
+        for (let i = 0; i < sprites.length; i++) {
             const matrix = ProjectManager.rotateMatrix(sprites[i].image)
             const lines = [
                 // `! sprite ${sprites[i].image.length}x${sprites[i].image[0].length}`
             ]
-            for(let row = 0; row < matrix.length; row++) {
+            for (let row = 0; row < matrix.length; row++) {
                 lines.push(matrix[row].map(p => p ? '#' : '.').join(''))
             }
             console.log(lines)
@@ -201,7 +202,7 @@ class ProjectManager {
      */
     static rotateMatrix(matrix) {
         let result = []
-        for(let i = 0; i < matrix[0].length; i++) {
+        for (let i = 0; i < matrix[0].length; i++) {
             let row = matrix.map(e => e[i])
             result.push(row)
         }
