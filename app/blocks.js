@@ -339,9 +339,9 @@ module.exports = function(blocks) {
         //     }
         // }
 
-         for(i = 2; i < spriteInfo.length; i++){
-            sprites
-         } 
+        //  for(i = 2; i < spriteInfo.length; i++){
+        //     sprites
+        //  } 
         
           options.push([ProjectManager.generateSpriteArray()[i].name, i + "," + width + "," + height]);
         }

@@ -69,6 +69,7 @@ class ProjectManager {
                 content: ''
             }
         ]
+        window.currentProject.sprites = []
         window.currentProject.path = null
         window.workspace.clear()
     }
@@ -94,7 +95,6 @@ class ProjectManager {
             })
         }
         window.currentProject.sprites = projectSprites
-
         const projectFiles = []
         for (let i = 0; i < files.length; i++) {
             const file = files[i]
@@ -105,7 +105,6 @@ class ProjectManager {
                 name: name,
                 content: inner
             })
-
             // Load the main tab into current workspace
             if (name == 'main') {
                 ProjectManager.loadContentIntoWorkspace(window.workspace, inner)
