@@ -72,7 +72,7 @@
       </xml>
       <div class="row w-100">
         <div class="col">
-          <section style="position: relative;width: 100%; height: 300px;">
+          <section style="position: relative;width: 100%; height: 85vh;">
             <div id="blocklyDiv" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"></div>
           </section>
         </div>
@@ -81,7 +81,7 @@
       
       <!-- Fix blockly container hogging area -->
       <div style="margin-top: 45px;"></div>
-      <textarea name="code" id="code" cols="50" rows="20"></textarea>
+      <textarea v-if="debugMode" name="code" id="code" cols="50" rows="20"></textarea>
       
     </div>
     <script src="./static/js/jquery.js"></script>
