@@ -238,6 +238,7 @@ var includes = '#include <Arduboy2.h>\n' +
 function generateSpriteArrays(){
   var spriteArrays = "";
   var spriteAmount = window.currentProject.sprites.length
+  spriteArrays = "const unsigned char invisible [] PROGMEM = {};\n";
   for(i = 0; i < spriteAmount; i++){
     thisSpriteArray = 'const unsigned char SPRITENUMBER' + i + ' [] PROGMEM = {\n' + 
     ProjectManager.generateSpriteArray()[i].code + ',};\n'
@@ -245,10 +246,11 @@ function generateSpriteArrays(){
   }
   
   var arrayWithNames = "const unsigned char *spriteArray[] = {";
+  
   for(i = 0; i < spriteAmount; i++){
     arrayWithNames = arrayWithNames + "\nSPRITENUMBER" + i + ","; 
   }
-  
+  arrayWithNames = arrayWithNames + "\ninvisible";
   arrayWithNames = arrayWithNames + "\n};\n"
 
 
@@ -325,11 +327,11 @@ var gameobjectClass = 'class GameObject {\n' +
                       'yPos = yPos + incrementAmount;\n'+  
                       'mainRect.y = yPos;\n'+  
                       '}\n'+
-                      'void changeXpos(int newX) {\n' +
+                      'public : void changeXpos(int newX) {\n' +
                         'xPos = newX;\n' +
                         'mainRect.x = newX;\n' +
                         '}\n' +
-                        'void changeYpos(int newY) {\n' +
+                        'public : void changeYpos(int newY) {\n' +
                         'yPos = newY;\n' +
                         'mainRect.y = newY;\n' +
                         '}\n' +
