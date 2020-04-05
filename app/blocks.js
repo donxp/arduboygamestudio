@@ -253,8 +253,8 @@ module.exports = function(blocks) {
       })
       }
     }
-
-    Blockly.Blocks['randomrange'] = {       //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ida2k6
+    //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ida2k6
+    Blockly.Blocks['randomrange'] = {       
       init: function() {
         this.appendValueInput("min")
             .setCheck("Number")
@@ -312,36 +312,10 @@ module.exports = function(blocks) {
         var options = [];
         var spriteAmount = window.currentProject.sprites.length
         for(i = 0; i < spriteAmount; i++){
-          var spriteInfo = ProjectManager.generateSpriteArray()[i].code;
-          var width = 0;
-          var height = 0;
-        //   if(spriteInfo.charAt(3) == 'x'){
-        //       width = spriteInfo.charAt(2);
-        //       if(spriteInfo.charAt(5) == '*'){
-        //         height = spriteInfo.charAt(4)
-        //       }
-        //         if()
-        //       else{
-        //         if(spriteInfo.charAt(6) == '*'){
-        //           height = spriteInfo.charAt(4) + "" + spriteInfo.charAt(5);
-        //       }
-        //   }
-        // }
-
-        // if(spriteInfo.charAt(4) == 'x'){
-        //     width = spriteInfo.charAt(2) + "" + spriteInfo.charAt(3);
-        //     if(spriteInfo.charAt(6) == '*'){
-        //       height = spriteInfo.charAt(5);
-        //     }else{
-        //       if(spriteInfo.charAt(7) == '*'){
-        //           height = spriteInfo.charAt(5) + "" + spriteInfo.charAt(6);
-        //       }
-        //     }
-        // }
-
-        //  for(i = 2; i < spriteInfo.length; i++){
-        //     sprites
-        //  } 
+          var width = window.currentProject.sprites[i].image.length;
+          var height = window.currentProject.sprites[i].image[0].length;
+         
+      
         
           options.push([ProjectManager.generateSpriteArray()[i].name, i + "," + width + "," + height]);
         }

@@ -416,8 +416,8 @@ function generateClass(name,code) {
                           '}\n' +
                           isolateVariables(code) + '\n' + 
                           'void mainFunction() override {\n' +
-                          'drawSprite();\n' +
                           isolateCode(code) + '\n' +
+                          'drawSprite();\n' +
                           '}\n' +
                          
                           '\n' +
