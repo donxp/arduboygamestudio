@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain, dialog} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog, Menu} = require('electron')
 const path = require('path')
+const examples = require('./examples/examples.json')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -33,6 +34,41 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  createMenu()
+}
+
+function createMenu() {
+  const examplesSubmenu = examples.map(example => {
+    return {
+      label: example.name,
+      click() {
+        // console.log('Clicked on', example.name)
+        mainWindow.webContents.send('loadProject', example.file)
+      }
+    }
+  })
+  let menu = Menu.buildFromTemplate([
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Examples',
+          submenu: examplesSubmenu
+        },
+        {
+          label: 'Toggle Dev Tools',
+          click() {
+            mainWindow.webContents.toggleDevTools()
+          }
+        },
+        {
+          label: 'Exit'
+        }
+      ]
+    }
+  ])
+  Menu.setApplicationMenu(menu)
 }
 
 // This method will be called when Electron has finished
@@ -52,16 +88,3 @@ app.on('activate', function () {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow()
 })
-
-ipcMain.on('open_add_sprite_dialog', () => {
-  console.log('test')
-  let ret = dialog.showOpenDialogSync(mainWindow)
-  console.log(ret)
-})
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
-// try {
-// 	require('electron-reloader')(module);
-// } catch (_) {}

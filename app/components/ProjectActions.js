@@ -3,9 +3,7 @@ let ProjectManager = require('../util/ProjectManager.js')
 let AsyncFileHelper = require('../util/AsyncFileHelper.js')
 let ArduHelper = require('../util/ArduHelper.js');
 let Dia = require('dialogs')()
-
-
-
+const path = require('path')
 
 Vue.component('project-actions', {
     template: `
@@ -17,6 +15,14 @@ Vue.component('project-actions', {
         <button class="btn btn-sm btn-primary" @click="uploadProject">Upload</button>
     </div>
     `,
+    created() {
+        ipcRenderer.on('loadProject', (sender, file) => {
+            const projectPath = path.join(window.rootPath, 'examples', file)
+            ProjectManager.loadProject(projectPath).then(() => {
+                this.$emit('project-loaded')
+            })
+        })
+    },
     methods: {
         newProject: function() {
 

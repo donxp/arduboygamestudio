@@ -16,6 +16,8 @@ require('./app/blockly/')
 var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');
 
+window.rootPath = __dirname
+
 /**
  * The purpose of this is to make sure the user wants to leave without saving
  */
