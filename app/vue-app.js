@@ -38,6 +38,11 @@ var vm = new Vue({
         },
         spriteCreatorHeight: function() {
             this.draw()
+        },
+        debugMode: newVal => {
+            this.$nextTick(() => {
+                Blockly.svgResize(workspace)
+            })
         }
     },
     methods: {
