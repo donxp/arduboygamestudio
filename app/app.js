@@ -12,6 +12,8 @@ var currentpath = ""; //pathway of save location (NOT recent.ard)
 
 require('./app/blocks')(Blockly.Blocks)
 require('./app/blockly/')
+const theme = require('./app/blockly/arduboytheme')
+Blockly.Themes.Arduboy = theme.init()
 
 var blocklyDiv = document.getElementById('blocklyDiv');
 var blocklyArea = document.getElementById('blocklyArea');

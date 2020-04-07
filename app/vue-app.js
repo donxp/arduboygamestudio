@@ -28,7 +28,8 @@ var vm = new Vue({
     mounted: function() {
         window.workspace = Blockly.inject('blocklyDiv',
         {
-            toolbox: document.getElementById('toolbox')
+            toolbox: document.getElementById('toolbox'),
+            theme: Blockly.Themes.Arduboy
         });
         window.workspace.addChangeListener(window.updateCode)
         ard.setup()
