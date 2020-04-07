@@ -190,51 +190,39 @@ Blockly.Arduino.finish = function(code) {
   delete Blockly.Arduino.pins_;
   Blockly.Arduino.variableDB_.reset();
 
-  var allDefs = includes.join('\n') + variables.join('\n') +
-      definitions.join('\n') + functions.join('\n\n');
-  var setup = 'void setup() {' + setups.join('\n  ') + '\n}\n\n';
-  var loop = 'void loop() {\n  ' + code.replace(/\n/g, '\n  ') + '\n}';
-
-  var codeToShow = variables.join('\n') + "//seperator\n" + code.replace(/\n/g, '\n  ');
-
  
 
-//  return allDefs + setup + loop;
- //return Blockly.Arduino.generateAllCode();
- 
- //Blockly.Arduino.showMeTheMoney();
- return codeToShow;
+  var codeToShow = variables.join('\n') + "//seperator\n" + code.replace(/\n/g, '\n  '); //joins the two strings for variable declaration and game logic
+
+   return codeToShow;
 };
 
-
-Blockly.Arduino.showMeTheCode = function showMe(){
-  document.getElementById("theP").innerHTML = Blockly.Arduino.generateAllCode();
-}
-
+//the function that returns the final code to place into an empty arduino file
 Blockly.Arduino.generateAllCode = function generateAllCode1(){
-    var fullCode = includes + generateSpriteArrays() +
+    var fullCode = includes + 
+                   generateSpriteArrays() +
                    outOfClassMethods +
-                   gameobjectClass +
+                   gameobjectClass +                      //a collection of methods and variables put together in the same format as the gamewrapper
                    generateArrayDeclaration() +
                    generateSubclasses() +
                    generateGameObjectCreation() + 
                    setupVoid + 
                    loopVoid;
-
-                   
-
-  return fullCode;
+    return fullCode;
 }
 
-var includes = '#include <Arduboy2.h>\n' +
+//all the needed includes and variable defintions for every game
+var includes = '#include <Arduboy2.h>\n' +      
 'Arduboy2 arduboy;\n' +
+'#include <ArduboyTones.h>\n' +
 '#define ARDBITMAP_SBUF arduboy.getBuffer()\n' +
 '#include <ArdBitmap.h>\n' +
-'#include <ArduboyTones.h>\n' +
 '#include "Tinyfont.h"\n' +
 'Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());\n' +
 'ArduboyTones sound(arduboy.audio.enabled);\n';
 
+
+//generates
 function generateSpriteArrays(){
   var spriteArrays = "";
   var spriteAmount = window.currentProject.sprites.length
@@ -279,7 +267,7 @@ var gameobjectClass = 'class GameObject {\n' +
                       'int instanceNumber;\n'+ 
                       'Rect mainRect;\n'+         
                       'GameObject(){}\n'+         
-                      ' GameObject(int x,int y,int mySpriteIndex,int sprH,int sprW,int instNumber){\n'+         
+                      'GameObject(int x,int y,int mySpriteIndex,int sprH,int sprW,int instNumber){\n'+         
                       'xPos = x;\n'+         
                       'yPos = y;\n'+
                       'instanceNumber = instNumber;\n' + 
@@ -289,8 +277,7 @@ var gameobjectClass = 'class GameObject {\n' +
                       'mainRect.x = xPos;\n'+         
                       'mainRect.y = yPos;\n'+         
                       'mainRect.width = spriteWidth;\n'+         
-                      'mainRect.height = spriteHeight;\n'+         
-                      'changePos(x,y);\n'+         
+                      'mainRect.height = spriteHeight;\n'+                
                       'drawSprite();\n'+         
                       '}\n'+         
                       'boolean checkForCollision(GameObject* other){\n'+         
@@ -300,10 +287,7 @@ var gameobjectClass = 'class GameObject {\n' +
                       'return false;\n'+   
                       '}\n'+   
                       '}\n'+   
-                      '\n'+   
-                      'void goToRandomPos(){\n'+   
-                      'changePos(randomRange(0,WIDTH),randomRange(0,HEIGHT));\n'+   
-                      '}\n'+   
+                      '\n'+     
                       'Rect getRect(){\n'+   
                       ' return mainRect;\n'+   
                       '}\n'+   
@@ -313,12 +297,6 @@ var gameobjectClass = 'class GameObject {\n' +
                       ' int getSpriteWidth(){\n'+  
                       'return spriteWidth;\n'+  
                       '}\n'+    
-                      'void changePos(int newX, int newY) {\n'+  
-                      'xPos = newX;\n'+  
-                      'yPos = newY;\n'+  
-                      'mainRect.x = xPos;\n'+  
-                      'mainRect.y = yPos;\n'+  
-                      '}\n'+  
                       'void changeXByAmount(int incrementAmount) {  \n'+  
                       'xPos = xPos + incrementAmount;\n'+  
                       'mainRect.x = xPos;\n'+
@@ -335,7 +313,7 @@ var gameobjectClass = 'class GameObject {\n' +
                         'yPos = newY;\n' +
                         'mainRect.y = newY;\n' +
                         '}\n' +
-                        'void setSprite(int spriteInd,int spriteW,int spriteH){\n' +
+                      'void setSprite(int spriteInd,int spriteW,int spriteH){\n' +
                       'spriteIndex = spriteInd;\n' +
                       'spriteHeight = spriteH;\n' +
                       'spriteWidth = spriteW;\n' + 
