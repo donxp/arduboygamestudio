@@ -14,7 +14,7 @@ Vue.component('preferences', {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table><tr> 
+                    <table><tr>
                     <h5>COM Port Selection</h5>
                     <select id="COMPorts" v-model="selectedPort">
                         <option v-for="port in ports" :value="port.path">{{port.path}}</option>

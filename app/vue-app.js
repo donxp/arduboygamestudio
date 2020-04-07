@@ -2,6 +2,7 @@ const { ipcRenderer } = require('electron')
 require('./app/components/Tabs.js')
 require('./app/components/ProjectActions.js')
 require('./app/components/Preferences.js')
+require('./app/components/Tutorials.js')
 let ard = require('./app/util/ArduHelper.js')
 require('./app/components/SpriteCreator.js')
 
@@ -21,6 +22,7 @@ var vm = new Vue({
         spriteCreatorHeight: 8,
         spriteCreatorImage: [],
         preferencesModal: false,
+        tutorialsModal: false,
         debugMode: false
     },
     mounted: function() {
@@ -48,6 +50,9 @@ var vm = new Vue({
     methods: {
         showPreferences() {
             this.$refs.preferencesModal.showModal()
+        },
+        showTutorials() {
+            this.$refs.tutorialsModal.showModal()
         },
         projectLoaded() {
             this.$refs.tabs._updateTabs()

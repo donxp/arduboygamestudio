@@ -22,6 +22,7 @@
           
         </div>
         <div>
+          <button class="btn btn-sm btn-primary" @click="showTutorials">Tutorials</button>
           <button class="btn btn-sm btn-primary" @click="showPreferences">Preferences</button>
           <button class="btn btn-sm btn-warning" @click="toggleShowSprites">Sprites</button>
         </div>
@@ -30,7 +31,7 @@
 
       <!-- Preferences opens-->
       <preferences ref="preferencesModal" v-if="workspaceLoaded"></preferences>
-      
+      <tutorials ref="tutorialsModal" v-if="workspaceLoaded"></tutorials>
 
       <xml id="toolbox" style="display: none">
         <category name="Logic" colour="54">
