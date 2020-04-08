@@ -26,6 +26,7 @@ var vm = new Vue({
         debugMode: false
     },
     mounted: function() {
+        Blockly.Events.enable()
         window.workspace = Blockly.inject('blocklyDiv',
         {
             toolbox: document.getElementById('toolbox'),
@@ -42,6 +43,7 @@ var vm = new Vue({
         window.workspace.addChangeListener(window.updateCode)
         ard.setup()
         this.workspaceLoaded = true
+        this.createDefaultBlocks()
     },
     watch: {
         spriteCreatorWidth: function() {
@@ -77,6 +79,17 @@ var vm = new Vue({
             this.$nextTick(function() {
                 Blockly.svgResize(workspace)
             })
+        },
+        workspaceListener(e) {
+            console.log('listener')
+            console.log(e)
+        },
+        createDefaultBlocks() {
+            const def = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="gamestart" id="#~V8#@JAs;t7i*,||N@4" x="270" y="256"><statement name="NAME"><block type="setsprite" id="[#YGhszk%m/T?YSv|;n-"><field name="OBJECTNAME">0,0,0</field></block></statement></block></xml>'
+            setTimeout(() => {
+                Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(def), window.workspace)
+                window.workspace.scrollCenter()
+            }, 5)
         }
     }
 })
