@@ -25,7 +25,7 @@ Vue.component('project-actions', {
     },
     methods: {
         newProject: function() {
-
+            ProjectManager.resetProject()
         },
         openProject: function() {
             dialog.showOpenDialog({
