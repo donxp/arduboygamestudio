@@ -69,7 +69,7 @@ Vue.component('tutorials', {
                             <br>
                             A variable is way you can store numbers or information about the state of the game. To create one go to the 'Variables' selection and press 'create variable' and give it a name.
                             <br/>You should now see these 3 blocks appear such as below: <br/>
-                            <img src="./tutorials/tutorial_var.png"> <br/>
+                            <img :src="getImage('tutorial_var.png')"> <br/>
                             You can now drag any of these into the workspace and edit them however you wish. Make sure to set the variable to something before refering to it otherwise you might run into some issues later on!
                             <img :src="getImage('variableshowcase.png')"><br>
 
