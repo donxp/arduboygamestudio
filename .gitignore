@@ -1,5 +1,4 @@
 node_modules
 .vscode
-arduino-cli
 Arduboy-win32-x64
 dist
