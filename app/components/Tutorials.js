@@ -36,24 +36,32 @@ Vue.component('tutorials', {
                             <div class="tab-pane container active" id="gettingstarted">
                                 <br>
                                 <p>
-                                Welcome to Arduboy Game Studio,
-                                You currently can see a workspace, to toggle Sprites (Images), click on Sprites in the top right corner.
-                                A big thing when using Arduboy Game Studio is that each of the tabs seen here:<br>
-                                <img src="./tutorials/tutorial_tabs.png"><br>
-                                act as different objects among the screen, you're able to reference them from one another easily as well as set each one to have
-                                their own individual (Image) maybe even using the same image for different objects!
-                                You're able to add a new object by pressing the '+' button. <br/>After this, just start dragging blocks from the sections on the left hand side of the screen.
+                                Welcome to Arduboy Game Studio!\n\n
+                                To toggle the Sprite creator click on Sprites in the top right corner. Click 'add new'
+                                to create whatever image your heart desires. Give it a name and save it. Select the dropdown for the setSprite block to change the sprite to whatever name you gave the sprite.
 
-                                Everything that's in the code base will be continually repeated, unless you place it into the "When Game Starts" block which will only be run at the start.
+                                
+                                <br/> <img src="./tutorials/tutorial_gameobject.png"> <br/>
+
+                                
+                                Every block in the workspace will be run each frame (meaning it will run repeatidly) unless you place blocks inside the "When Game Starts" block 
+                                which will only be run in the first frame of the game.
+
                                 <br/>To look at Examples, go to "File > Examples" to load up an example project!
                                 </p>
                             </div>
                             <div class="tab-pane container fade" id="gameo">
                                 <p>
-                                The game object is where we set what sprite we want an object to use as well as the position of the sprite,
-                                when first loading the program, you should set this within the "When Game Starts" block, to not use up as much processing power as everything else will be repeated constantly.
-                                <br/> <img src="./tutorials/tutorial_gameobject.png"> <br/>
-                                The Above sets our object to the smiley sprite and the starting position to X=10 and Y=5.
+                                <br>
+                                In Arduboy Game Studio each tab represents a new GameObject:<br>
+                                You're able to add a new GameObject by pressing the '+' button and inputting a name. <br/>
+                                <img src="./tutorials/tutorial_tabs.png"><br>
+                                Each GameObject has it's own sprite and position and acts independantly of other GameObjects.
+                                Using this you can give each GameObject unique logic by dragging blocks into the relevants tab's workspace.
+                                <br>
+                                <b>Tip:</b> You can use an 'if/do' block with a 'is colliding with' block to check if the current Tab's/GameObject's sprite is colliding with another<br>
+                                <img src="./tutorials/iscolliding.png">
+.
                                 </p>
                             </div>
                             <div class="tab-pane container fade" id="control">
@@ -62,8 +70,9 @@ Vue.component('tutorials', {
                                 </p>
                                 <h5>If/Else Statements</h5>
                                 <p>
-                                This is a conditional statement where what ever is in the first box and if it's true or correct, it will run the below, however with if/else you can press the settings button and turn it into and if else
-                                 which if it 's not true run this other abstract code. For Example:<br>
+                                An If block needs a conditional statement which for Arduboy Game Studio is represented as a Gold colour block which can all be found in the 'logic' catergory. These gold blocks can return either true or false.
+                                If it returns true all the blocks in the 'do' section will be run, however if logic block returns false the 'else' section will be run instead.
+                                For Example:<br>
                                 <img src="./tutorials/tutorial_ifelse.png"> <br/>
                                 This will set it to 0 constantly, before it's able to run so will always leave the lines of code with test being 1.
                                 </p> <h5>Repeat Statements</h5>

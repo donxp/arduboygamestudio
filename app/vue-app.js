@@ -80,7 +80,7 @@ var vm = new Vue({
             })
         },
         createDefaultBlocks() {
-            const def = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="gamestart" id="#~V8#@JAs;t7i*,||N@4" x="270" y="256"><statement name="NAME"><block type="setsprite" id="[#YGhszk%m/T?YSv|;n-"><field name="OBJECTNAME">0,0,0</field></block></statement></block></xml>'
+            const def = '<xml xmlns="https://developers.google.com/blockly/xml"><block type="gamestart" id="#~V8#@JAs;t7i*,||N@4" x="270" y="256"><statement name="NAME"><block type="setsprite" id="[#YGhszk%m/T?YSv|;n-"><field name="OBJECTNAME">0,0,0</field><next><block type="changexpos" id="~YPa57g{F:hlLf]$9y{M"><value name="newxpos"><block type="math_number" id="OX??=nLjjEH^U#KbU)K}"><field name="NUM">30</field></block></value><next><block type="changeypos" id="$z35K$q8b{,6GTN(NwB-"><value name="newypos"><block type="math_number" id="qPqSLOs0O~ooA[81BcjT"><field name="NUM">30</field></block></value></block></next></block></next></block></statement></block></xml>'
             setTimeout(() => {
                 Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(def), window.workspace)
                 window.workspace.scrollCenter()
