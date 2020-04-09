@@ -26,6 +26,7 @@ Vue.component('project-actions', {
     methods: {
         newProject: function() {
             ProjectManager.resetProject()
+            this.$emit('load-defaults')
         },
         openProject: function() {
             dialog.showOpenDialog({
