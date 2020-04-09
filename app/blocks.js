@@ -310,42 +310,14 @@ module.exports = function(blocks) {
       },
       generateOptions: function() {
         var options = [];
-        var spriteAmount = window.currentProject.sprites.length
-        for(i = 0; i < spriteAmount; i++){
-          var spriteInfo = ProjectManager.generateSpriteArray()[i].code;
-          var width = 0;
-          var height = 0;
-        //   if(spriteInfo.charAt(3) == 'x'){
-        //       width = spriteInfo.charAt(2);
-        //       if(spriteInfo.charAt(5) == '*'){
-        //         height = spriteInfo.charAt(4)
-        //       }
-        //         if()
-        //       else{
-        //         if(spriteInfo.charAt(6) == '*'){
-        //           height = spriteInfo.charAt(4) + "" + spriteInfo.charAt(5);
-        //       }
-        //   }
-        // }
-
-        // if(spriteInfo.charAt(4) == 'x'){
-        //     width = spriteInfo.charAt(2) + "" + spriteInfo.charAt(3);
-        //     if(spriteInfo.charAt(6) == '*'){
-        //       height = spriteInfo.charAt(5);
-        //     }else{
-        //       if(spriteInfo.charAt(7) == '*'){
-        //           height = spriteInfo.charAt(5) + "" + spriteInfo.charAt(6);
-        //       }
-        //     }
-        // }
-
-        //  for(i = 2; i < spriteInfo.length; i++){
-        //     sprites
-        //  } 
+        var generatedSprites = ProjectManager.generateSpriteArray()
+        for(let i = 0; i < generatedSprites.length; i++){
+          var width = generatedSprites[i].width
+          var height = generatedSprites[i].height
         
-          options.push([ProjectManager.generateSpriteArray()[i].name, i + "," + width + "," + height]);
+          options.push([generatedSprites[i].name, i + "," + width + "," + height]);
         }
-        options.push(["invisible", i + "," + 0 + "," + 0]);
+        options.push(["invisible", options.length + "," + 0 + "," + 0]);
        
 
         return options;

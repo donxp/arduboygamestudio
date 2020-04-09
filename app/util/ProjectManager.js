@@ -193,7 +193,9 @@ class ProjectManager {
             console.log(lines)
             resultSprites.push({
                 name: sprites[i].name,
-                code: (window.PixelData(lines.join('\n'))).c()
+                code: (window.PixelData(lines.join('\n'))).c(),
+                width: sprites[i].image.length,
+                height: sprites[i].image[0].length
             })
         }
         return resultSprites
