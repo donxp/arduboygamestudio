@@ -6,7 +6,6 @@
   "scripts": {
     "start": "electron . --js-flags=\"--experimental-modules\"",
     "rebuild": "electron-rebuild -f -w arduboy-ide",
-    "package": "electron-packager ./ Arduboy Game Studio --platform=win32 --arch=x64",
     "pack": "electron-builder --dir"
   },
   "build": {

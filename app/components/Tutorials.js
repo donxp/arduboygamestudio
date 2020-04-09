@@ -60,7 +60,7 @@ Vue.component('tutorials', {
                                 Using this you can give each GameObject unique logic by dragging blocks into the relevants tab's workspace.
                                 <br>
                                 <b>Tip:</b> You can use an 'if/do' block with a 'is colliding with' block to check if the current Tab's/GameObject's sprite is colliding with another<br>
-                                <img src="./tutorials/iscolliding.png">
+                                <img :src="getImage('iscolliding.png')">
 .                               
                                 </p>
                             </div>
@@ -71,11 +71,12 @@ Vue.component('tutorials', {
                             <br/>You should now see these 3 blocks appear such as below: <br/>
                             <img src="./tutorials/tutorial_var.png"> <br/>
                             You can now drag any of these into the workspace and edit them however you wish. Make sure to set the variable to something before refering to it otherwise you might run into some issues later on!
-                            <img src="./tutorials/variableshowcase.png">
+                            <img :src="getImage('variableshowcase.png')">
 
                             Here each time the current GameObject collides with the enemy the health is lowered by 20. When setting a variable for the first time make sure to do it in 'When Game Starts' 
                             block as if it isn't each frame the variable will be what you set it to and can't be changed. For example if set health was moved outside of the game start block every frame 
                             health will be set to 100 so it will never be changed.
+                            
                             </p>
                         </div>
                             <div class="tab-pane container fade" id="control">
@@ -87,22 +88,14 @@ Vue.component('tutorials', {
                                 An If block needs a conditional statement which for Arduboy Game Studio is represented as a Gold colour block which can all be found in the 'logic' catergory. These gold blocks can return either true or false.
                                 If it returns true all the blocks in the 'do' section will be run, however if logic block returns false the 'else' section will be run instead.
                                 For Example:<br>
-<<<<<<< HEAD
-                                <img src="./tutorials/ifhealth.png"> <br/>
+                                <img :src="getImage('tutorial_ifelse.png')"> <br/>
                                 If the health variable for this GameObject is above 0, the logic block will return true and the gameobject will continue to move to the right. If health is 0 or less the logic block will
                                 return false and the sprite will be set to invisible to represent the death of the GameObject.
-=======
-                                <img :src="getImage('tutorial_ifelse.png')"> <br/>
-                                This will set it to 0 constantly, before it's able to run so will always leave the lines of code with test being 1.
->>>>>>> 4d543dcd40d321122b4cb7ff9bea2b58125c6d71
                                 </p> <h5>Repeat Statements</h5>
                                 <p>Repeat statements will run however many times you set it to be, however you can make it interchangable if you want it to keep repeating, for example: <br/>
                                 <img :src="getImage('tutorial_while.png')"> <br/>
                                 </p>
                             </div>
-<<<<<<< HEAD
-                            
-=======
                             <div class="tab-pane container fade" id="variables">
                                 <p>
                                 A variable is somewhere we can store numbers or information about our program, to create one go to the Variables selection and press new Variable and give it any name
@@ -111,7 +104,6 @@ Vue.component('tutorials', {
                                 You can now drag some of these into the program and edit them however you wish. Make sure to set them first before trying to call it otherwise, you might run into some issues later on!
                                 </p>
                             </div>
->>>>>>> 4d543dcd40d321122b4cb7ff9bea2b58125c6d71
                             <div class="tab-pane container fade" id="compilation">
                                 <p>
                                 To upload your project to the device, you must first of all make sure that, you press the verify button and then wait for a positive confirmation. This checks to make sure your code is okay!<br/>
@@ -128,11 +120,6 @@ Vue.component('tutorials', {
         </div>
     </div>
     `,
-    data: function() {
-        return {
-            test: 'test123'
-        }
-    },
     methods: {
         showModal() {
             $('#tutorials-modal').modal('show')
