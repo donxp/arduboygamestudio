@@ -85,6 +85,10 @@ var vm = new Vue({
                 Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(def), window.workspace)
                 window.workspace.scrollCenter()
             }, 5)
+        },
+        loadDefaults() {
+            this.createDefaultBlocks()
+            this.projectLoaded()
         }
     }
 })
