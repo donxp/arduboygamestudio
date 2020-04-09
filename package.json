@@ -21,7 +21,8 @@
     ],
     "extraResources": [
       "arduino-cli.exe",
-      "*.bat"
+      "*.bat",
+      "tutorials"
     ]
   },
   "repository": "https://github.com/electron/electron-quick-start",
