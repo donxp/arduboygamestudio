@@ -71,7 +71,12 @@ Vue.component('tutorials', {
                             <br/>You should now see these 3 blocks appear such as below: <br/>
                             <img src="./tutorials/tutorial_var.png"> <br/>
                             You can now drag any of these into the workspace and edit them however you wish. Make sure to set the variable to something before refering to it otherwise you might run into some issues later on!
-                            <img :src="getImage('variableshowcase.png')">
+                            <img :src="getImage('variableshowcase.png')"><br>
+
+                            Here each time the current GameObject collides with the enemy the health is lowered by 20.<br> <b>Tip:</b> When setting a variable for the first time make sure to do it in 'When Game Starts' 
+                            block as if it isn't each frame the variable will be what you set it to and can't be changed. For example if set health was moved outside of the game start block every frame 
+                            health will be set to 100 so it will never be changed.
+                            
                             </p>
                         </div>
                             <div class="tab-pane container fade" id="control">
@@ -80,10 +85,10 @@ Vue.component('tutorials', {
                                 </p>
                                 <h5>If/Else Statements</h5>
                                 <p>
-                                An If block needs a conditional statement which for Arduboy Game Studio is represented as a Gold colour block which can all be found in the 'logic' catergory. These gold blocks can return either true or false.
+                                An If block needs a conditional statement which for Arduboy Game Studio is represented as a gold coloured block which can all be found in the 'logic' catergory. These gold blocks can return either true or false.
                                 If it returns true all the blocks in the 'do' section will be run, however if logic block returns false the 'else' section will be run instead.
                                 For Example:<br>
-                                <img :src="getImage('tutorial_ifelse.png')"> <br/>
+                                <img :src="getImage('ifhealth.png')"> <br/>
                                 If the health variable for this GameObject is above 0, the logic block will return true and the gameobject will continue to move to the right. If health is 0 or less the logic block will
                                 return false and the sprite will be set to invisible to represent the death of the GameObject.
                                 </p> <h5>Repeat Statements</h5>
@@ -115,11 +120,6 @@ Vue.component('tutorials', {
         </div>
     </div>
     `,
-    data: function() {
-        return {
-            test: 'test123'
-        }
-    },
     methods: {
         showModal() {
             $('#tutorials-modal').modal('show')
