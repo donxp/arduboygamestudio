@@ -1,3 +1,5 @@
 require('./type')
 require('./types')
 require('./static_typing')
+require('./utils/object')
+require('./theme')

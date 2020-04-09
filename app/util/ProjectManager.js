@@ -83,6 +83,7 @@ class ProjectManager {
         const files = xml.getElementsByTagName('file')
         const sprites = xml.getElementsByTagName('sprite')
 
+        // Parse sprites first, so that sprite dropdown works as it should
         const projectSprites = []
         for (let i = 0; i < sprites.length; i++) {
             const sprite = sprites[i]
@@ -95,6 +96,7 @@ class ProjectManager {
             })
         }
         window.currentProject.sprites = projectSprites
+
         const projectFiles = []
         for (let i = 0; i < files.length; i++) {
             const file = files[i]
@@ -105,12 +107,14 @@ class ProjectManager {
                 name: name,
                 content: inner
             })
-            // Load the main tab into current workspace
-            if (name == 'main') {
-                ProjectManager.loadContentIntoWorkspace(window.workspace, inner)
-            }
         }
         window.currentProject.files = projectFiles
+
+        // Load the main tab into current workspace after all files have loaded to ensure dropdowns work correctly
+        const mainFile = window.currentProject.files.filter(file => file.name == 'main')
+        if(mainFile.length > 0) {
+            ProjectManager.loadContentIntoWorkspace(window.workspace, mainFile[0].content)
+        }
 
         if (window.vm && window.vm.showSprites) window.vm.toggleShowSprites()
     }
@@ -189,7 +193,9 @@ class ProjectManager {
             console.log(lines)
             resultSprites.push({
                 name: sprites[i].name,
-                code: (window.PixelData(lines.join('\n'))).c()
+                code: (window.PixelData(lines.join('\n'))).c(),
+                width: sprites[i].image.length,
+                height: sprites[i].image[0].length
             })
         }
         return resultSprites

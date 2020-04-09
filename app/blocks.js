@@ -317,16 +317,14 @@ module.exports = function(blocks) {
       },
       generateOptions: function() {                                                         //a custom 
         var options = [];
-        var spriteAmount = window.currentProject.sprites.length
-        for(i = 0; i < spriteAmount; i++){
-          var width = window.currentProject.sprites[i].image.length;
-          var height = window.currentProject.sprites[i].image[0].length;
-         
-      
+        var generatedSprites = ProjectManager.generateSpriteArray()
+        for(let i = 0; i < generatedSprites.length; i++){
+          var width = generatedSprites[i].width
+          var height = generatedSprites[i].height
         
-          options.push([ProjectManager.generateSpriteArray()[i].name, i + "," + width + "," + height]);
+          options.push([generatedSprites[i].name, i + "," + width + "," + height]);
         }
-        options.push(["invisible", i + "," + 0 + "," + 0]);
+        options.push(["invisible", options.length + "," + 0 + "," + 0]);
        
 
         return options;
