@@ -2,20 +2,47 @@
 let process = require('child_process')
 let FileHelper = require('./AsyncFileHelper.js')
 const Dialog = require('dialogs')()
+const path = require('path')
 
 class ArduHelper {
+
+    static isRunningBuilt() {
+        return __dirname.includes('app.asar')
+    }
+
+    static getPathToArduinoCliProject() {
+        if(ArduHelper.isRunningBuilt()) {
+            return path.join(window.rootPath, '..')
+        } else {
+            return path.join(window.rootPath, 'arduino-cli')
+        }
+    }
+
+    static getBatchFilePath(batch) {
+        if(ArduHelper.isRunningBuilt()) {
+            return path.join(window.rootPath, '../', batch)
+        } else {
+            return path.join(window.rootPath, batch)
+        }
+    }
+
     static setup() {
-        let ls = process.spawn('setup.bat', {})//sets up basic files from arduinoIDE source files
+        const projectPath = ArduHelper.getPathToArduinoCliProject()
+        const batchPath = ArduHelper.getBatchFilePath('setup.bat')
+        let ls = process.spawn(batchPath, [projectPath], {})//sets up basic files from arduinoIDE source files
     }
     static verify(data) {
         Dialog.alert("Compiling Please Wait");
         //put the text into the file (HelloWorld)
         console.log("Write to HelloWorld.ino");
-        FileHelper.write('arduino-cli/HelloWorld/HelloWorld.ino', data)
+        const projectPath = ArduHelper.getPathToArduinoCliProject()
+        const filePath = path.join(projectPath, 'HelloWorld', 'HelloWorld.ino')
+        FileHelper.write(filePath, data)
         //compile text
         console.log("Starting Compile")
 
-        let ls = process.exec('verify.bat', {}, function(err, stdout, stderr) { 
+        const batchPath = ArduHelper.getBatchFilePath('verify.bat')
+        let ls = process.exec(`"${batchPath}" ${projectPath}`, {}, function(err, stdout, stderr) { 
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
@@ -34,7 +61,9 @@ class ArduHelper {
 
     static upload(comPort) {
         Dialog.alert("Uploading, Please Wait!");
-        let ls = process.exec('upload.bat ' + comPort, {}, function(err, stdout, stderr) { 
+        const batchPath = ArduHelper.getBatchFilePath('upload.bat')
+        const projectPath = ArduHelper.getPathToArduinoCliProject()
+        let ls = process.exec(`"${batchPath}" ${projectPath} ${comPort}`, {}, function(err, stdout, stderr) { 
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
