@@ -60,7 +60,7 @@ Vue.component('tutorials', {
                                 Using this you can give each GameObject unique logic by dragging blocks into the relevants tab's workspace.
                                 <br>
                                 <b>Tip:</b> You can use an 'if/do' block with a 'is colliding with' block to check if the current Tab's/GameObject's sprite is colliding with another<br>
-                                <img src="./tutorials/iscolliding.png">
+                                <img :src="getImage('iscolliding.png')">
 .                               
                                 </p>
                             </div>
@@ -71,7 +71,7 @@ Vue.component('tutorials', {
                             <br/>You should now see these 3 blocks appear such as below: <br/>
                             <img src="./tutorials/tutorial_var.png"> <br/>
                             You can now drag any of these into the workspace and edit them however you wish. Make sure to set the variable to something before refering to it otherwise you might run into some issues later on!
-                            <img src="./tutorials/variableshowcase.png">
+                            <img :src="getImage('variableshowcase.png')">
                             </p>
                         </div>
                             <div class="tab-pane container fade" id="control">
