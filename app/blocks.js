@@ -1,4 +1,5 @@
 let ProjectManager = require('./util/ProjectManager.js')
+
 module.exports = function(blocks) {
   blocks['string_length'] = {
       init: function() {
@@ -253,29 +254,35 @@ module.exports = function(blocks) {
       })
       }
     }
-    //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ida2k6
-    Blockly.Blocks['randomrange'] = {       
+    //code above is from ardubolockly
+    //code added by df227 starts below
+
+
+
+
+    
+    Blockly.Blocks['randomrange'] = {                                                     //delcares name of the block
       init: function() {
-        this.appendValueInput("min")
-            .setCheck("Number")
-            .appendField("Random Range  min");
-        this.appendValueInput("max")
+        this.appendValueInput("min")                                                    //gives the block an input called min
+            .setCheck("Number")                                                         //Makes sure input is of the 'number' type
+            .appendField("Random Range  min");                                          //displays text on block
+        this.appendValueInput("max")                                                    //gives the block a second input called max
             .setCheck("Number")
             .appendField("max");
-        this.setInputsInline(true);
-        this.setOutput(true, "Number");
-        this.setColour(137);
+        this.setInputsInline(true);                                                     //makes it so all the inputs go on the same line
+        this.setOutput(true, "Number");                                                 //Makes the output type of randomrange true
+        this.setColour(137);                                                            //Changes the colour of the block
      this.setTooltip("Returns a number randomly between the minimum number and the maximum");
      this.setHelpUrl("");
       }
     };
 
-    Blockly.Blocks['checkforbuttonpress'] = {       //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ynbpt3
+    Blockly.Blocks['checkforbuttonpress'] = {                                            
       init: function() {
         this.appendDummyInput()
-            .appendField("Button")
+            .appendField("Button")                //Below is how you give a block a dropdown, the first string in the array is what the user reads and the second is the machine name that arduboy uses
             .appendField(new Blockly.FieldDropdown([["down","UP_BUTTON"], ["up","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
-            .appendField("is pressed");
+            .appendField("is pressed");                 
         this.setOutput(true, "Boolean");
         this.setColour(54);
      this.setTooltip("Retruns true if the selected button is being pressed");
@@ -283,7 +290,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['changexpos'] = {  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#kr8xqa
+    Blockly.Blocks['changexpos'] = {  
       init: function() {
         this.appendValueInput("newxpos")
             .setCheck("Number")
@@ -308,7 +315,7 @@ module.exports = function(blocks) {
      this.setTooltip("Will change the GameObject's sprite (You can create your own sprite in the sprite creator!)");
      this.setHelpUrl("");
       },
-      generateOptions: function() {
+      generateOptions: function() {                                                         //a custom 
         var options = [];
         var spriteAmount = window.currentProject.sprites.length
         for(i = 0; i < spriteAmount; i++){
@@ -372,7 +379,7 @@ module.exports = function(blocks) {
     };
 
 
-  Blockly.Blocks['changeypos'] = {  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#kr8xqa
+  Blockly.Blocks['changeypos'] = {  
       init: function() {
         this.appendValueInput("newypos")
             .setCheck("Number")
@@ -385,7 +392,7 @@ module.exports = function(blocks) {
       }
     };
 
-  Blockly.Blocks['beginblock'] = {  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#sxxy4y
+  Blockly.Blocks['beginblock'] = {  
       init: function() {
         this.appendDummyInput()
             .appendField("When Game Begins");
@@ -396,7 +403,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['collisionwithany'] = {  //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vjt3o8
+    Blockly.Blocks['collisionwithany'] = {  
       init: function() {
         this.appendDummyInput()
             .appendField("When collides with anything");
@@ -407,7 +414,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['incrementx'] = {    //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#mfzt59
+    Blockly.Blocks['incrementx'] = {    
       init: function() {
         this.appendValueInput("incrementAmount")
             .setCheck("Number")
@@ -420,7 +427,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['incrementy'] = {    //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#mfzt59
+    Blockly.Blocks['incrementy'] = {    
       init: function() {
         this.appendValueInput("incrementAmount")
             .setCheck("Number")
@@ -446,7 +453,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['playnotes3'] = {   //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#wgxxin
+    Blockly.Blocks['playnotes3'] = {   
       init: function() {
         this.appendValueInput("First")
             .setCheck("Note")
@@ -463,7 +470,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['playnotes2'] = {   //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#wgxxin
+    Blockly.Blocks['playnotes2'] = {   
       init: function() {
         this.appendValueInput("First")
             .setCheck("Note")
@@ -478,7 +485,7 @@ module.exports = function(blocks) {
       }
     };
 
-    Blockly.Blocks['playnote'] = {   //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#wgxxin
+    Blockly.Blocks['playnote'] = {  
       init: function() {
         this.appendValueInput("First")
             .setCheck("Note")
@@ -491,7 +498,7 @@ module.exports = function(blocks) {
       }
     };
 
-    //https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#q9tve5
+    
     Blockly.Blocks['note'] = {
       init: function() {
         this.appendValueInput("Note")
@@ -587,7 +594,7 @@ module.exports = function(blocks) {
      this.setTooltip("Used to change the X position of other GameObjects");
      this.setHelpUrl("");
     },
-    generateOptions: function() {
+    generateOptions: function() {                                                     
       var options = [];
       var tabnames = window.currentProject.files.map(p => p.name);
       for(i = 0; i < tabnames.length; i++){
