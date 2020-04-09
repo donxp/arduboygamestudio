@@ -16,7 +16,7 @@
     <div id="app" class="container-fluid m-0 p-0">
       <div style="display: flex; justify-content: space-between">
         <div class="project-actions">
-          <project-actions @project-loaded="projectLoaded"></project-actions>
+          <project-actions @project-loaded="projectLoaded" @load-defaults="createDefaultBlocks"></project-actions>
           
         </div>
         <div>
