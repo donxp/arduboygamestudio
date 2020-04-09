@@ -15,7 +15,7 @@ module.exports = {
                 'toolbox': '#39b0b9', // the left sidebar with all the categories
                 'flyout': '#4ddadd', // the blocks that fly out when clicked on a category
                 'flyoutOpacity': '0.5', // from 0 to 1
-                'flyoutText': '#ccc', // text colour for the flyout, doesnt seem to do anything
+                'flyoutText': '#000', // text colour for the flyout, only affects labels
                 'scrollbar': '#ee3762', // scrollbar colour
                 'scrollbarOpacity': '0.8', // scrollbar opacity from 0 to 1
                 'toolboxText': '#fff', // toolbox text colour
