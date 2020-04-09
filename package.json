@@ -6,7 +6,24 @@
   "scripts": {
     "start": "electron . --js-flags=\"--experimental-modules\"",
     "rebuild": "electron-rebuild -f -w arduboy-ide",
-    "package": "electron-packager ./ Arduboy Game Studio --platform=win32 --arch=x64"
+    "package": "electron-packager ./ Arduboy Game Studio --platform=win32 --arch=x64",
+    "pack": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "arduboygamestudio",
+    "mac": {
+      "category": "arduboy.game.studio"
+    },
+    "files": [
+      "**/*",
+      "arduino-cli.exe",
+      "*.bat"
+    ],
+    "extraResources": [
+      "arduino-cli.exe",
+      "*.bat",
+      "tutorials"
+    ]
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [

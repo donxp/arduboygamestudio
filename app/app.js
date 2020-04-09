@@ -55,3 +55,9 @@ function updateCode() {
         document.getElementById('code').value = code
     }
 }
+
+function getFiles() {
+    console.log(FS.readdirSync(__dirname, 'utf8'))
+    console.log('ctx')
+    console.log(this)
+}

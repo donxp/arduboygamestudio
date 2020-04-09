@@ -1,7 +1,8 @@
 @ECHO OFF
-cd arduino-cli
+cd %1
 ECHO Creating Default File Case
 arduino-cli sketch new HelloWorld
+REM CALL %1 sketch new HelloWorld
 ECHO Installing Arduino AVR
 arduino-cli core install arduino:avr
 ECHO Downloading homemade Arduboy-Libraries
