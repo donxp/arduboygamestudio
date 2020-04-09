@@ -281,7 +281,7 @@ module.exports = function(blocks) {
       init: function() {
         this.appendDummyInput()
             .appendField("Button")                //Below is how you give a block a dropdown, the first string in the array is what the user reads and the second is the machine name that arduboy uses
-            .appendField(new Blockly.FieldDropdown([["down","UP_BUTTON"], ["up","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
+            .appendField(new Blockly.FieldDropdown([["up","UP_BUTTON"], ["down","DOWN_BUTTON"], ["left","LEFT_BUTTON"], ["right","RIGHT_BUTTON"], ["A","A_BUTTON"], ["B","B_BUTTON"]]), "NAME")
             .appendField("is pressed");                 
         this.setOutput(true, "Boolean");
         this.setColour(54);
