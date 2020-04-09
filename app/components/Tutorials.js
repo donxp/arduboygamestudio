@@ -72,6 +72,10 @@ Vue.component('tutorials', {
                             <img src="./tutorials/tutorial_var.png"> <br/>
                             You can now drag any of these into the workspace and edit them however you wish. Make sure to set the variable to something before refering to it otherwise you might run into some issues later on!
                             <img src="./tutorials/variableshowcase.png">
+
+                            Here each time the current GameObject collides with the enemy the health is lowered by 20. When setting a variable for the first time make sure to do it in 'When Game Starts' 
+                            block as if it isn't each frame the variable will be what you set it to and can't be changed. For example if set health was moved outside of the game start block every frame 
+                            health will be set to 100 so it will never be changed.
                             </p>
                         </div>
                             <div class="tab-pane container fade" id="control">
