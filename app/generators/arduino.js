@@ -203,13 +203,15 @@ Blockly.Arduino.generateAllCode = function generateAllCode1(){
                    generateSpriteArrays() +
                    outOfClassMethods +
                    gameobjectClass +                      //a collection of methods and variables put together in the same format as the gamewrapper
-                   generateArrayDeclaration() +
+                   generateArrayDeclaration() +           
                    generateSubclasses() +
                    generateGameObjectCreation() + 
                    setupVoid + 
                    loopVoid;
     return fullCode;
 }
+
+//Look at 'GameWrapper cleaned w/ comments' for information on how the code in the "" works
 
 //all the needed includes and variable defintions for every game
 var includes = '#include <Arduboy2.h>\n' +      
@@ -222,21 +224,21 @@ var includes = '#include <Arduboy2.h>\n' +
 'ArduboyTones sound(arduboy.audio.enabled);\n';
 
 
-//generates
+//generates the neccesary arrays for user defined sprites
 function generateSpriteArrays(){
   var spriteArrays = "";
   var spriteAmount = window.currentProject.sprites.length
-  spriteArrays = "const unsigned char invisible [] PROGMEM = {};\n";
-  for(i = 0; i < spriteAmount; i++){
-    thisSpriteArray = 'const unsigned char SPRITENUMBER' + i + ' [] PROGMEM = {\n' + 
+  spriteArrays = "const unsigned char invisible [] PROGMEM = {};\n";                      //starts first with the array definition for an empty/invisible sprite
+  for(i = 0; i < spriteAmount; i++){                                                    //next it loops over the amount of sprites 
+    thisSpriteArray = 'const unsigned char SPRITENUMBER' + i + ' [] PROGMEM = {\n' +  
     ProjectManager.generateSpriteArray()[i].code + ',};\n'
-    spriteArrays = spriteArrays + thisSpriteArray;
+    spriteArrays = spriteArrays + thisSpriteArray;                                    // for each sprite it follows the array defintion format but gives it a unique name and fills the array with chars that relate to the sprites created in the sprite creator
   }
   
   var arrayWithNames = "const unsigned char *spriteArray[] = {";
   
   for(i = 0; i < spriteAmount; i++){
-    arrayWithNames = arrayWithNames + "\nSPRITENUMBER" + i + ","; 
+    arrayWithNames = arrayWithNames + "\nSPRITENUMBER" + i + ",";                         // an array of pointers to the sprite arrays is generated with all the unique names added in 
   }
   arrayWithNames = arrayWithNames + "\ninvisible";
   arrayWithNames = arrayWithNames + "\n};\n"
@@ -247,6 +249,7 @@ function generateSpriteArrays(){
 
 }
 
+// a variable stroring some methods outside the gameobject class 
 var outOfClassMethods = 'int randomRange(int lower, int upper){\n' + 
                         'return (rand() % (upper - lower)) + lower;' +
                         '}\n' +
@@ -255,8 +258,8 @@ var outOfClassMethods = 'int randomRange(int lower, int upper){\n' +
                         'delay(milis);\n'  +
                         '}\n'  +
                         '\n';
-  
 
+//a variable storing the string for the gameobject class 
 var gameobjectClass = 'class GameObject {\n' + 
                       'public:\n'+
                       'int xPos;\n'+         
@@ -328,12 +331,14 @@ var gameobjectClass = 'class GameObject {\n' +
                       '}\n'+ 
                       '};\n';
 
+// an array to store gameobjects is need thus an array is declard with the size of how many GameObjects there are
 function generateArrayDeclaration(){
     var myString = 'const int arraySize = ' + getAmountOfObjects() + ';\n' +
     'GameObject *allObjects[arraySize];\n';
 
     return myString;
 }
+
 //returns the amount of objects for all tabs combined
 function getAmountOfObjects(){
   return window.currentProject.files.length;
@@ -343,37 +348,17 @@ function getAmountOfTabs(){
   return window.currentProject.files.length;
 }
 
-
+//the function that creates all the subclasses
 function generateSubclasses(){
     var myString = '';
     for(var i = 0; i < getAmountOfTabs(); i++){
-        myString =  myString + generateClass("mySubClass" + i,getTabCodeByNumber(i));
+        myString =  myString + generateClass("mySubClass" + i,getTabCodeByNumber(i));   //passes a uniuqe name and uses getTabCodeByNumber() to pass specific tab's generated code
     }
 
     return myString;
 }
 
-var sampleCode1 = 'if(initial){\n' +
-                'initial = false;\n' +
-                'changeXpos(30);\n' +
-                'changeYpos(30);\n' +
-                '};\n' +
-            'if (checkForCollision(allObjects[1])) {\n' +
-            'changeXByAmount(10);\n' +
-                '}\n';
 
-var sampleCode2 = 'if(initial){\n' +
-'initial = false;\n' +
-'changeXpos(50);\n' +
-'changeYpos(30);\n' +
-'};\n' +
-'\n' +
-'  if (arduboy.pressed(LEFT_BUTTON)) {\n' +
-'changeXByAmount(-1);\n' +
-'}\n' +
-' if (arduboy.pressed(RIGHT_BUTTON)) {\n' +
-'changeXByAmount(1);\n' +
-'}\n';
 
 //getTabCodeByIndex(2) would return the second tab's code
 function getTabCodeByNumber(tabNumber){
@@ -384,6 +369,8 @@ function getTabCodeByNumber(tabNumber){
   
 }
 
+
+//generates an individual subclass(needs a unique name and code to be passed in)
 function generateClass(name,code) {
   var newGameObjectCode = '\nclass ' + name + ' : public GameObject {\n' +
                           'public:\n' +
@@ -392,9 +379,9 @@ function generateClass(name,code) {
                           'GameObject(x,y,spr,sprH,sprW,inst){\n' +
                           'arduboy.print("");\n' +
                           '}\n' +
-                          isolateVariables(code) + '\n' + 
+                          isolateVariables(code) + '\n' +         //seperates the variable declaration from the rest of the generated code
                           'void mainFunction() override {\n' +
-                          isolateCode(code) + '\n' +
+                          isolateCode(code) + '\n' +             //places the rest of the code in the mainFunction method
                           'drawSprite();\n' +
                           '}\n' +
                          
@@ -403,6 +390,8 @@ function generateClass(name,code) {
   return newGameObjectCode;   
 }
 
+
+//function that isolates the variable declartion from the generated code
 function isolateVariables(code){
   for (var i = 0; i < code.length; i++) {
     if(code.charAt(i) == '/'){
@@ -414,7 +403,7 @@ function isolateVariables(code){
   }
   }
 }
-
+//function that removes the variable declartion from the generated code
 function isolateCode(code){
   for (var i = 0; i < code.length; i++) {
     if(code.charAt(i) == '/'){
@@ -426,7 +415,7 @@ function isolateCode(code){
   }
   }
 }
-
+//variable creating the setup method
 var setupVoid = 'void setup() {\n' +
   'arduboy.begin();\n' +
   'arduboy.setFrameRate(20);\n' +
@@ -436,6 +425,7 @@ var setupVoid = 'void setup() {\n' +
   'gameObjectCreation();\n}\n\n';
 
 
+//all GameObjects must be initialised and this is where it's done
 function generateGameObjectCreation(){
     var theString = 'void gameObjectCreation(){\n';
     var counter = 0;
@@ -450,14 +440,17 @@ function generateGameObjectCreation(){
     return theString + '}\n';
 }
 
+//Function for used to get how many GameObjects the user wants for each tab so they can easily create many of the same Object (NOT YET IMPLEMENTED!)
 function getAmountOfObjectsInTab(tabNumber){
   return 1; 
 }
 
+//gets the sprite deminsions for a specific tab
 function getSpriteIndexAndDimensionsForTab(tabNumber){
-  return '0,0,0';   //spriteNumber, sprite height, sprite width
+  return '0,0,0';   //spriteNumber, sprite height, sprite width (has been changed to 3 0's as sprite is now set through the setSprite block at runtime)
 }
 
+//varialbe for the loop void
 var loopVoid = 'void loop() {\n'+
       'if (!(arduboy.nextFrame())){\n'+
       'return;\n'+

@@ -295,8 +295,8 @@ module.exports = function(blocks) {
         this.appendValueInput("newxpos")
             .setCheck("Number")
             .appendField("Change X position to");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
+        this.setPreviousStatement(true, null);            //this gives the block a top connector
+        this.setNextStatement(true, null);                //this gives the block a bottom connector
         this.setColour(267);
      this.setTooltip("Will change the x position of the current GameObject");
      this.setHelpUrl("");
@@ -306,8 +306,8 @@ module.exports = function(blocks) {
       init: function() {
         this.appendDummyInput()
             .appendField("Set Sprite To")
-            .appendField(new Blockly.FieldDropdown(
-              this.generateOptions), 'OBJECTNAME');
+            .appendField(new Blockly.FieldDropdown(       
+              this.generateOptions), 'OBJECTNAME');                     //makes a dropdown but calls a function so that the block can have dynamic dropdown options based on user created content
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         
@@ -315,14 +315,14 @@ module.exports = function(blocks) {
      this.setTooltip("Will change the GameObject's sprite (You can create your own sprite in the sprite creator!)");
      this.setHelpUrl("");
       },
-      generateOptions: function() {                                                         //a custom 
+      generateOptions: function() {                                                     //function returns an array of sprite names with details             
         var options = [];
         var generatedSprites = ProjectManager.generateSpriteArray()
-        for(let i = 0; i < generatedSprites.length; i++){
+        for(let i = 0; i < generatedSprites.length; i++){                               //lopps over generated sprites
           var width = generatedSprites[i].width
           var height = generatedSprites[i].height
         
-          options.push([generatedSprites[i].name, i + "," + width + "," + height]);
+          options.push([generatedSprites[i].name, i + "," + width + "," + height]);             //displays the name of the sprite in the dropdown and associates the sprite details (sprite content, height and width )
         }
         options.push(["invisible", options.length + "," + 0 + "," + 0]);
        
@@ -453,7 +453,7 @@ module.exports = function(blocks) {
 
     Blockly.Blocks['playnotes3'] = {   
       init: function() {
-        this.appendValueInput("First")
+        this.appendValueInput("First")                    //gives the block 3 inputs
             .setCheck("Note")
             .appendField("Play Notes");
         this.appendValueInput("Second")
@@ -501,13 +501,13 @@ module.exports = function(blocks) {
       init: function() {
         this.appendValueInput("Note")
             .setCheck("Number")
-            .appendField("Note")
+            .appendField("Note")                                
             .appendField(new Blockly.FieldDropdown([["a","A"], ["b","B"], ["c","C"], ["d","D"], ["e","E"], ["f","F"], ["g","G"]]), "note")
-            .appendField(new Blockly.FieldDropdown([["1","1"], ["2","2"], ["3","3"], ["4","4"], ["5","5"], ["6","6"], ["7","7"]]), "octive")
+            .appendField(new Blockly.FieldDropdown([["1","1"], ["2","2"], ["3","3"], ["4","4"], ["5","5"], ["6","6"], ["7","7"]]), "octive")  //gives them reign to play any note
             .appendField("For a duration of (ms)");
         this.setOutput(true, "Note");
         this.setColour(168);
-     this.setTooltip("Combine this with the playnote blocks to implement sound");
+     this.setTooltip("Combine this with the playnote blocks to implement sound ");
      this.setHelpUrl("");
       }
     };
@@ -520,7 +520,7 @@ module.exports = function(blocks) {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(10);
-     this.setTooltip("Stops the game running for a certain amount of time in miliseconds (1000 = 1 second)");
+     this.setTooltip("Stops the game running for a certain amount of time in miliseconds (1000 = 1 second) ");
      this.setHelpUrl("");
       }
 
@@ -555,22 +555,22 @@ module.exports = function(blocks) {
         this.appendDummyInput()
             .appendField("Is colliding with")
             .appendField(new Blockly.FieldDropdown(
-              this.generateOptions), 'OBJECTNAME');
+              this.generateOptions), 'OBJECTNAME');     //dynamic dropdown calling function below
         this.setOutput(true, "Boolean");
         this.setColour(54);
      this.setTooltip("Returns true if the current GameObject's sprite is overlapping with the selected GameObjects sprite");
      this.setHelpUrl("");
       },
-      generateOptions: function() {
+      generateOptions: function() {                                             
         var options = [];
         var tabnames = window.currentProject.files.map(p => p.name);
-        for(i = 0; i < tabnames.length; i++){
-          options.push([tabnames[i], "allObjects[" + i + "]"]);
+        for(i = 0; i < tabnames.length; i++){                               
+          options.push([tabnames[i], "allObjects[" + i + "]"]);       //iterates over tabs and adds the tab name along with how the game wrapper will refrence that object.         
         }
-       // options.push(["Wassap", "allObjects[" + i + "]"]);
+      
 
         if(options.length == 0){
-          return options.push(['mem','MEMES']);
+          return options.push(['filler','FILLER']);
         }
 
         return options;
@@ -578,6 +578,7 @@ module.exports = function(blocks) {
       
     };
     
+    //used to change the position of a different GameObject
     Blockly.Blocks['changexposof'] = {
       init: function() {
         this.appendValueInput("newxpos")

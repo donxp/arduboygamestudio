@@ -147,19 +147,19 @@ Blockly.Arduino['logic_ternary'] = function(block) {
   return [code, Blockly.Arduino.ORDER_CONDITIONAL];
 };
 
-
+//Custom blocks begin below here
 
 Blockly.Arduino['checkforbuttonpress'] = function(block) {
   var dropdown_name = block.getFieldValue('NAME');
   // TODO: Assemble JavaScript into code variable.
-  var code = 'arduboy.pressed('+ dropdown_name +')';
+  var code = 'arduboy.pressed('+ dropdown_name +')';          //takes the dropdown string and puts it in the method parameters example return will look like 'arduboy.pressed(UP_BUTTON)'
   return [code, Blockly.Arduino.ORDER_EQUALITY];
 };
 
 
 Blockly.Arduino['incrementx'] = function(block) {
   var value_incrementamount = Blockly.Arduino.valueToCode(block, 'incrementAmount', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
+  
   if(value_incrementamount == ""){
     value_incrementamount = 0;
   }
@@ -170,7 +170,7 @@ Blockly.Arduino['incrementx'] = function(block) {
 
 Blockly.Arduino['incrementy'] = function(block) {
   var value_incrementamount = Blockly.Arduino.valueToCode(block, 'incrementAmount', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
+ 
   if(value_incrementamount == ""){
     value_incrementamount = 0;
   }
@@ -182,15 +182,15 @@ Blockly.Arduino['incrementy'] = function(block) {
 
 Blockly.Arduino['is_colliding_with'] = function(block) {
   var dropdown_objectname = block.getFieldValue('OBJECTNAME');
-  // TODO: Assemble JavaScript into code variable.
+  
   var code = 'checkForCollision(' + dropdown_objectname + ')';
-  // TODO: Change ORDER_NONE to the correct strength.
+
   return [code, Blockly.Arduino.ORDER_NONE];
 };
 
 Blockly.Arduino['gamestart'] = function(block) {
   var statements_name = Blockly.Arduino.statementToCode(block, 'NAME');
-  // TODO: Assemble JavaScript into code variable.
+  
   var code = 'if(initial){\ninitial = false;\n'+ statements_name +'\n};\n';
   return code;
 };
@@ -198,7 +198,7 @@ Blockly.Arduino['gamestart'] = function(block) {
 
 Blockly.Arduino['changexpos'] = function(block) {
   var value_newxpos = Blockly.Arduino.valueToCode(block, 'newxpos', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
+  
   if(value_newxpos == ""){
     value_newxpos = 0;
   }
@@ -208,7 +208,7 @@ Blockly.Arduino['changexpos'] = function(block) {
 
 Blockly.Arduino['changeypos'] = function(block) {
   var value_newypos = Blockly.Arduino.valueToCode(block, 'newypos', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
+  
   if(value_newypos == ""){
     value_newypos = 0;
   }
@@ -220,7 +220,7 @@ Blockly.Arduino['playnotes3'] = function(block) {
   var value_first = Blockly.Arduino.valueToCode(block, 'First', Blockly.Arduino.ORDER_ATOMIC);
   var value_second = Blockly.Arduino.valueToCode(block, 'Second', Blockly.Arduino.ORDER_ATOMIC);
   var value_third = Blockly.Arduino.valueToCode(block, 'Third', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
+  
   if(value_first == ""){
     value_first = "1000,100";
   }
@@ -241,13 +241,12 @@ Blockly.Arduino['note'] = function(block) {
   var dropdown_note = block.getFieldValue('note');
   var dropdown_octive = block.getFieldValue('octive');
   var value_note = Blockly.Arduino.valueToCode(block, 'Note', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
   
   if(value_note == ""){
     value_note = 100;
   }
   var code = 'NOTE_' + dropdown_note + dropdown_octive + ',' + value_note;
-  // TODO: Change ORDER_NONE to the correct strength.
+ 
  
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
@@ -261,7 +260,7 @@ Blockly.Arduino['playnotes2'] = function(block) {
   if(value_second == ""){
     value_second = "1000,100";
   }
-  // TODO: Assemble JavaScript into code variable.
+  
   var code = 'sound.tone('+ value_first + ',' + value_second + ');\n';
 
   return code;
@@ -269,7 +268,7 @@ Blockly.Arduino['playnotes2'] = function(block) {
 
 Blockly.Arduino['playnote'] = function(block) {
   var value_first = Blockly.Arduino.valueToCode(block, 'First', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
+ 
   if(value_first == ""){
     value_first = "1000,100";
   }
@@ -280,7 +279,7 @@ Blockly.Arduino['playnote'] = function(block) {
 
 Blockly.Arduino['wait'] = function(block) {
   var value_milis = Blockly.Arduino.valueToCode(block, 'Milis', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
+  
   if(value_milis == ""){
     value_milis = 0;
   }
@@ -289,38 +288,38 @@ Blockly.Arduino['wait'] = function(block) {
 };
 
 Blockly.Arduino['xpos'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'xPos';
-  // TODO: Change ORDER_NONE to the correct strength.
+  
+  var code = 'xPos';                                //xPos is a variable in game wrapper
+  
   return [code, Blockly.Arduino.ORDER_NONE];
 };
 
 Blockly.Arduino['ypos'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'yPos';
-  // TODO: Change ORDER_NONE to the correct strength.
+  
+  var code = 'yPos';                                //yPos is a variable in game wrapper
+  
   return [code, Blockly.Arduino.ORDER_NONE];
 };
 
 Blockly.Arduino['screenheight'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'arduboy.height()';
-  // TODO: Change ORDER_NONE to the correct strength.
+  
+  var code = 'arduboy.height()';                        //a method from the arduboy library
+  
   return [code, Blockly.Arduino.ORDER_NONE];
 };
 
 Blockly.Arduino['screenwidth'] = function(block) {
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'arduboy.width()';
-  // TODO: Change ORDER_NONE to the correct strength.
+  
+  var code = 'arduboy.width()';                         //a method from the arduboy library
+  
   return [code, Blockly.Arduino.ORDER_NONE];
 };
 
 Blockly.Arduino['setsprite'] = function(block) {
   var dropdown_objectname = block.getFieldValue('OBJECTNAME');
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'setSprite(' + dropdown_objectname + ');\n';
-  // TODO: Change ORDER_NONE to the correct strength.
+  
+  var code = 'setSprite(' + dropdown_objectname + ');\n';                       //takes the sprite dimensions
+  
   return code;
 };
 
@@ -328,33 +327,32 @@ Blockly.Arduino['printat'] = function(block) {
   var value_display_text = Blockly.Arduino.valueToCode(block, 'Display Text', Blockly.Arduino.ORDER_ATOMIC);
   var value_at_x = Blockly.Arduino.valueToCode(block, 'at X', Blockly.Arduino.ORDER_ATOMIC);
   var value_at_y = Blockly.Arduino.valueToCode(block, 'at Y', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = 'tinyfont.setCursor('+value_at_x+', '+value_at_y+');\n tinyfont.print('+ value_display_text+');';
+  
+  var code = 'tinyfont.setCursor('+value_at_x+', '+value_at_y+');\n tinyfont.print('+ value_display_text+');';  //this generates 2 lines as the cursor needs to be set and then print is called
   return code;
 };
 
 Blockly.Arduino['changexposof'] = function(block) {
   var dropdown_objectname = block.getFieldValue('OBJECTNAME');
   var value_newxpos = Blockly.Arduino.valueToCode(block, 'newxpos', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = dropdown_objectname  + "->changeXpos(" + value_newxpos + ");";
-  // TODO: Change ORDER_NONE to the correct strength.
+  
+  var code = dropdown_objectname  + "->changeXpos(" + value_newxpos + ");";             //Example result would be allObjects[1]->changeXPos()
+  
   return code;
 };
 
 Blockly.Arduino['changeyposof'] = function(block) {
   var dropdown_objectname = block.getFieldValue('OBJECTNAME');
   var value_newypos = Blockly.Arduino.valueToCode(block, 'newypos', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
-  var code = dropdown_objectname  + "->changeYpos(" + value_newypos + ");";
-  // TODO: Change ORDER_NONE to the correct strength.
+  
+  var code = dropdown_objectname  + "->changeYpos(" + value_newypos + ");";             //Example result would be allObjects[1]->changeYPos()
+  
   return code;
 };
 
 Blockly.Arduino['randomrange'] = function(block) {
   var value_min = Blockly.Arduino.valueToCode(block, 'min', Blockly.Arduino.ORDER_ATOMIC);
   var value_max = Blockly.Arduino.valueToCode(block, 'max', Blockly.Arduino.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
   if(value_min == ""){
     value_min = 0;
   }
@@ -362,7 +360,6 @@ Blockly.Arduino['randomrange'] = function(block) {
     value_max = 0;
   }
   var code = 'randomRange(' + value_min + ',' + value_max + ')';
-  // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Arduino.ORDER_NONE];
 };
 
