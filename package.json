@@ -46,7 +46,7 @@
     "dialogs": "^2.0.1",
     "electron-reloader": "^0.3.0",
     "google-closure-library": "^20191027.0.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "pif": "^0.1.1",
     "serialport": "^8.0.6",
     "vue": "^2.6.10"
