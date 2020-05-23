@@ -1,4 +1,17 @@
-# arduboy IDE
+# Arduboy Game Studio
+
+![Arduboy Game Studio](ide-1.png)
+
+Arduboy Game Studio was developed as part of the group project module for my Computer Science degree. It was developed together with Thomas Homsy and Dallas Frankel.
+
+## Features
+- Block-based visual programming
+- Arduboy compatability layer in C++
+- Integrated, custom Sprite Creator
+- Multi-tab workspace
+- Project persistence
+- C++ code generation
+- Compile & Upload directly to a connected Arduboy
 
 ## First time setup
 ```
