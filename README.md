@@ -2,7 +2,7 @@
 
 ![Arduboy Game Studio](ide-1.png)
 
-Arduboy Game Studio was developed as part of the group project module for my Computer Science degree. It was developed together with Thomas Homsy and Dallas Frankel.
+Arduboy Game Studio was developed as part of the group project module for my Computer Science degree. It was developed together with Thomas Homsy (thomashomsy@sky.com) and Dallas Frankel (dallasfrankel@outlook.com).
 
 ## Features
 - Block-based visual programming
