@@ -14,7 +14,8 @@ class ArduHelper {
         if(ArduHelper.isRunningBuilt()) {
             return path.join(window.rootPath, '..')
         } else {
-            return path.join(window.rootPath, 'arduino-cli')
+            // return path.join(window.rootPath, 'arduino-cli')
+            return path.join(window.rootPath)
         }
     }
 
@@ -42,7 +43,8 @@ class ArduHelper {
         console.log("Starting Compile")
 
         const batchPath = ArduHelper.getBatchFilePath('verify.bat')
-        let ls = process.exec(`"${batchPath}" ${projectPath}`, {}, function(err, stdout, stderr) { 
+        console.log('project path:', projectPath)
+        let ls = process.exec(`"${batchPath}" "${projectPath}"`, {}, function(err, stdout, stderr) { 
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
@@ -63,7 +65,7 @@ class ArduHelper {
         Dialog.alert("Uploading, Please Wait!");
         const batchPath = ArduHelper.getBatchFilePath('upload.bat')
         const projectPath = ArduHelper.getPathToArduinoCliProject()
-        let ls = process.exec(`"${batchPath}" ${projectPath} ${comPort}`, {}, function(err, stdout, stderr) { 
+        let ls = process.exec(`"${batchPath}" "${projectPath}" ${comPort}`, {}, function(err, stdout, stderr) { 
             console.log('stdout:' + stdout);
             console.log('stderr:' + stderr);
             console.log('err: ' + err);
