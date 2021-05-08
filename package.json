@@ -45,7 +45,7 @@
     "bootstrap": "^4.3.1",
     "dialogs": "^2.0.1",
     "electron-reloader": "^0.3.0",
-    "google-closure-library": "^20191027.0.1",
+    "google-closure-library": "^20200315.0.0",
     "jquery": "^3.5.0",
     "pif": "^0.1.1",
     "serialport": "^8.0.6",
